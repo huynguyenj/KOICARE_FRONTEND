@@ -30,8 +30,8 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-600px, 300px);
-      padding: 10px 50px;
+      transform: translate(-550px, 300px);
+      padding: 5px 20px;
       background-color: #A77339;
       color: #fff;
       border-radius: 10px;

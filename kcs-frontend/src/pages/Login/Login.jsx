@@ -106,14 +106,14 @@ function Login() {
               </Form>
               <p
                 className="mt-3 text-center"
-                style={{ fontFamily: "JetBrains Mono" }}
+                style={{ fontFamily: "JetBrains Mono", fontSize: "13px", margin: "auto"}}
               >
                 Bạn chưa có tài khoản? Hãy{" "}
                 <a
                   href="#"
                   className="form-link"
                   onClick={changePage}
-                  style={{ fontFamily: "JetBrains Mono" }}
+                  style={{ fontFamily: "JetBrains Mono", fontSize: "18px" }}
                 >
                   Đăng ký
                 </a>{" "}

@@ -13,7 +13,7 @@ function Login() {
       const [status,setStatus] = useState(true)
       const navigator = useNavigate();
       function changePage(){
-            navigator('/login')
+          navigator('/login')
       }
        async function handleSubmit(event) {
         event.preventDefault();
@@ -134,13 +134,17 @@ function Login() {
                     </Form>
                     <p
                       className="mt-3 text-center"
-                      style={{ fontFamily: "JetBrains Mono" }}
+                      style={{
+                        fontFamily: "JetBrains Mono",
+                        fontSize: "13px",
+                        margin: "auto",
+                      }}
                     >
                       Bạn có tài khoản rồi? Hãy{" "}
                       <span>
                         {" "}
                         <a
-                          style={{ fontFamily: "JetBrains Mono" }}
+                          style={{ fontFamily: "JetBrains Mono", fontSize: "18px" }}
                           href="#"
                           className="form-link"
                           onClick={changePage}

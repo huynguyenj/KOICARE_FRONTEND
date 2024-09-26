@@ -93,9 +93,26 @@ function Home() {
         >
           Những hình ảnh nổi bật
         </h2>
-        <img>
-        </img>
-        
+        <div className="d-flex grid-container">
+          <div>
+            <img src="/img1.png" alt="" />
+            <p>
+              Cá bơi ở hồ Thiên Phong Trì của anh Đỗ Xuân Hiệp tại Quảng Ninh
+            </p>
+          </div>
+          <div>
+            <p>
+              "Cá Koi không chỉ là biểu tượng của cái đẹp, mà còn là sứ giả của
+              lòng kiên định và khát vọng vươn lên giữa chừng thử thách của cuộc
+              đời" theo lời của anh Nam chia sẻ
+            </p>
+            <img src="/img2.png" alt="" />
+          </div>
+          <div>
+            <img src="/img3.png" alt="" />
+            <p>Khách hàng thân thiết và đã hỗ trợ cho anh Thành trong 2 năm</p>
+          </div>
+        </div>
       </div>
       <Footer />
     </div>

@@ -26,20 +26,22 @@ function Navbar() {
           />
         </Link>
         <div className="navbar-right d-flex ms-auto align-items-center">
-          <Link
-            to="/"
+          {/* Anchor links to scroll to sections on the homepage */}
+          <a
+            href="#about"
             className="nav-item ms-4"
             style={{ fontFamily: "JetBrains Mono" }}
           >
             Thông tin chung
-          </Link>
-          <Link
-            to="/blog"
+          </a>
+          <a
+            href="#blog"
             className="nav-item ms-4"
             style={{ fontFamily: "JetBrains Mono" }}
           >
             Tin tức và blog
-          </Link>
+          </a>
+          {/* User and Cart Icons */}
           <a className="nav-item ms-4" href="#">
             <FontAwesomeIcon icon={faUserTie} style={{ color: "#ffffff" }} />
           </a>
@@ -49,13 +51,15 @@ function Navbar() {
               style={{ color: "#ffffff" }}
             />
           </a>
+          {/* Login/Register Buttons */}
           <div
             className="log-part ms-4 me-4"
             style={{ fontFamily: "JetBrains Mono", marginBottom: "5px" }}
           >
             <button className="login-link" onClick={login}>
               Đăng nhập
-            </button>{"/"}
+            </button>{" "}
+            /
             <button className="login-link" onClick={register}>
               &nbsp;Đăng ký
             </button>

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { login } from "../../data/userService";
 import "./Login.css";
-import Footer from "../../components/Footer/Footer";
+
 
 function Login() {
   const [userName, setUserName] = useState("");

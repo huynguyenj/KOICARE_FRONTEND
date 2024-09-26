@@ -29,6 +29,7 @@ function Home() {
               maxWidth: "1200px",
               lineHeight: "1.3",
               fontFamily: "JetBrains Mono",
+              fontSize: "18px",
             }}
           >
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Những dịch vụ chăm sóc bảo dưỡng hồ cá
@@ -62,6 +63,7 @@ function Home() {
               maxWidth: "1200px",
               lineHeight: "1.3",
               fontFamily: "JetBrains Mono",
+              fontSize: "15px",
             }}
           >
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chăm sóc hồ cá Koi là rất quan trọng
@@ -83,7 +85,7 @@ function Home() {
             trị của chúng khi bán hoặc trao đổi.
           </p>
         </section>
-        <h2
+        <h2 id="blog"
           style={{
             textAlign: "center",
             fontWeight: "bold",

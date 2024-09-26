@@ -5,7 +5,8 @@ import Home from './pages/Home/Home'
 import Navbar from './components/Navbar/Navbar'
 import Login from './pages/Login/Login'
 import Register from './pages/Register/Register'
-
+import Member from './pages/Member/Member'
+// import Footer from './components/Footer/Footer'
 function App() {
 
   return (
@@ -16,8 +17,8 @@ function App() {
             <Route path='/' element ={<Home/>}></Route>
             <Route path='/login' element ={<Login/> }></Route>
             <Route path='/register' element ={<Register/> }></Route>
+            {/* <Route path='/members' element ={<Members/>}></Route> */}
         </Routes>
-       
     </>
   )
 }

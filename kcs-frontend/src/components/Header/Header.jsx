@@ -1,13 +1,19 @@
-// import React from 'react'
-import './Header.css'
-function Header() {
+// Header.jsx
+import "./Header.css";
 
+function Header() {
   return (
-   <>
-      <img className='img' src='/Frame1.png'></img>
-    
-   </>
-  )
+    <>
+      <div className="grid-container button-overlay">
+        <img
+          src="/Frame1.png"
+          alt="Header Background"
+          className="header-image"
+        />
+        <button>TAKE CARE NOW !!!</button>
+      </div>
+    </>
+  );
 }
 
-export default Header
+export default Header;

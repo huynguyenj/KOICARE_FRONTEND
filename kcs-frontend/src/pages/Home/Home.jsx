@@ -93,6 +93,8 @@ function Home() {
         >
           Những hình ảnh nổi bật
         </h2>
+        <img>
+        </img>
         
       </div>
       <Footer />

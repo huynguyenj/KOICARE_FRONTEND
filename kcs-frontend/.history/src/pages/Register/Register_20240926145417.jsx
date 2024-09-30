@@ -27,7 +27,7 @@ function Login() {
         await registerUser(userInfo);
        }
         async function registerUser(userInfo) {
-          console.log(userInfo)
+          console.log()
             await register(userInfo).then((res)=>{  
             alert("Register successfully")
             console.log(res.data.result)

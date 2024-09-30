@@ -109,13 +109,14 @@ function Login() {
                 style={{ fontFamily: "JetBrains Mono", fontSize: "13px", margin: "auto"}}
               >
                 Bạn chưa có tài khoản? Hãy
-                <span
+                <a
+                  href="#"
                   className="form-link"
                   onClick={changePage}
                   style={{ fontFamily: "JetBrains Mono", fontSize: "18px" }}
                 >
                   Đăng ký
-                </span>
+                </a>
                 trước khi đăng nhập.
               </p>
             </div>

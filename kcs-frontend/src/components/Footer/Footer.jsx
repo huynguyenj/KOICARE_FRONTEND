@@ -1,19 +1,87 @@
-// import React from 'react'
-import "./Footer.css";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebook,
   faPinterest,
   faTelegram,
 } from "@fortawesome/free-brands-svg-icons";
+
 function Footer() {
+  // Define the inline styles as objects
+  const footerBackgroundStyle = {
+    position: "relative",
+    width: "100%",
+    height: "auto",
+    overflow: "hidden",
+  };
+
+  const footerContainerStyle = {
+    padding: "10px",
+    borderTop: "2px solid #fff",
+    borderRadius: "0px 0px 10px 10px",
+    justifyContent: "space-around",
+    display: "flex",
+    marginLeft: "30px",
+    marginRight: "30px",
+  };
+
+  const bgImageStyle = {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+    zIndex: -1,
+  };
+
+  const footerDividerStyle = {
+    width: "60%",
+    border: "none",
+    height: "2px",
+    backgroundColor: "black",
+    margin: "20px 0",
+  };
+
+  const footerSectionStyle = {
+    flex: 1,
+    marginRight: "20px",
+    marginTop: "20px",
+    color: "black",
+    fontWeight: "bold",
+  };
+
+  const footerLogoStyle = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: "30px",
+  };
+
+  const iconStyle = {
+    margin: "0 15px",
+  };
+
+  const socialIconsStyle = {
+    fontSize: "24px",
+    display: "flex",
+    justifyContent: "center",
+    margin: "20px"
+  };
+
+  const fontStyle = {
+    fontWeight: "bold",
+    fontSize: "14px",
+    fontFamily: "JetBrains Mono",
+  };
+
   return (
     <>
-      <div className="footer-background">
-        <img className="bg-image" src="/BG.jpg" alt="" />
+      <div style={footerBackgroundStyle}>
+        <img className="bg-image" src="/BG.jpg" alt="" style={bgImageStyle} />
         <div className="custom-divider"></div>
-        <div className="footer-container" style={fontStyle}>
-          <div className="footer-section">
+        <div style={footerContainerStyle}>
+          <div style={footerSectionStyle}>
             <h4 style={{ fontFamily: "JetBrains Mono" }}>Địa chỉ khu vực:</h4>
             <ul>
               <li style={{ fontFamily: "JetBrains Mono" }}>
@@ -32,9 +100,9 @@ function Footer() {
             </ul>
           </div>
 
-          <div className="footer-section">
+          <div style={footerSectionStyle}>
             <h4 style={{ fontFamily: "JetBrains Mono" }}>Chính sách Koiday</h4>
-            <hr className="footer-divider" />
+            <hr style={footerDividerStyle} />
             <ul>
               <li style={{ fontFamily: "JetBrains Mono" }}>Mua hàng</li>
               <li style={{ fontFamily: "JetBrains Mono" }}>Vận chuyển</li>
@@ -42,9 +110,9 @@ function Footer() {
               <li style={{ fontFamily: "JetBrains Mono" }}>Bảo mật</li>
             </ul>
           </div>
-          <div className="footer-section">
+          <div style={footerSectionStyle}>
             <h4 style={{ fontFamily: "JetBrains Mono" }}>Chức năng</h4>
-            <hr className="footer-divider" />
+            <hr style={footerDividerStyle} />
             <ul>
               <li style={{ fontFamily: "JetBrains Mono" }}>
                 Dịch vụ chăm sóc khách hàng
@@ -56,16 +124,22 @@ function Footer() {
               </li>
             </ul>
           </div>
-          <div className="footer-logo">
-            <img src="/Logo2.png" alt="Koiday Logo" />
+          <div style={footerLogoStyle}>
+            <img
+              src="/Logo2.png"
+              alt="Koiday Logo"
+              style={{ width: "190px", objectFit: "contain" }}
+            />
           </div>
         </div>
+
         <div
           className="row mt-5"
           style={{
-            backgroundColor: "lightgrey",
+            backgroundColor: "#212121",
             padding: "20px",
             position: "relative",
+            color: "#fff",
           }}
         >
           <div
@@ -74,22 +148,22 @@ function Footer() {
           >
             <div style={{ fontFamily: "JetBrains Mono", fontSize: "15px" }}>
               &copy; 2024 Bảo lưu mọi quyền, Koiday&reg;
-              <br></br>
+              <br />
               Chính sách quyền riêng tư | Điều khoản
             </div>
-            <div className="social-icons" style={{ fontSize: "24px" }}>
+            <div className="social-icons" style={socialIconsStyle}>
               <a>
-                <i>
+                <i style={iconStyle}>
                   <FontAwesomeIcon icon={faFacebook} />
                 </i>
               </a>
               <a>
-                <i>
+                <i style={iconStyle}>
                   <FontAwesomeIcon icon={faTelegram} />
                 </i>
               </a>
               <a>
-                <i>
+                <i style={iconStyle}>
                   <FontAwesomeIcon icon={faPinterest} />
                 </i>
               </a>
@@ -100,12 +174,5 @@ function Footer() {
     </>
   );
 }
-
-const fontStyle = {
-  fontWeight: "bold",
-  fontSize: "14px"
-};
-
-
 
 export default Footer;

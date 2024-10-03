@@ -1,37 +1,69 @@
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
-import "./Home.css"; 
+import React from "react";
+import Header from "../../../components/Header/Header";
+import Footer from "../../../components/Footer/Footer";
+import "./Home.css";
 
 function Home() {
+  // Inline styles for the Home component
+  const styles = {
+    container: {
+      fontSize: "20px",
+      color: "white",
+    },
+    aboutSection: {
+      backgroundColor: "#212121",
+      padding: "20px",
+    },
+    heading: {
+      textAlign: "center",
+      fontWeight: "bold",
+      fontFamily: "JetBrains Mono",
+      fontSize: "60px",
+    },
+    text: {
+      maxWidth: "1200px",
+      lineHeight: "1.3",
+      fontFamily: "JetBrains Mono",
+      fontSize: "18px",
+    },
+    smallText: {
+      maxWidth: "1200px",
+      lineHeight: "1.3",
+      fontFamily: "JetBrains Mono",
+      fontSize: "15px",
+    },
+    imgContainer: {
+      display: "grid",
+      justifyContent: "center",
+      margin: "0",
+    },
+    grid: {
+      display: "grid",
+      gridTemplateColumns: "1fr",
+      gap: "20px",
+    },
+    imageWrapper: {
+      textAlign: "center",
+      margin: "10px",
+    },
+    image: {
+      maxWidth: "265px",
+      height: "auto",
+    },
+    imageDescription: {
+      maxWidth: "300px",
+      textAlign: "center",
+      fontFamily: "JetBrains Mono",
+    },
+  };
+
   return (
-    <div style={{ fontSize: "20px" }}>
+    <div style={styles.container}>
       <Header />
-      <div
-        id="about"
-        className="grid-container"
-        style={{ backgroundColor: "lightgray", padding: "20px" }}
-      >
-        <h2
-          style={{
-            textAlign: "center",
-            fontWeight: "bold",
-            fontFamily: "JetBrains Mono",
-            fontSize: "60px",
-          }}
-        >
-          Đặc điểm chung
-        </h2>
-        <section
-          style={{ display: "grid", justifyContent: "center", margin: "0" }}
-        >
-          <p
-            style={{
-              maxWidth: "1200px",
-              lineHeight: "1.3",
-              fontFamily: "JetBrains Mono",
-              fontSize: "18px",
-            }}
-          >
+      <div id="about" className="grid-container" style={styles.aboutSection}>
+        <h2 style={styles.heading}>Đặc điểm chung</h2>
+        <section style={styles.imgContainer}>
+          <p style={styles.text}>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Những dịch vụ chăm sóc bảo dưỡng hồ cá
             Koi tại Koiday gồm những gì?
             <br />
@@ -51,21 +83,8 @@ function Home() {
           </p>
         </section>
         <br />
-        <section
-          style={{
-            display: "grid",
-            justifyContent: "space-around",
-            margin: "0",
-          }}
-        >
-          <p
-            style={{
-              maxWidth: "1200px",
-              lineHeight: "1.3",
-              fontFamily: "JetBrains Mono",
-              fontSize: "15px",
-            }}
-          >
+        <section style={styles.imgContainer}>
+          <p style={styles.smallText}>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chăm sóc hồ cá Koi là rất quan trọng
             vì những lý do sau: <br />
             1. Sức khỏe của cá Koi: Cá Koi cần môi trường nước sạch và giàu oxy
@@ -85,34 +104,29 @@ function Home() {
             trị của chúng khi bán hoặc trao đổi.
           </p>
         </section>
-        <h2 id="blog"
-          style={{
-            textAlign: "center",
-            fontWeight: "bold",
-            fontFamily: "JetBrains Mono",
-            fontSize: "60px",
-          }}
-        >
+        <h2 id="blog" style={styles.heading}>
           Những hình ảnh nổi bật
         </h2>
         <div className="d-flex grid-container">
-          <div>
-            <img src="/img1.png" alt="" />
-            <p>
+          <div style={styles.imageWrapper}>
+            <img style={styles.image} src="/img1.png" alt="Fish 1" />
+            <p style={styles.imageDescription}>
               Cá bơi ở hồ Thiên Phong Trì của anh Đỗ Xuân Hiệp tại Quảng Ninh
             </p>
           </div>
-          <div>
-            <p>
+          <div style={styles.imageWrapper}>
+            <p style={styles.imageDescription}>
               "Cá Koi không chỉ là biểu tượng của cái đẹp, mà còn là sứ giả của
               lòng kiên định và khát vọng vươn lên giữa chừng thử thách của cuộc
               đời" theo lời của anh Nam chia sẻ
             </p>
-            <img src="/img2.png" alt="" />
+            <img style={styles.image} src="/img2.png" alt="Fish 2" />
           </div>
-          <div>
-            <img src="/img3.png" alt="" />
-            <p>Khách hàng thân thiết và đã hỗ trợ cho anh Thành trong 2 năm</p>
+          <div style={styles.imageWrapper}>
+            <img style={styles.image} src="/img3.png" alt="Fish 3" />
+            <p style={styles.imageDescription}>
+              Khách hàng thân thiết và đã hỗ trợ cho anh Thành trong 2 năm
+            </p>
           </div>
         </div>
       </div>

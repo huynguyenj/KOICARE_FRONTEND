@@ -2,6 +2,7 @@ import { HashLink } from "react-router-hash-link";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserTie, faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import "./Navbar.css"
 
 function Navbar() {
   const navigator = useNavigate();
@@ -25,7 +26,7 @@ function Navbar() {
   // Define inline styles as objects
   const navbarStyle = {
     backgroundColor: "black",
-    position: "absolute",
+    position: "fixed",
     top: 0,
     width: "100%",
     zIndex: 1,

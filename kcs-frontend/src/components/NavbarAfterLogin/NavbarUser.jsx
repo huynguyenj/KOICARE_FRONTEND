@@ -7,7 +7,7 @@ import {
   faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useRef, useEffect } from "react";
-
+import "./NavbarUser.css";
 function NavbarUser({ user, onLogout }) {
   // Accept the logout function as a prop
   const navigator = useNavigate();

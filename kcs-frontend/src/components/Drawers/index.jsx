@@ -16,8 +16,9 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import NavbarUser from "../NavbarAfterLogin/NavbarUser.jsx";
-
+import { Button } from "@mui/material";
+// import { Link, Outlet } from "react-router-dom"
+import { useNavigate, Outlet } from "react-router-dom";
 // FontAwesome Imports
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -27,6 +28,9 @@ import {
   faStar,
   faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
+
+
+
 
 const drawerWidth = 240;
 
@@ -85,8 +89,11 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export default function PersistentDrawerLeft() {
+  
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+
+  const navigate = useNavigate();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -96,10 +103,18 @@ export default function PersistentDrawerLeft() {
     setOpen(false);
   };
 
+  const drawerItems = [
+    { text: "Thông tin cá nhân", icon: faInfoCircle, path: "/userhome/userprofile" },
+    { text: "Cá của tôi", icon: faUser, path: "/userhome/myfish" },
+    { text: "Hồ của tôi", icon: faCartShopping, path: "/userhome/mypond" },
+    { text: "Thông số đo", icon: faClock, path: "/measurement" },
+    { text: "Tính toán", icon: faStar, path: "/calculations" },
+  ];
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" open={open} sx={{ backgroundColor: "#212121" }}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -116,7 +131,7 @@ export default function PersistentDrawerLeft() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Persistent drawer
+            Welcome
           </Typography>
         </Toolbar>
       </AppBar>
@@ -144,15 +159,9 @@ export default function PersistentDrawerLeft() {
         </DrawerHeader>
         <Divider />
         <List>
-          {[
-            { text: "Thông tin cá nhân", icon: faInfoCircle },
-            { text: "Cá của tôi", icon: faUser },
-            { text: "Hồ của tôi", icon: faCartShopping },
-            { text: "Thông số đo", icon: faClock },
-            { text: "Tính toán", icon: faStar },
-          ].map(({ text, icon }) => (
+          {drawerItems.map(({ text, icon, path }) => (
             <ListItem key={text} disablePadding>
-              <ListItemButton>
+              <ListItemButton onClick={() => navigate(path)}>
                 <ListItemIcon>
                   <FontAwesomeIcon icon={icon} />
                 </ListItemIcon>
@@ -178,7 +187,20 @@ export default function PersistentDrawerLeft() {
             </ListItem>
           ))}
         </List>
+        <Divider />
+        <Button
+          variant="text"
+          sx={{ m: 2 }}
+          color="primary"
+          onClick={() => navigate("/")}
+        >
+          Back to Homepage
+        </Button>
       </Drawer>
+      <Main open={open}>
+        <DrawerHeader />
+        <Outlet />
+      </Main>
     </Box>
   );
 }

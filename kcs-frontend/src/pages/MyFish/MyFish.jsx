@@ -8,7 +8,7 @@ function MyFishList() {
 
   const style = {
     list: {
-      textAlign: 'center', position: 'relative', top: '-10px'
+      textAlign: 'center', position: 'relative', top: '-10px', fontFamily: 'Arial'
     },
     hr: {
       width: '800px', textAlign: 'center', margin: '0 auto', borderTop: '2px solid #000000'
@@ -18,7 +18,7 @@ function MyFishList() {
     },
   }
 
-  const handleClick = () =>{
+  const handleClick = () => {
     setHeartIconClicked(!heartIconClicked)
   }
 
@@ -33,10 +33,10 @@ function MyFishList() {
               <img src="/KoiFish1.png" alt="Hình ảnh cá 1" style={{ width: '70%', height: 'auto', margin: '20px 0' }} />
               <div className="col-2" style={style.button}>
                 <Button className="btn btn-light">
-                  <img src="/TrashCan.jpg" alt="Thùng rác" style={{ width: '70%' }} />
+                  <img src="/TrashCan.png" alt="Thùng rác" style={{ width: '70%' }} />
                 </Button>
-                <Button className={`btn btn-light ${(heartIconClicked === true)? 'backgroundColor-#ff0000' : 'backgroundColor-#f9f9f9'}`}  onClick={handleClick}>
-                  <img src="/HeartIcon.jpg" alt="Trái tim" style={{ width: '25px'}} />
+                <Button className={`btn btn-light ${(heartIconClicked === true) ? 'backgroundColor-#ff0000' : 'backgroundColor-#000000'}`} onClick={handleClick}>
+                  <img src="/HeartIcon.png" alt="Trái tim" style={{ width: '25px' }} />
                 </Button>
               </div>
             </div>
@@ -47,110 +47,138 @@ function MyFishList() {
           </div>
         </div>
         <div className="col-md-3">
-          <div>
-            <img src='/KoiFish1.png' alt="Hình ảnh cá 1" style={{ left: '100px', width: '60%', height: 'auto', margin: '20px 0' }} />
-            <Link>
-              <img src='/TrashCan.jpg' alt="Thùng rác" style={{ position: 'relative', bottom: '90px', width: '30px' }}></img>
-            </Link>
-            <Link>
-              <img src='/HeartIcon.jpg' alt="Trái tim" style={{ position: 'relative', bottom: '45px', right: '26px', width: '25px' }}></img>
-            </Link>
+          <div className="container">
+            <div className="row justify-content-center">
+              <img src="/KoiFish1.png" alt="Hình ảnh cá 1" style={{ width: '70%', height: 'auto', margin: '20px 0' }} />
+              <div className="col-2" style={style.button}>
+                <Button className="btn btn-light">
+                  <img src="/TrashCan.png" alt="Thùng rác" style={{ width: '70%' }} />
+                </Button>
+                <Button className={`btn btn-light ${(heartIconClicked === true) ? 'backgroundColor-#ff0000' : 'backgroundColor-#f9f9f9'}`} onClick={handleClick}>
+                  <img src="/HeartIcon.png" alt="Trái tim" style={{ width: '25px' }} />
+                </Button>
+              </div>
+            </div>
           </div>
           <div style={{ position: 'relative', right: '25px', bottom: '15px' }}>
             <span style={{ fontSize: '20px' }}>Tên của cá</span><br />
-            <Link style={{ color: 'black' }}>Xem thông tin</Link>
+            <Link style={{ color: 'black', textDecoration: 'underline' }}>Xem thông tin</Link>
           </div>
         </div>
         <div className="col-md-3">
-          <div>
-            <img src='/KoiFish1.png' alt="Hình ảnh cá 1" style={{ left: '100px', width: '60%', height: 'auto', margin: '20px 0' }} />
-            <Link>
-              <img src='/TrashCan.jpg' alt="Thùng rác" style={{ position: 'relative', bottom: '90px', width: '30px' }}></img>
-            </Link>
-            <Link>
-              <img src='/HeartIcon.jpg' alt="Trái tim" style={{ position: 'relative', bottom: '45px', right: '26px', width: '25px' }}></img>
-            </Link>
+          <div className="container">
+            <div className="row justify-content-center">
+              <img src="/KoiFish1.png" alt="Hình ảnh cá 1" style={{ width: '70%', height: 'auto', margin: '20px 0' }} />
+              <div className="col-2" style={style.button}>
+                <Button className="btn btn-light">
+                  <img src="/TrashCan.png" alt="Thùng rác" style={{ width: '70%' }} />
+                </Button>
+                <Button className={`btn btn-light ${(heartIconClicked === true) ? 'backgroundColor-#ff0000' : 'backgroundColor-#f9f9f9'}`} onClick={handleClick}>
+                  <img src="/HeartIcon.png" alt="Trái tim" style={{ width: '25px' }} />
+                </Button>
+              </div>
+            </div>
           </div>
           <div style={{ position: 'relative', right: '25px', bottom: '15px' }}>
             <span style={{ fontSize: '20px' }}>Tên của cá</span><br />
-            <Link style={{ color: 'black' }}>Xem thông tin</Link>
+            <Link style={{ color: 'black', textDecoration: 'underline' }}>Xem thông tin</Link>
           </div>
         </div>
         <div className="col-md-3">
-          <div>
-            <img src='/KoiFish1.png' alt="Hình ảnh cá 1" style={{ left: '100px', width: '60%', height: 'auto', margin: '20px 0' }} />
-            <Link>
-              <img src='/TrashCan.jpg' alt="Thùng rác" style={{ position: 'relative', bottom: '90px', width: '30px' }}></img>
-            </Link>
-            <Link>
-              <img src='/HeartIcon.jpg' alt="Trái tim" style={{ position: 'relative', bottom: '45px', right: '26px', width: '25px' }}></img>
-            </Link>
+          <div className="container">
+            <div className="row justify-content-center">
+              <img src="/KoiFish1.png" alt="Hình ảnh cá 1" style={{ width: '70%', height: 'auto', margin: '20px 0' }} />
+              <div className="col-2" style={style.button}>
+                <Button className="btn btn-light">
+                  <img src="/TrashCan.png" alt="Thùng rác" style={{ width: '70%' }} />
+                </Button>
+                <Button className={`btn btn-light ${(heartIconClicked === true) ? 'backgroundColor-#ff0000' : 'backgroundColor-#f9f9f9'}`} onClick={handleClick}>
+                  <img src="/HeartIcon.png" alt="Trái tim" style={{ width: '25px' }} />
+                </Button>
+              </div>
+            </div>
           </div>
           <div style={{ position: 'relative', right: '25px', bottom: '15px' }}>
             <span style={{ fontSize: '20px' }}>Tên của cá</span><br />
-            <Link style={{ color: 'black' }}>Xem thông tin</Link>
+            <Link style={{ color: 'black', textDecoration: 'underline' }}>Xem thông tin</Link>
           </div>
         </div>
       </div>
       <div className="row" style={{ textAlign: 'center' }}>
-        <div className="col-md-3">
-          <div>
-            <img src='/KoiFish1.png' alt="Hình ảnh cá 1" style={{ left: '100px', width: '60%', height: 'auto', margin: '20px 0' }} />
-            <Link>
-              <img src='/TrashCan.jpg' alt="Thùng rác" style={{ position: 'relative', bottom: '90px', width: '30px' }}></img>
-            </Link>
-            <Link>
-              <img src='/HeartIcon.jpg' alt="Trái tim" style={{ position: 'relative', bottom: '45px', right: '26px', width: '25px' }}></img>
-            </Link>
+      <div className="col-md-3">
+          <div className="container">
+            <div className="row justify-content-center">
+              <img src="/KoiFish1.png" alt="Hình ảnh cá 1" style={{ width: '70%', height: 'auto', margin: '20px 0' }} />
+              <div className="col-2" style={style.button}>
+                <Button className="btn btn-light">
+                  <img src="/TrashCan.png" alt="Thùng rác" style={{ width: '70%' }} />
+                </Button>
+                <Button className={`btn btn-light ${(heartIconClicked === true) ? 'backgroundColor-#ff0000' : 'backgroundColor-#f9f9f9'}`} onClick={handleClick}>
+                  <img src="/HeartIcon.png" alt="Trái tim" style={{ width: '25px' }} />
+                </Button>
+              </div>
+            </div>
           </div>
           <div style={{ position: 'relative', right: '25px', bottom: '15px' }}>
             <span style={{ fontSize: '20px' }}>Tên của cá</span><br />
-            <Link style={{ color: 'black' }}>Xem thông tin</Link>
+            <Link style={{ color: 'black', textDecoration: 'underline' }}>Xem thông tin</Link>
           </div>
         </div>
         <div className="col-md-3">
-          <div>
-            <img src='/KoiFish1.png' alt="Hình ảnh cá 1" style={{ left: '100px', width: '60%', height: 'auto', margin: '20px 0' }} />
-            <Link>
-              <img src='/TrashCan.jpg' alt="Thùng rác" style={{ position: 'relative', bottom: '90px', width: '30px' }}></img>
-            </Link>
-            <Link>
-              <img src='/HeartIcon.jpg' alt="Trái tim" style={{ position: 'relative', bottom: '45px', right: '26px', width: '25px' }}></img>
-            </Link>
+          <div className="container">
+            <div className="row justify-content-center">
+              <img src="/KoiFish1.png" alt="Hình ảnh cá 1" style={{ width: '70%', height: 'auto', margin: '20px 0' }} />
+              <div className="col-2" style={style.button}>
+                <Button className="btn btn-light">
+                  <img src="/TrashCan.png" alt="Thùng rác" style={{ width: '70%' }} />
+                </Button>
+                <Button className={`btn btn-light ${(heartIconClicked === true) ? 'backgroundColor-#ff0000' : 'backgroundColor-#f9f9f9'}`} onClick={handleClick}>
+                  <img src="/HeartIcon.png" alt="Trái tim" style={{ width: '25px' }} />
+                </Button>
+              </div>
+            </div>
           </div>
           <div style={{ position: 'relative', right: '25px', bottom: '15px' }}>
             <span style={{ fontSize: '20px' }}>Tên của cá</span><br />
-            <Link style={{ color: 'black' }}>Xem thông tin</Link>
+            <Link style={{ color: 'black', textDecoration: 'underline' }}>Xem thông tin</Link>
           </div>
         </div>
         <div className="col-md-3">
-          <div>
-            <img src='/KoiFish1.png' alt="Hình ảnh cá 1" style={{ left: '100px', width: '60%', height: 'auto', margin: '20px 0' }} />
-            <Link>
-              <img src='/TrashCan.jpg' alt="Thùng rác" style={{ position: 'relative', bottom: '90px', width: '30px' }}></img>
-            </Link>
-            <Link>
-              <img src='/HeartIcon.jpg' alt="Trái tim" style={{ position: 'relative', bottom: '45px', right: '26px', width: '25px' }}></img>
-            </Link>
+          <div className="container">
+            <div className="row justify-content-center">
+              <img src="/KoiFish1.png" alt="Hình ảnh cá 1" style={{ width: '70%', height: 'auto', margin: '20px 0' }} />
+              <div className="col-2" style={style.button}>
+                <Button className="btn btn-light">
+                  <img src="/TrashCan.png" alt="Thùng rác" style={{ width: '70%' }} />
+                </Button>
+                <Button className={`btn btn-light ${(heartIconClicked === true) ? 'backgroundColor-#ff0000' : 'backgroundColor-#f9f9f9'}`} onClick={handleClick}>
+                  <img src="/HeartIcon.png" alt="Trái tim" style={{ width: '25px' }} />
+                </Button>
+              </div>
+            </div>
           </div>
           <div style={{ position: 'relative', right: '25px', bottom: '15px' }}>
             <span style={{ fontSize: '20px' }}>Tên của cá</span><br />
-            <Link style={{ color: 'black' }}>Xem thông tin</Link>
+            <Link style={{ color: 'black', textDecoration: 'underline' }}>Xem thông tin</Link>
           </div>
         </div>
         <div className="col-md-3">
-          <div>
-            <img src='/KoiFish1.png' alt="Hình ảnh cá 1" style={{ left: '100px', width: '60%', height: 'auto', margin: '20px 0' }} />
-            <Link>
-              <img src='/TrashCan.jpg' alt="Thùng rác" style={{ position: 'relative', bottom: '90px', width: '30px' }}></img>
-            </Link>
-            <Link>
-              <img src='/HeartIcon.jpg' alt="Trái tim" style={{ position: 'relative', bottom: '45px', right: '26px', width: '25px' }}></img>
-            </Link>
+          <div className="container">
+            <div className="row justify-content-center">
+              <img src="/KoiFish1.png" alt="Hình ảnh cá 1" style={{ width: '70%', height: 'auto', margin: '20px 0' }} />
+              <div className="col-2" style={style.button}>
+                <Button className="btn btn-light">
+                  <img src="/TrashCan.png" alt="Thùng rác" style={{ width: '70%' }} />
+                </Button>
+                <Button className={`btn btn-light ${(heartIconClicked === true) ? 'backgroundColor-#ff0000' : 'backgroundColor-#f9f9f9'}`} onClick={handleClick}>
+                  <img src="/HeartIcon.png" alt="Trái tim" style={{ width: '25px' }} />
+                </Button>
+              </div>
+            </div>
           </div>
           <div style={{ position: 'relative', right: '25px', bottom: '15px' }}>
             <span style={{ fontSize: '20px' }}>Tên của cá</span><br />
-            <Link style={{ color: 'black' }}>Xem thông tin</Link>
+            <Link style={{ color: 'black', textDecoration: 'underline' }}>Xem thông tin</Link>
           </div>
         </div>
       </div>

@@ -11,38 +11,41 @@ import Drawers from "./components/Drawers";
 // import NavbarUser from "./components/NavbarAfterLogin/NavbarUser";
 import MyFish from "./pages/MyFish/FishAdd"
 import MyPond from "./pages/MyPond/MyPond"
-import Admin from "./pages/Admin/Admin";
+import Admin from "./components/Drawers/Admin";
+import UserInfo from "./pages/Admin/UserInfo";
 function App() {
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Layout />,
-      children: [
-        { index: true, element: <Home /> },
-        { path: "login", element: <Login /> },
-        { path: "register", element: <Register /> },
-        { path: "userpage", element: <User /> },
-        {
-          path: "userhome",
-          element: <Drawers />,
-          children: [
-            { path: "userprofile", element: <UserProfile /> },
-            { path: "myfish", element: <MyFish /> },
-            { path: "mypond", element: <MyPond /> },
-            { path: "", element: <Navigate to="mypond" replace /> },
-          ],
-        },
-      ],
-    },
-    {
-      path:'admin',
-      element:<Admin/>
-    }
-  ]);
+  // const router = createBrowserRouter([
+  //   {
+  //     path: "/",
+  //     element: <Layout />,
+  //     children: [
+  //       { index: true, element: <Home /> },
+  //       { path: "login", element: <Login /> },
+  //       { path: "register", element: <Register /> },
+  //       { path: "userpage", element: <User /> },
+  //       {
+  //         path: "userhome",
+  //         element: <Drawers />,
+  //         children: [
+  //           { path: "userprofile", element: <UserProfile /> },
+  //           { path: "myfish", element: <MyFish /> },
+  //           { path: "mypond", element: <MyPond /> },
+  //           { path: "", element: <Navigate to="mypond" replace /> },
+  //         ],
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     path:'admin',
+  //     element:<Admin/>
+  //   }
+  // ]);
 
   return (
     <>
-      <RouterProvider router={router} />
+     {/* <RouterProvider router={router} /> */}
+     <Admin />
+     <UserInfo /> 
     </>
   );
 }

@@ -10,6 +10,7 @@ import {
   Divider,
 } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import { Link } from "react-router-dom";
 
 const FishForm = () => {
   const [formData, setFormData] = useState({
@@ -68,6 +69,8 @@ const FishForm = () => {
               Tạo thêm cá mới
             </Button>
             <Button
+              component={Link}
+              to="/userhome/myfishlist"
               variant="contained"
               color="info"
               sx={{ marginBottom: 2, width: "100%" }}

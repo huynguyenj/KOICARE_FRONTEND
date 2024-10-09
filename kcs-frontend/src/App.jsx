@@ -11,6 +11,7 @@ import Drawers from "./components/Drawers";
 // import NavbarUser from "./components/NavbarAfterLogin/NavbarUser";
 import MyFish from "./pages/MyFish/FishAdd"
 import MyPond from "./pages/MyPond/MyPond"
+import MyFishList from "./pages/MyFish/MyFish";
 function App() {
   const router = createBrowserRouter([
     {
@@ -27,6 +28,7 @@ function App() {
           children: [
             { path: "userprofile", element: <UserProfile /> },
             { path: "myfish", element: <MyFish /> },
+            { path: "myfishlist", element: <MyFishList/>},
             { path: "mypond", element: <MyPond /> },
             { path: "", element: <Navigate to="mypond" replace /> },
           ],

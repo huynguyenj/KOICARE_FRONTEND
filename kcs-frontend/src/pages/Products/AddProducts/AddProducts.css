@@ -1,0 +1,138 @@
+/* General Styling */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header */
+.header {
+  background-color: #50d9c0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.header img {
+  width: 150px;
+}
+
+.header-icons {
+  display: flex;
+  align-items: center;
+}
+
+.header-icons i {
+  margin-right: 20px;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.header-icons img {
+  width: 30px;
+}
+
+/* Main Container */
+.container {
+  background-color: white;
+  width: 80%;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  color: red;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Product Image */
+.product-image {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.product-image img {
+  max-width: 300px;
+}
+
+/* Form Inputs */
+form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+form input,
+form textarea {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+form textarea {
+  resize: vertical;
+  height: 150px;
+}
+
+/* Action Buttons */
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.actions button {
+  background-color: #50d9c0;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.actions button:hover {
+  background-color: #43b8a0;
+}
+
+.search-bar {
+  position: relative;
+}
+
+.search-bar input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.search-bar i {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: #888;
+  cursor: pointer;
+}
+
+/* Footer */
+footer {
+  background-color: #e0e0e0;
+  padding: 20px;
+  text-align: center;
+  font-size: 14px;
+  margin-top: 50px;
+}
+
+footer a {
+  color: #888;
+  text-decoration: none;
+  margin: 0 10px;
+}

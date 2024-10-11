@@ -43,7 +43,8 @@ function App() {
         { path: "", element: <Navigate to="userInfo" replace /> }
        
       ],
-    }
+    },
+    
   ]);
 
   return (

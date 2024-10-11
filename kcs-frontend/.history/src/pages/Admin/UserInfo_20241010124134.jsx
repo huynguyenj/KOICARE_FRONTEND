@@ -196,7 +196,7 @@ function UserInfo() {
           <Table>
             <TableHead>
               <TableRow>
-              <TableCell></TableCell>
+              <TableCell>ID</TableCell>
                 <TableCell>ID</TableCell>
                 <TableCell>User Name</TableCell>
                 <TableCell>Email</TableCell>

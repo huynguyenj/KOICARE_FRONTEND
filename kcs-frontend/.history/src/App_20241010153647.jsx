@@ -43,6 +43,15 @@ function App() {
         { path: "", element: <Navigate to="userInfo" replace /> }
        
       ],
+    },
+    {
+      path:'admin',
+      element:<Admin/>,
+      children: [
+        { path: "userInfo", element: <UserInfo /> },
+        { path: "", element: <Navigate to="userInfo" replace /> }
+       
+      ],
     }
   ]);
 

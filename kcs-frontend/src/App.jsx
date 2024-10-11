@@ -43,11 +43,24 @@ function App() {
         { path: "", element: <Navigate to="userInfo" replace /> }
        
       ],
+    },
+    {
+      path:'shop',
+      element:<Admin/>,
+      children: [
+        { path: "userInfo", element: <UserInfo /> },
+        { path: "", element: <Navigate to="userInfo" replace /> },
+        { path: 'HomeForShop', element : <HomeForShop/>},
+        { path: 'Product', element :<Products/>},
+        
+      ],
     }
+
   ]);
 
   return (
     <>
+
      <RouterProvider router={router} />
       
     </>

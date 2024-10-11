@@ -14,7 +14,6 @@ import MyPond from "./pages/MyPond/MyPond"
 import Admin from "./components/Drawers/Admin";
 import UserInfo from "./pages/Admin/UserInfo";
 import HomeForShop from "./pages/HomeForShop/HomeForShop";
-import ShowProduct from "./pages/Products/ShowProducts/ShowProducts";
 function App() {
   const router = createBrowserRouter([
     {
@@ -53,7 +52,7 @@ function App() {
         { path: "userInfo", element: <UserInfo /> },
         { path: "", element: <Navigate to="userInfo" replace /> },
         { path: 'HomeForShop', element : <HomeForShop/>},
-        { path: 'Product', element :<ShowProduct/>},
+        { path: 'Product', element :<ShowOri/>},
         
       ],
     }

@@ -13,8 +13,6 @@ import MyFish from "./pages/MyFish/FishAdd"
 import MyPond from "./pages/MyPond/MyPond"
 import Admin from "./components/Drawers/Admin";
 import UserInfo from "./pages/Admin/UserInfo";
-import HomeForShop from "./pages/HomeForShop/HomeForShop";
-import ShowProduct from "./pages/Products/ShowProducts/ShowProducts";
 function App() {
   const router = createBrowserRouter([
     {
@@ -52,8 +50,8 @@ function App() {
       children: [
         { path: "userInfo", element: <UserInfo /> },
         { path: "", element: <Navigate to="userInfo" replace /> },
-        { path: 'HomeForShop', element : <HomeForShop/>},
-        { path: 'Product', element :<ShowProduct/>},
+        { path: 'HomeForShop', element : <Home/>},
+        { path: 'Product', element :<Products/>},
         
       ],
     }

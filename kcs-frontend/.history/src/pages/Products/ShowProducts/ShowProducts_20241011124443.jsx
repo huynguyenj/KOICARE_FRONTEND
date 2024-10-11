@@ -1,5 +1,5 @@
 import React from 'react';
-import './ShowProducts.css';
+import './ShowProduct.css';
 
 const ShowProduct = () => {
   return (
@@ -49,4 +49,4 @@ const ShowProduct = () => {
   );
 }
 
-export default ShowProduct;
+export default App;

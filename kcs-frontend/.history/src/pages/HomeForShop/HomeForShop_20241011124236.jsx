@@ -1,7 +1,7 @@
 import React from 'react';
 import './HomeForShop.css';
 
-const HomeForShop = () => {
+const App = () => {
   return (
     <div className="app-container">
       <header className="header">
@@ -51,4 +51,4 @@ const HomeForShop = () => {
   );
 }
 
-export default HomeForShop;
+export default App;

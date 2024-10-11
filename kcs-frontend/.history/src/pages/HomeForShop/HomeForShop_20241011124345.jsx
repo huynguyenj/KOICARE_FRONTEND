@@ -51,4 +51,4 @@ const HomeForShop = () => {
   );
 }
 
-export default HomeForShop;
+export default App;

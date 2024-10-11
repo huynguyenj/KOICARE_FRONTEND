@@ -1,7 +1,7 @@
 import React from 'react';
-import './ShowProducts.css';
+import './ShowProduct.css';
 
-const ShowProduct = () => {
+const App = () => {
   return (
     <div className="app-container">
       <div className="sidebar">
@@ -49,4 +49,4 @@ const ShowProduct = () => {
   );
 }
 
-export default ShowProduct;
+export default App;

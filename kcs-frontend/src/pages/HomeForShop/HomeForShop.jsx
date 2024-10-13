@@ -1,7 +1,8 @@
 import React from 'react';
+import Footer from '../../components/Footer/Footer';
 import './HomeForShop.css';
 
-const App = () => {
+const HomeForShop = () => {
   return (
     <div className="app-container">
       <header className="header">
@@ -38,17 +39,11 @@ const App = () => {
         </div>
       </section>
 
-      <footer className="footer">
-        <p>&copy; 2024 Bảo lưu mọi quyền, Koiday®</p>
-        <p>Chính sách quyền riêng tư | Điều khoản</p>
-        <div className="social-icons">
-          <i className="fab fa-facebook"></i>
-          <i className="fab fa-instagram"></i>
-          <i className="fab fa-pinterest"></i>
-        </div>
+      <footer>
+        <Footer/>
       </footer>
     </div>
   );
 }
 
-export default App;
+export default HomeForShop;

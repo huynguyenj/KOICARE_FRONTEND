@@ -76,7 +76,7 @@ const PondSection = () => {
 
         {/* Center Content */}
         <Grid item xs={12} md={6}
-          sx={{marginTop: "100vh"}}
+          sx={{marginTop: "80vh"}}
         >
           <Typography variant="h3" align="center">
             Hồ của tôi

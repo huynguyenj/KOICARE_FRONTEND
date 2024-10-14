@@ -15,7 +15,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import Dashboard from "@mui/icons-material/Dashboard";
-import Logout  from "@mui/icons-material/Logout";
+import Logout from "@mui/icons-material/Logout";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
@@ -91,10 +91,31 @@ export default function PrimarySearchAppBar() {
   };
 
   const drawerItems = [
-    { text: "Bảng điều khiển", icon: <Dashboard /> },
-    { text: "Hồ sơ người dùng", icon: <ManageAccountsIcon /> },
-    { text: "Thông báo", icon: <NotificationsActiveIcon /> },
-    { text: "Đăng xuất", icon: <Logout /> },
+    {
+      text: "Sản phẩm",
+      iconType: "img",
+      iconSrc: "https://img.icons8.com/ios/50/product--v1.png",
+    },
+    {
+      text: "Đơn hàng",
+      iconType: "img",
+      iconSrc: "https://img.icons8.com/ios/50/shopping-cart--v1.png",
+    },
+    {
+      text: "Doanh thu",
+      iconType: "img",
+      iconSrc: "https://img.icons8.com/ios/50/get-revenue.png",
+    },
+    {
+      text: "Trạng thái",
+      iconType: "img",
+      iconSrc: "https://img.icons8.com/ios-glyphs/48/ok--v1.png",
+    },
+    {
+      text: "Đăng xuất",
+      iconType: "img",
+      iconSrc: "https://img.icons8.com/ios/50/exit--v1.png",
+    },
   ];
 
   // Drawer functions
@@ -175,19 +196,31 @@ export default function PrimarySearchAppBar() {
     <Box
       sx={{
         width: 250,
-        background: "linear-gradient(to right, #2c3e50, #4ca1af)",
         minHeight: "100vh",
         py: 1,
-        color: "#fff"
+        color: "black",
       }}
       role="presentation"
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
     >
-      <List sx={{ color: 'primary' }}>
-        {drawerItems.map(({ text, icon }) => (
+      <List sx={{ color: "primary" }}>
+        {drawerItems.map(({ text, iconType, iconSrc, path }) => (
           <ListItem button key={text}>
-            <ListItemIcon sx={{color: '#fff'}}>{icon}</ListItemIcon>
+            <ListItemIcon>
+              {iconType === "img" && (
+                <img
+                  src={iconSrc}
+                  alt={text}
+                  witdh="25"
+                  height="25"
+                  style={{
+                    filter:
+                      "invert(43%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(88%) contrast(87%)",
+                  }}
+                />
+              )}
+            </ListItemIcon>
             <ListItemText
               primary={text}
               primaryTypographyProps={{ fontSize: "1.2rem" }}
@@ -218,7 +251,7 @@ export default function PrimarySearchAppBar() {
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            Admin System
+            Shop System
           </Typography>
           <Search>
             <SearchIconWrapper>

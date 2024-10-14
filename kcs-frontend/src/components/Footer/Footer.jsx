@@ -16,8 +16,7 @@ function Footer() {
   };
 
   const footerContainerStyle = {
-    padding: "10px",
-    borderTop: "2px solid #fff",
+    padding: "5px",
     borderRadius: "0px 0px 10px 10px",
     justifyContent: "space-around",
     display: "flex",
@@ -79,7 +78,6 @@ function Footer() {
     <>
       <div style={footerBackgroundStyle}>
         <img className="bg-image" src="/BG.jpg" alt="" style={bgImageStyle} />
-        <div className="custom-divider"></div>
         <div style={footerContainerStyle}>
           <div style={footerSectionStyle}>
             <h4 style={{ fontFamily: "JetBrains Mono" }}>Địa chỉ khu vực:</h4>
@@ -103,11 +101,11 @@ function Footer() {
           <div style={footerSectionStyle}>
             <h4 style={{ fontFamily: "JetBrains Mono" }}>Chính sách Koiday</h4>
             <hr style={footerDividerStyle} />
-            <ul>
-              <li style={{ fontFamily: "JetBrains Mono" }}>Mua hàng</li>
-              <li style={{ fontFamily: "JetBrains Mono" }}>Vận chuyển</li>
-              <li style={{ fontFamily: "JetBrains Mono" }}>Thanh toán</li>
-              <li style={{ fontFamily: "JetBrains Mono" }}>Bảo mật</li>
+            <ul style={{fontFamily: 'JetBrains Mono'}}>
+              <li>Mua hàng</li>
+              <li>Vận chuyển</li>
+              <li>Thanh toán</li>
+              <li>Bảo mật</li>
             </ul>
           </div>
           <div style={footerSectionStyle}>
@@ -137,7 +135,7 @@ function Footer() {
           className="row mt-5"
           style={{
             backgroundColor: "#212121",
-            padding: "20px",
+            padding: "1px",
             position: "relative",
             color: "#fff",
           }}

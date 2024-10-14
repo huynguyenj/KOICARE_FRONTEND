@@ -39,6 +39,7 @@ function Navbar() {
     navigator("/userpage");
   }
 
+
   // Define inline styles as objects
   const navbarStyle = {
     backgroundColor: "black",
@@ -46,7 +47,7 @@ function Navbar() {
     top: 0,
     width: "100%",
     zIndex: 1,
-    padding: "0px 10px",
+    padding: "0px 15px",
     opacity: 0.78,
   };
 
@@ -92,7 +93,7 @@ function Navbar() {
     <nav className="navbar d-flex" style={navbarStyle}>
       <HashLink to="/">
         <img
-          className="logo ms-5"
+          className="logo ms-3"
           src="/Logo.png"
           alt=""
           style={{ maxWidth: "150px" }}

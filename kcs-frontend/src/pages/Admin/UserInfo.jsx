@@ -141,7 +141,11 @@ function UserInfo() {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box
+      sx={{
+        flexGrow: 1
+      }}
+    >
       <AppBar position="static" sx={{ backgroundColor: "#f57c00" }}>
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -184,9 +188,7 @@ function UserInfo() {
           <Button
             variant="contained"
             color="secondary"
-            onClick={
-            handleSetRole
-            }
+            onClick={handleSetRole}
             disabled={selectedUsers.length === 0}
           >
             Set Role
@@ -196,7 +198,7 @@ function UserInfo() {
           <Table>
             <TableHead>
               <TableRow>
-              <TableCell></TableCell>
+                <TableCell></TableCell>
                 <TableCell>ID</TableCell>
                 <TableCell>User Name</TableCell>
                 <TableCell>Email</TableCell>
@@ -238,7 +240,6 @@ function UserInfo() {
                       {user.status ? "Unactivate" : "Activate"}
                     </Button>
                   </TableCell>
-                 
                 </TableRow>
               ))}
             </TableBody>

@@ -69,10 +69,6 @@ const AddProducts = () => {
         </form>
       </div>
 
-      <footer>
-        <p>© 2024 Bảo lưu mọi quyền, Koiday®</p>
-        <a href="#">Chính sách quyền riêng tư</a> | <a href="#">Điều khoản</a>
-      </footer>
     </>
   );
 };

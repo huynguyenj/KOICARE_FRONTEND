@@ -12,6 +12,7 @@ import Drawers from "./components/Drawers";
 import MyFish from "./pages/MyFish/FishAdd"
 import MyPond from "./pages/MyPond/MyPond"
 import MyFishList from "./pages/MyFish/MyFish";
+import PondAdd from "./pages/MyPond/PondAdd";
 function App() {
   const router = createBrowserRouter([
     {
@@ -30,6 +31,7 @@ function App() {
             { path: "myfish", element: <MyFish /> },
             { path: "myfishlist", element: <MyFishList/>},
             { path: "mypond", element: <MyPond /> },
+            { path: "pondadd", element: <PondAdd/> },
             { path: "", element: <Navigate to="mypond" replace /> },
           ],
         },

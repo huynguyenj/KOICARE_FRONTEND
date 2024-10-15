@@ -93,7 +93,7 @@ const FishForm = () => {
               color="success"
               sx={{ marginBottom: 2, width: "100%" }}
             >
-              Chọn ảnh
+              Chọn ảnh cá
             </Button>
             <Button
               component={Link}

@@ -23,7 +23,7 @@ function MyFishList() {
 
   const style = {
     list: {
-      textAlign: 'center', position: 'relative', top: '10px', fontFamily: 'Arial'
+      textAlign: 'center', position: 'relative', fontFamily: 'Arial', margin:'0', padding:'0'
     },
     hr: {
       width: '800px', textAlign: 'center', margin: '0 auto', borderTop: '2px solid #000000'

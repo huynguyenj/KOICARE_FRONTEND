@@ -40,7 +40,7 @@ const HomeForShop = () => {
       </section>
 
       <footer>
-        <Footer/>
+        
       </footer>
     </div>
   );

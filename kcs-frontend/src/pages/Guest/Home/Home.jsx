@@ -24,13 +24,13 @@ function Home() {
       maxWidth: "1200px",
       lineHeight: "1.3",
       fontFamily: "JetBrains Mono",
-      fontSize: "18px",
+      fontSize: "20px",
     },
     smallText: {
       maxWidth: "1200px",
       lineHeight: "1.3",
       fontFamily: "JetBrains Mono",
-      fontSize: "15px",
+      fontSize: "20px",
     },
     imgContainer: {
       display: "grid",

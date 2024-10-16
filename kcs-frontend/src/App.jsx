@@ -9,10 +9,20 @@ import User from "./pages/User/User";
 import Layout from "./components/Layout";
 import Drawers from "./components/Drawers";
 // import NavbarUser from "./components/NavbarAfterLogin/NavbarUser";
-import MyFish from "./pages/MyFish/FishAdd"
-import MyPond from "./pages/MyPond/MyPond"
-import MyFishList from "./pages/MyFish/MyFish";
+
+import MyFish from "./pages/MyFish/FishAdd";
+import MyPond from "./pages/MyPond/MyPond";
+import Admin from "./components/Drawers/Admin";
+import Shop from "./components/Drawers/Shop";
+import Dashboard from "./pages/Admin/Dashboard";
+import UserInfo from "./pages/Admin/UserInfo";
+import HomeForShop from "./pages/HomeForShop/HomeForShop";
+import ShowProduct from "./pages/Products/ShowProducts/ShowProducts";
+import Notification from "./pages/Admin/Notification";
+import FishList from "./pages/MyFish/MyFish";
 import PondAdd from "./pages/MyPond/PondAdd";
+import MyFish from "./pages/MyFish/FishAdd"
+
 function App() {
   const router = createBrowserRouter([
     {
@@ -30,6 +40,7 @@ function App() {
             { path: "userprofile", element: <UserProfile /> },
             { path: "myfish", element: <MyFish /> },
             { path: "myfishlist", element: <MyFishList/>},
+            { path: "myfishlist", element: <FishList /> },
             { path: "mypond", element: <MyPond /> },
             { path: "pondadd", element: <PondAdd/> },
             { path: "", element: <Navigate to="mypond" replace /> },
@@ -37,10 +48,31 @@ function App() {
         },
       ],
     },
+    {
+      path:'admin',
+      element:<Admin/>,
+      children: [
+        { path: "userInfo", element: <UserInfo /> },
+        { path: "", element: <Navigate to="userInfo" replace /> }
+
+      ],
+    },
+    {
+      path: "shop",
+      element: <Shop />,
+      children: [
+        { path: "userInfo", element: <UserInfo /> },
+        { path: "", element: <Navigate to="userInfo" replace /> },
+        { path: "HomeForShop", element: <HomeForShop /> },
+        { path: "Product", element: <ShowProduct /> },
+      ],
+    },
   ]);
 
   return (
     <>
+      {/* <Admin />
+      <Dashboard /> */}
       <RouterProvider router={router} />
     </>
   );

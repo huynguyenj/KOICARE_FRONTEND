@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserTie, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import "./Navbar.css"
+import { getMyInfo } from "../../api/userService";
 
 function Navbar() {
   const navigator = useNavigate();
@@ -15,13 +16,29 @@ function Navbar() {
     navigator("/register");
   }
 
-  function changeUserProfilePage() {
-    navigator("/userhome");
+  async function changeUserProfilePage() {
+    try {
+      // Call getMyInfo and only navigate if the call succeeds
+      await getMyInfo()
+          .then(() => {
+              // Navigate to the user home page if getMyInfo succeeds
+              navigator("/userhome");
+          })
+          .catch(() => {
+              // Alert user if the request fails
+              alert("Làm ơn đăng nhập để dùng chức năng");
+          });
+  } catch (error) {
+      alert("An error occurred");
+  }
+  
+    // navigator("/userhome");
   }
 
   function UserPage() {
     navigator("/userpage");
   }
+
 
   // Define inline styles as objects
   const navbarStyle = {
@@ -30,7 +47,7 @@ function Navbar() {
     top: 0,
     width: "100%",
     zIndex: 1,
-    padding: "0px 10px",
+    padding: "0px 15px",
     opacity: 0.78,
   };
 
@@ -76,7 +93,7 @@ function Navbar() {
     <nav className="navbar d-flex" style={navbarStyle}>
       <HashLink to="/">
         <img
-          className="logo ms-5"
+          className="logo ms-3"
           src="/Logo.png"
           alt=""
           style={{ maxWidth: "150px" }}

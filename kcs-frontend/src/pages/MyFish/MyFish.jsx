@@ -1,3 +1,4 @@
+
 import { Button, ButtonBase } from '@mui/material'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -49,6 +50,7 @@ function MyFishList() {
         <h1 style={style.list}>Danh sách cá của tôi</h1>
         <hr style={style.hr} />
         <div className="row" style={{ textAlign: 'center' }}>
+
           {koiFishList.map((fish) => (
             <div className="col-md-3" key={fish.id}>
               <div className="container">
@@ -63,19 +65,19 @@ function MyFishList() {
                     </Button>
                     <Button className="btn btn-light">
                       <AddIcon style={{ color: '#000000' }} />
+
                     </Button>
                   </div>
                 </div>
               </div>
               <div style={{ position: 'relative', right: '25px', bottom: '15px' }}>
                 <span style={style.fishName}>{fish.name}</span><br />
+
                 <Link style={style.moreInfo}>Xem thông tin</Link>
               </div>
             </div>
           ))}
         </div>
-
-
       </div>
       <Footer />
     </>
@@ -85,3 +87,4 @@ function MyFishList() {
 
 
 export default MyFishList
+

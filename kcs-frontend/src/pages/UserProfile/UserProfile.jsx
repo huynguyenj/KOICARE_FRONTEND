@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-// import "./UserProfile.css";
-import Drawers from "../../components/Drawers/index"
 import {
   Avatar,
   Box,

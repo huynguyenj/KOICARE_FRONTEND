@@ -95,26 +95,17 @@ function SignUp() {
                 <Button
                   variant="danger"
                   className="w-50"
-                  style={{ marginRight: "20px", fontFamily: "JetBrains Mono" }}
+                  style={{ marginRight: "20px" }}
                 >
                   Đăng Ký
                 </Button>
-                <Button
-                  style={{ fontFamily: "JetBrains Mono" }}
-                  variant="light"
-                  className="w-50"
-                  onClick={changePage}
-                >
+                <Button variant="light" className="w-50" onClick={changePage}>
                   Đăng Nhập
                 </Button>
               </div>
-              <Form
-                onSubmit={handleSubmit}
-                style={{ fontFamily: "JetBrains Mono" }}
-              >
+              <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="formUsername" className="mb-3">
                   <Form.Control
-                    style={{ fontFamily: "JetBrains Mono" }}
                     type="text"
                     placeholder="Tên đăng nhập"
                     value={userName}
@@ -124,7 +115,6 @@ function SignUp() {
                 </Form.Group>
                 <Form.Group controlId="formPassword" className="mb-3">
                   <Form.Control
-                    style={{ fontFamily: "JetBrains Mono" }}
                     type="password"
                     placeholder="Mật khẩu"
                     value={password}
@@ -134,7 +124,6 @@ function SignUp() {
                 </Form.Group>
                 <Form.Group controlId="formEmail" className="mb-3">
                   <Form.Control
-                    style={{ fontFamily: "JetBrains Mono" }}
                     type="email"
                     placeholder="Email"
                     value={email}
@@ -144,7 +133,6 @@ function SignUp() {
                 </Form.Group>
                 <Form.Group controlId="formPhone" className="mb-3">
                   <Form.Control
-                    style={{ fontFamily: "JetBrains Mono" }}
                     type="number"
                     placeholder="Số điện thoại"
                     value={phone}
@@ -152,8 +140,7 @@ function SignUp() {
                     required
                   />
                 </Form.Group>
-                <div className="text-end mb-3">
-                </div>
+                <div className="text-end mb-3"></div>
                 <Button variant="primary" type="submit" className="w-100">
                   Đăng ký
                 </Button>
@@ -162,7 +149,6 @@ function SignUp() {
                 className="mt-3"
                 style={{
                   ...styles.textCenter,
-                  fontFamily: "JetBrains Mono",
                   fontSize: "13px",
                   margin: "auto",
                 }}
@@ -171,7 +157,7 @@ function SignUp() {
                 <span>
                   <a
                     href="#"
-                    style={{ fontFamily: "JetBrains Mono", fontSize: "18px" }}
+                    style={{ fontSize: "18px" }}
                     className="form-link"
                     onClick={changePage}
                   >

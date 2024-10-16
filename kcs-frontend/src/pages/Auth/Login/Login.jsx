@@ -26,15 +26,19 @@ function Login() {
   async function loginUser(userInfo) {
     try {
       await login(userInfo);
-      const resUserInfo = await getMyInfo()
+      const resUserInfo = await getMyInfo();
       const userData = {
-        userName: resUserInfo.result.userName
+        userName: resUserInfo.result.userName,
       };
-      console.log(userData)
-      localStorage.setItem('userInfo',JSON.stringify(userData))
+      console.log(userData);
+      localStorage.setItem("userInfo", JSON.stringify(userData));
       alert("Login successfully!");
-      
-      navigate(`/`); // Navigate to home or a specific page
+      if (resUserInfo.result.roles?.[0].userType == "USER") {
+        navigate(`/`);
+      } else {
+        navigate("/admin");
+      }
+      // Navigate to home or a specific page
     } catch (error) {
       console.error("Login error:", error);
       alert("Your username or password is incorrect! Please try again.");
@@ -95,26 +99,18 @@ function Login() {
                 <Button
                   variant="light"
                   className="w-50"
-                  style={{ marginRight: "20px", fontFamily: "JetBrains Mono" }}
+                  style={{ marginRight: "20px" }}
                   onClick={changePage}
                 >
                   Đăng Ký
                 </Button>
-                <Button
-                  variant="danger"
-                  className="w-50"
-                  style={{ fontFamily: "JetBrains Mono" }}
-                >
+                <Button variant="danger" className="w-50">
                   Đăng Nhập
                 </Button>
               </div>
-              <Form
-                onSubmit={handleSubmit}
-                style={{ fontFamily: "JetBrains Mono" }}
-              >
+              <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="formUsername" className="mb-3">
                   <Form.Control
-                    style={{ fontFamily: "JetBrains Mono" }}
                     type="text"
                     placeholder="Tên đăng nhập"
                     value={userName}
@@ -124,7 +120,6 @@ function Login() {
                 </Form.Group>
                 <Form.Group controlId="formPassword" className="mb-3">
                   <Form.Control
-                    style={{ fontFamily: "JetBrains Mono" }}
                     type="password"
                     placeholder="Mật khẩu"
                     value={password}
@@ -137,7 +132,6 @@ function Login() {
                     href="#"
                     style={{
                       ...styles.formLink,
-                      fontFamily: "JetBrains Mono",
                       fontSize: "18px",
                     }}
                   >
@@ -152,17 +146,12 @@ function Login() {
                 className="mt-3"
                 style={{
                   ...styles.textCenter,
-                  fontFamily: "JetBrains Mono",
                   fontSize: "13px",
                   margin: "auto",
                 }}
               >
                 Bạn chưa có tài khoản? Hãy{" "}
-                <a
-                  href="#"
-                  onClick={changePage}
-                  style={{ fontFamily: "JetBrains Mono", fontSize: "18px" }}
-                >
+                <a href="#" onClick={changePage} style={{ fontSize: "18px" }}>
                   Đăng ký
                 </a>{" "}
                 trước khi đăng nhập.

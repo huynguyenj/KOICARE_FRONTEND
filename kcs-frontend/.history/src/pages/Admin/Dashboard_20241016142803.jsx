@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -36,27 +36,13 @@ const Dashboard = () => {
   
   const [sumUser, setSumUsers] = useState();
 
-  useEffect(()=>{
-    countUsers();
-  },[]);
+  async function sumUser() {
 
-  async function countUsers() {
-
-    try {
-      const res = await getAllUser();
-      if(res.code == 1010){
-        toast.success("Cập nhật người dùng")
-        setSumUsers(res.result)
-         let count = 0;
-         sumUser.map((user)=>count++)
-      }else{
-        toast.error("Cập nhật thất bại")
-      }
-  
-    } catch (error) {
-      console.error("Failed to fetch users:", error);
+    const res = await getAllUser();
+    if(res.code == 1010){
+      toast.success("Cập nhật người dùng")
     }
-   
+
     
   }
    return (

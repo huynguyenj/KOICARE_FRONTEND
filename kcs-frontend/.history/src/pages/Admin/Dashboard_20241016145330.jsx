@@ -37,7 +37,7 @@ const Dashboard = () => {
   const [sumUser, setSumUsers] = useState();
 
   useEffect(()=>{
-    countUsers();
+    User();
   },[]);
 
   async function countUsers() {
@@ -47,7 +47,7 @@ const Dashboard = () => {
       if(res.code == 1010){
         toast.success("Cập nhật người dùng")
         setSumUsers(res.result)
-         let count = 0;
+         count = 0;
          sumUser.map((user)=>count++)
       }else{
         toast.error("Cập nhật thất bại")

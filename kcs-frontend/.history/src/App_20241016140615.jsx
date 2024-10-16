@@ -51,8 +51,8 @@ function App() {
       element:<Admin/>,
       children: [
         { path: "userInfo", element: <UserInfo /> },
-        { path: "", element: <Navigate to="userInfo" replace /> },
-        { path: "dashboard", element: <Dashboard /> },
+        { path: "", element: <Navigate to="userInfo" replace /> }
+        { path: "", element: <Navigate to="userInfo" replace /> }
 
       ],
     },

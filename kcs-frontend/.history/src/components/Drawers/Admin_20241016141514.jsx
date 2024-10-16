@@ -93,7 +93,7 @@ export default function PrimarySearchAppBar() {
 
   const navigator = useNavigate();
   const drawerItems = [
-    { text: "Bảng điều khiển", icon: <Dashboard />, path: "/admin/dashboard" },
+    { text: "Bảng điều khiển", icon: <Dashboard />, path: "/dashboard" },
     { text: "Hồ sơ người dùng", icon: <ManageAccountsIcon /> },
     { text: "Thông báo", icon: <NotificationsActiveIcon /> },
     { text: "Đăng xuất", icon: <Logout /> },
@@ -189,7 +189,7 @@ export default function PrimarySearchAppBar() {
       <List sx={{ color: 'primary' }}>
         {drawerItems.map(({ text, icon, path }) => (
           <ListItem button key={text}>
-             <ListItemButton onClick={() => navigator(path)}>
+             <ListItemButton onClick={() => navigat(path)}>
             <ListItemIcon sx={{color: '#fff'}}>{icon}</ListItemIcon>
             <ListItemText
               primary={text}

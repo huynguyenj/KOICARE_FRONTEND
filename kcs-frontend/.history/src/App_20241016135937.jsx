@@ -21,6 +21,7 @@ import ShowProduct from "./pages/Products/ShowProducts/ShowProducts";
 import Notification from "./pages/Admin/Notification";
 import FishList from "./pages/MyFish/MyFish";
 import PondAdd from "./pages/MyPond/PondAdd";
+import MyFish from "./pages/MyFish/FishAdd"
 
 function App() {
   const router = createBrowserRouter([
@@ -51,8 +52,7 @@ function App() {
       element:<Admin/>,
       children: [
         { path: "userInfo", element: <UserInfo /> },
-        { path: "", element: <Navigate to="userInfo" replace /> },
-        { path: "dashboard", element: <Dashboard /> },
+        { path: "", element: <Navigate to="userInfo" replace /> }
 
       ],
     },

@@ -19,7 +19,6 @@ import Logout  from "@mui/icons-material/Logout";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
-import ListItemButton from "@mui/material/ListItemButton";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon"; // Import for icons
@@ -93,7 +92,7 @@ export default function PrimarySearchAppBar() {
 
   const navigator = useNavigate();
   const drawerItems = [
-    { text: "Bảng điều khiển", icon: <Dashboard />, path: "/admin/dashboard" },
+    { text: "Bảng điều khiển", icon: <Dashboard />, path: "" },
     { text: "Hồ sơ người dùng", icon: <ManageAccountsIcon /> },
     { text: "Thông báo", icon: <NotificationsActiveIcon /> },
     { text: "Đăng xuất", icon: <Logout /> },
@@ -187,15 +186,13 @@ export default function PrimarySearchAppBar() {
       onKeyDown={toggleDrawer(false)}
     >
       <List sx={{ color: 'primary' }}>
-        {drawerItems.map(({ text, icon, path }) => (
+        {drawerItems.map(({ text, icon }) => (
           <ListItem button key={text}>
-             <ListItemButton onClick={() => navigator(path)}>
             <ListItemIcon sx={{color: '#fff'}}>{icon}</ListItemIcon>
             <ListItemText
               primary={text}
               primaryTypographyProps={{ fontSize: "1.2rem" }}
             />
-            </ListItemButton>
           </ListItem>
         ))}
       </List>

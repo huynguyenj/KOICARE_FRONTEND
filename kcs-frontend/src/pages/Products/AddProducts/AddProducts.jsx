@@ -68,7 +68,11 @@ const AddProducts = () => {
           </div>
         </form>
       </div>
+<<<<<<< Updated upstream
 
+=======
+      <FooterEnd/>
+>>>>>>> Stashed changes
     </>
   );
 };

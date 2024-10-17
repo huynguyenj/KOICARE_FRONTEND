@@ -2,7 +2,7 @@ import { Button, Form, Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { getMyInfo, login } from "../../../api/userService";
-
+import FooterEnd from "../../../components/Footer/FooterEnd"
 
 function Login() {
   const [userName, setUserName] = useState("");
@@ -26,7 +26,6 @@ function Login() {
 
   async function loginUser(userInfo) {
     try {
-      console.log(userInfo)
       await login(userInfo);
       const resUserInfo = await getMyInfo()
       const userData = {

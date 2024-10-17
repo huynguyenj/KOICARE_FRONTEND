@@ -26,7 +26,6 @@ function Login() {
 
   async function loginUser(userInfo) {
     try {
-      console.log(userInfo)
       await login(userInfo);
       const resUserInfo = await getMyInfo()
       const userData = {

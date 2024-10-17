@@ -1,52 +1,47 @@
 import { Button, Form, Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { getMyInfo, login } from "../../../api/userService";
+import { register } from "../../../api/userService";
 
-
-function Login() {
+function SignUp() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [status, setStatus] = useState(true);
+  const [role, setRole] = useState("USER");
   const navigate = useNavigate();
 
   function changePage() {
-    navigate("/register");
+    navigate("/login");
   }
 
   async function handleSubmit(event) {
     event.preventDefault();
+
     const userInfo = {
       userName: userName,
       password: password,
+      phone: phone,
+      email: email,
+      status: status,
+      role: role
     };
 
-    // Call the login API function
-    await loginUser(userInfo);
+    await registerUser(userInfo);
   }
 
-  async function loginUser(userInfo) {
+  async function registerUser(userInfo) {
     try {
-      console.log(userInfo)
-      await login(userInfo);
-      const resUserInfo = await getMyInfo()
-      const userData = {
-        userName: resUserInfo.result.userName,
-      };
-      
-      localStorage.setItem("userInfo", JSON.stringify(userData));
-
-      alert("Login successfully!");
-      if (resUserInfo.result.roles?.[0].userType == "USER") {
-        navigate(`/`);
-      } else if(resUserInfo.result.roles?.[0].userType == "ADMIN") {
-        navigate("/admin");
-      }else{
-        navigate("/shop")
-      }
-      // Navigate to home or a specific page
+      const response = await register(userInfo,role);
+      console.log(response.data.result);
+      alert("Registered successfully!");
+      navigate("/login");
     } catch (error) {
-      console.error("Login error:", error);
-      alert("Your username or password is incorrect! Please try again.");
+      console.error("Registration failed:", error);
+      alert(
+        "Registration failed! Please try again with a different username or email."
+      );
     }
   }
 
@@ -74,8 +69,9 @@ function Login() {
       justifyContent: "center",
       alignItems: "center",
     },
-    loginBox: {
+    registerBox: {
       width: "400px",
+      marginTop: "50px",
       backgroundColor: "rgba(240, 240, 240, 0.9)",
       padding: "20px",
       borderRadius: "10px",
@@ -85,9 +81,6 @@ function Login() {
       color: "red",
       fontSize: "18px",
     },
-    formLinkHover: {
-      textDecoration: "underline",
-    },
     textCenter: {
       textAlign: "center",
     },
@@ -96,25 +89,24 @@ function Login() {
   return (
     <div style={styles.page}>
       <img style={styles.bgImage} src="/BG.jpg" alt="Background" />
-      <Container className="login-container" style={styles.container}>
+      <Container style={styles.container}>
         <Row>
           <Col>
-            <div style={styles.loginBox}>
+            <div style={styles.registerBox}>
               <div className="d-flex justify-content-between mb-3">
                 <Button
-                  variant="light"
+                  variant="danger"
                   className="w-50"
                   style={{ marginRight: "20px" }}
-                  onClick={changePage}
                 >
                   Đăng Ký
                 </Button>
-                <Button variant="danger" className="w-50">
+                <Button variant="light" className="w-50" onClick={changePage}>
                   Đăng Nhập
                 </Button>
               </div>
               <Form onSubmit={handleSubmit}>
-                <Form.Group controlId="formUsername">
+                <Form.Group controlId="formUsername" className="">
                   <Form.Control
                     type="text"
                     placeholder="Tên đăng nhập"
@@ -123,7 +115,7 @@ function Login() {
                     required
                   />
                 </Form.Group>
-                <Form.Group controlId="formPassword">
+                <Form.Group controlId="formPassword" className=">
                   <Form.Control
                     type="password"
                     placeholder="Mật khẩu"
@@ -132,19 +124,40 @@ function Login() {
                     required
                   />
                 </Form.Group>
-                <div className="text-end">
-                  <a
-                    href="#"
-                    style={{
-                      ...styles.formLink,
-                      fontSize: "18px",
-                    }}
+                <Form.Group controlId="formEmail" className=">
+                  <Form.Control
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </Form.Group>
+                <Form.Group controlId="formPhone" className="mb-3">
+                  <Form.Control
+                    type="number"
+                    placeholder="Số điện thoại"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    required
+                  />
+                     <Form.Group controlId="formRole" className="mt-3">
+                  <Form.Select
+                    value={role}
+                    onChange={(e) => setRole(e.target.value)}
+                    required
                   >
-                    Quên mật khẩu?
-                  </a>
-                </div>
+              
+                    <option value="USER">Người dùng</option>
+                    <option value="SHOP">Shop</option>
+                   
+                    {/* Add more roles as needed */}
+                  </Form.Select>
+                </Form.Group>
+                </Form.Group>
+                <div className="text-end mb-3"></div>
                 <Button variant="primary" type="submit" className="w-100">
-                  Đăng nhập
+                  Đăng ký
                 </Button>
               </Form>
               <p
@@ -155,11 +168,18 @@ function Login() {
                   margin: "auto",
                 }}
               >
-                Bạn chưa có tài khoản? Hãy{" "}
-                <a href="#" onClick={changePage} style={{ fontSize: "18px" }}>
-                  Đăng ký
-                </a>{" "}
-                trước khi đăng nhập.
+                Bạn có tài khoản rồi? Hãy{" "}
+                <span>
+                  <a
+                    href="#"
+                    style={{ fontSize: "18px" }}
+                    className="form-link"
+                    onClick={changePage}
+                  >
+                    Đăng nhập
+                  </a>
+                </span>{" "}
+                trước khi đăng ký.
               </p>
             </div>
           </Col>
@@ -169,4 +189,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default SignUp;

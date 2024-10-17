@@ -19,7 +19,7 @@ import {
   Lock,
 } from "@mui/icons-material";
 
-import {  useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getMyInfo, updateInfo } from "../../api/userService";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -29,6 +29,7 @@ function UserProfile() {
   const [formData, setFormData] = useState({
     userId: 0,
     userName: "",
+    password:"",
     phone: "",
     email: "",
   });
@@ -60,6 +61,7 @@ function UserProfile() {
       setFormData({
         userId:userInfo.userId || "",
         userName: userInfo.userName || "",
+        password: userInfo.password || "",
         email: userInfo.email || "",
         phone: userInfo.phone || "",
         

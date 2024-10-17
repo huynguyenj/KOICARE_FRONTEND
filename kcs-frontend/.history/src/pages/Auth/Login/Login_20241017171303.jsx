@@ -2,7 +2,7 @@ import { Button, Form, Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { getMyInfo, login } from "../../../api/userService";
-
+import FooterEnd from "../../../components/Footer/FooterEnd"
 
 function Login() {
   const [userName, setUserName] = useState("");
@@ -26,7 +26,6 @@ function Login() {
 
   async function loginUser(userInfo) {
     try {
-      console.log(userInfo)
       await login(userInfo);
       const resUserInfo = await getMyInfo()
       const userData = {
@@ -114,7 +113,7 @@ function Login() {
                 </Button>
               </div>
               <Form onSubmit={handleSubmit}>
-                <Form.Group controlId="formUsername">
+                <Form.Group controlId="formUsername" className="mb-3">
                   <Form.Control
                     type="text"
                     placeholder="Tên đăng nhập"
@@ -123,7 +122,7 @@ function Login() {
                     required
                   />
                 </Form.Group>
-                <Form.Group controlId="formPassword">
+                <Form.Group controlId="formPassword" className="mb-3">
                   <Form.Control
                     type="password"
                     placeholder="Mật khẩu"
@@ -132,7 +131,7 @@ function Login() {
                     required
                   />
                 </Form.Group>
-                <div className="text-end">
+                <div className="text-end mb-3">
                   <a
                     href="#"
                     style={{

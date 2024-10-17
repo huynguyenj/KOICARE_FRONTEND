@@ -93,7 +93,7 @@ function SignUp() {
         <Row>
           <Col>
             <div style={styles.registerBox}>
-              <div className="d-flex justify-content-between mb-3">
+              <div className="d-flex justify-content-between">
                 <Button
                   variant="danger"
                   className="w-50"
@@ -115,7 +115,7 @@ function SignUp() {
                     required
                   />
                 </Form.Group>
-                <Form.Group controlId="formPassword" className="">
+                <Form.Group controlId="formPassword" className="mb-3">
                   <Form.Control
                     type="password"
                     placeholder="Mật khẩu"
@@ -124,7 +124,7 @@ function SignUp() {
                     required
                   />
                 </Form.Group>
-                <Form.Group controlId="formEmail" className="">
+                <Form.Group controlId="formEmail" className="mb-3">
                   <Form.Control
                     type="email"
                     placeholder="Email"
@@ -133,7 +133,7 @@ function SignUp() {
                     required
                   />
                 </Form.Group>
-                <Form.Group controlId="formPhone" className="">
+                <Form.Group controlId="formPhone" className="mb-3">
                   <Form.Control
                     type="number"
                     placeholder="Số điện thoại"
@@ -141,7 +141,7 @@ function SignUp() {
                     onChange={(e) => setPhone(e.target.value)}
                     required
                   />
-                     <Form.Group controlId="formRole" className="mt-3">
+                     <Form.Group controlId="formRole" className="mb-3 mt-3">
                   <Form.Select
                     value={role}
                     onChange={(e) => setRole(e.target.value)}
@@ -155,7 +155,7 @@ function SignUp() {
                   </Form.Select>
                 </Form.Group>
                 </Form.Group>
-                <div className="text-end"></div>
+                <div className="text-end mb-3"></div>
                 <Button variant="primary" type="submit" className="w-100">
                   Đăng ký
                 </Button>

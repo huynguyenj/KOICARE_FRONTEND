@@ -3,7 +3,7 @@ import './AddProducts.css';
 import NavbarShop from "../../../components/NavbarShop/NavbarShop";
 import FooterEnd from "../../../components/Footer/FooterEnd";
 
-const AddProducts = () => {
+constAddProducts = () => {
   const [productName, setProductName] = useState('');
   const [productPrice, setProductPrice] = useState('');
   const [productType, setProductType] = useState('');

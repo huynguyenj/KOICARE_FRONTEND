@@ -132,7 +132,6 @@ function Footer() {
             />
           </div>
         </div>
-
         <div
           className="row mt-5"
           style={{

@@ -17,57 +17,54 @@ import HomeForShop from "./pages/HomeForShop/HomeForShop";
 import AddProducts from "./pages/Products/AddProducts/AddProducts";
 import ShowProducts from "./pages/Products/ShowProducts/ShowProducts";
 function App() {
-  // const router = createBrowserRouter([
-  //   {
-  //     path: "/",
-  //     element: <Layout />,
-  //     children: [
-  //       { index: true, element: <Home /> },
-  //       { path: "login", element: <Login /> },
-  //       { path: "register", element: <Register /> },
-  //       { path: "userpage", element: <User /> },
-  //       {
-  //         path: "userhome",
-  //         element: <Drawers />,
-  //         children: [
-  //           { path: "userprofile", element: <UserProfile /> },
-  //           { path: "myfish", element: <MyFish /> },
-  //           { path: "mypond", element: <MyPond /> },
-  //           { path: "", element: <Navigate to="mypond" replace /> },
-  //         ],
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     path:'admin',
-  //     element:<Admin/>,
-  //     children: [
-  //       { path: "userInfo", element: <UserInfo /> },
-  //       { path: "", element: <Navigate to="userInfo" replace /> }
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Layout />,
+      children: [
+        { index: true, element: <Home /> },
+        { path: "login", element: <Login /> },
+        { path: "register", element: <Register /> },
+        { path: "userpage", element: <User /> },
+        {
+          path: "userhome",
+          element: <Drawers />,
+          children: [
+            { path: "userprofile", element: <UserProfile /> },
+            { path: "myfish", element: <MyFish /> },
+            { path: "mypond", element: <MyPond /> },
+            { path: "", element: <Navigate to="mypond" replace /> },
+          ],
+        },
+      ],
+    },
+    {
+      path:'admin',
+      element:<Admin/>,
+      children: [
+        { path: "userInfo", element: <UserInfo /> },
+        { path: "", element: <Navigate to="userInfo" replace /> }
        
-  //     ],
-  //   },
-  //   {
-  //     path:'shop',
-  //     element:<Admin/>,
-  //     children: [
-  //       { path: "userInfo", element: <UserInfo /> },
-  //       { path: "", element: <Navigate to="userInfo" replace /> },
-  //       { path: 'HomeForShop', element : <HomeForShop/>},
-  //       { path: 'Product', element :<Products/>},
+      ],
+    },
+    // {
+    //   path:'shop',
+    //   element:<Admin/>,
+    //   children: [
+    //     { path: "userInfo", element: <UserInfo /> },
+    //     { path: "", element: <Navigate to="userInfo" replace /> },
+    //     { path: 'HomeForShop', element : <HomeForShop/>},
+    //     { path: 'Product', element :<Products/>},
         
-  //     ],
-  //   }
+    //   ],
+    // }
 
-  // ]);
+  ]);
 
   return (
     <>
-
-     {/* <RouterProvider router={router} /> */}
-    <ShowProducts/>
+     <RouterProvider router={router} />
+     
     </>
   );
 }
-
-export default App;

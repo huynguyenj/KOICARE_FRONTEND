@@ -17,6 +17,7 @@ import Shop from "./components/Drawers/Shop";
 import Dashboard from "./pages/Admin/Dashboard";
 import UserInfo from "./pages/Admin/UserInfo";
 import HomeForShop from "./pages/HomeForShop/HomeForShop";
+<<<<<<< Updated upstream
 import ShowProduct from "./pages/Products/ShowProducts/ShowProducts";
 import Notification from "./pages/Admin/Notification";
 import FishList from "./pages/MyFish/MyFish";
@@ -66,13 +67,65 @@ function App() {
         { path: "Product", element: <ShowProduct /> },
       ],
     },
+=======
+import AddProducts from "./pages/Products/AddProducts/AddProducts";
+import ShowProducts from "./pages/Products/ShowProducts/ShowProducts";
+function App() {
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Layout />,
+      children: [
+        { index: true, element: <Home /> },
+        { path: "login", element: <Login /> },
+        { path: "register", element: <Register /> },
+        { path: "userpage", element: <User /> },
+        {
+          path: "userhome",
+          element: <Drawers />,
+          children: [
+            { path: "userprofile", element: <UserProfile /> },
+            { path: "myfish", element: <MyFish /> },
+            { path: "mypond", element: <MyPond /> },
+            { path: "", element: <Navigate to="mypond" replace /> },
+          ],
+        },
+      ],
+    },
+    {
+      path:'admin',
+      element:<Admin/>,
+      children: [
+        { path: "userInfo", element: <UserInfo /> },
+        { path: "", element: <Navigate to="userInfo" replace /> }
+       
+      ],
+    },
+    // {
+    //   path:'shop',
+    //   element:<Admin/>,
+    //   children: [
+    //     { path: "userInfo", element: <UserInfo /> },
+    //     { path: "", element: <Navigate to="userInfo" replace /> },
+    //     { path: 'HomeForShop', element : <HomeForShop/>},
+    //     { path: 'Product', element :<Products/>},
+        
+    //   ],
+    // }
+
+>>>>>>> Stashed changes
   ]);
 
   return (
     <>
+<<<<<<< Updated upstream
       {/* <Admin />
       <Dashboard /> */}
       <RouterProvider router={router} />
+=======
+     {/* <RouterProvider router={router} /> */}
+     <AddProducts/>
+>>>>>>> Stashed changes
     </>
   );
 }

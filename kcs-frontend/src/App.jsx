@@ -7,7 +7,7 @@ import Register from "./pages/Auth/SignUp/SignUp";
 import UserProfile from "./pages/UserProfile/UserProfile";
 import User from "./pages/User/User";
 import Layout from "./components/Layout";
-import Drawers from "./components/Drawers";
+import Drawers from "./components/Drawers/User";
 // import NavbarUser from "./components/NavbarAfterLogin/NavbarUser";
 import MyFish from "./pages/MyFish/FishAdd";
 import MyPond from "./pages/MyPond/MyPond";
@@ -22,6 +22,7 @@ import FishList from "./pages/MyFish/MyFish";
 import News from "./pages/News/News";
 import Store from "./pages/Store/Product";
 import Details from "./pages/Store/Details";
+import CartTab from "./pages/Store/CartTab";
 function App() {
   const router = createBrowserRouter([
     {
@@ -41,6 +42,7 @@ function App() {
             { path: "mypond", element: <MyPond /> },
             { path: "store", element: <Store /> },
             { path: "/userhome/store/:id", element: <Details /> },
+            { path: "/userhome/cart", element: <CartTab /> },
             { path: "", element: <Navigate to="mypond" replace /> },
           ],
         },
@@ -70,6 +72,7 @@ function App() {
   return (
     <>
       <RouterProvider router={router} />
+      {/* <ShopD /> */}
     </>
   );
 }

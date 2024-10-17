@@ -12,6 +12,10 @@ import {
   ListItemIcon,
   ListItemText,
   Divider,
+  FormGroup,
+  FormControlLabel,
+  Checkbox,
+  FormLabel
 } from "@mui/material";
 import {
   AccountCircle,
@@ -151,14 +155,29 @@ function UserProfile() {
                   onChange={handleChange}
                   margin="normal"
                 />
-                <TextField
-                  fullWidth
-                  label="Giới tính"
-                  name="gender"
-                  value={formData.gender}
-                  onChange={handleChange}
-                  margin="normal"
-                />
+                  <FormLabel component="" sx={{marginRight: "10px"}}>Giới tính:</FormLabel>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={formData.gender === "male"}
+                        onChange={handleChange}
+                        name="gender"
+                        value="male"
+                      />
+                    }
+                    label="Nam"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={formData.gender === "female"}
+                        onChange={handleChange}
+                        name="gender"
+                        value="female"
+                      />
+                    }
+                    label="Nữ"
+                  />
                 <TextField
                   fullWidth
                   label="Email"

@@ -2,7 +2,7 @@ import { HashLink } from "react-router-hash-link";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserTie, faCartShopping } from "@fortawesome/free-solid-svg-icons";
-import "./Navbar.css"
+import "./Navbar.css";
 import { getMyInfo } from "../../api/userService";
 
 function Navbar() {
@@ -17,28 +17,31 @@ function Navbar() {
   }
 
   async function changeUserProfilePage() {
-    try {
-      // Call getMyInfo and only navigate if the call succeeds
-      await getMyInfo()
-          .then(() => {
-              // Navigate to the user home page if getMyInfo succeeds
-              navigator("/userhome");
-          })
-          .catch(() => {
-              // Alert user if the request fails
-              alert("Làm ơn đăng nhập để dùng chức năng");
-          });
-  } catch (error) {
-      alert("An error occurred");
-  }
-  
-    // navigator("/userhome");
+    // try {
+    //   // Call getMyInfo and only navigate if the call succeeds
+    //   await getMyInfo()
+    //     .then(() => {
+    //       // Navigate to the user home page if getMyInfo succeeds
+    //       navigator("/userhome");
+    //     })
+    //     .catch(() => {
+    //       // Alert user if the request fails
+    //       alert("Làm ơn đăng nhập để dùng chức năng");
+    //     });
+    // } catch (error) {
+    //   alert("An error occurred");
+    // }
+
+    navigator("/userhome");
   }
 
-  function UserPage() {
-    navigator("/userpage");
+  function newspage() {
+    navigator("/news");
   }
 
+  function store() {
+    navigator("/store");
+  }
 
   // Define inline styles as objects
   const navbarStyle = {
@@ -114,8 +117,16 @@ function Navbar() {
           className="nav-item ms-4"
           style={navItemStyle}
         >
-          Tin tức và blog
+          Blog
         </HashLink>
+        <a
+          href="#"
+          onClick={newspage}
+          className="nav-item ms-4"
+          style={navItemStyle}
+        >
+          Tin tức
+        </a>
         <a
           className="nav-item ms-4"
           href="#"
@@ -124,7 +135,12 @@ function Navbar() {
         >
           <FontAwesomeIcon icon={faUserTie} style={{ color: "#ffffff" }} />
         </a>
-        <a className="nav-item ms-4" href="#" onClick={UserPage} style={navItemStyle}>
+        <a
+          className="nav-item ms-4"
+          href="#"
+          onClick={store}
+          style={navItemStyle}
+        >
           <FontAwesomeIcon icon={faCartShopping} style={{ color: "#ffffff" }} />
         </a>
         <div className="log-part ms-4 me-4" style={logPartStyle}>

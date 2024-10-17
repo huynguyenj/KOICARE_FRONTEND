@@ -15,18 +15,33 @@ import { Link } from "react-router-dom";
 const FishForm = () => {
   const [formData, setFormData] = useState({
     name: "",
-    species: "",
+    type: "",
     shape: "",
     size: "",
     weight: "",
     gender: "",
-    feature: "",
-    habitat: "",
+    age: "",
+    origin: "",
+    price: "",
+    health: "",
+    image: null, // Add an image property to store the uploaded image
   });
+
+  const [imagePreview, setImagePreview] = useState(null); // Add a state to store the image preview
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setFormData({ ...formData, image: file }); // Update the image property with the selected file
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImagePreview(reader.result); // Update the image preview state with the file contents
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleSubmit = (e) => {
@@ -50,23 +65,35 @@ const FishForm = () => {
           <Card sx={{ padding: 3, textAlign: "center", boxShadow: 6 }}>
             <Typography variant="h6">Thêm cá của tôi</Typography>
             <Divider sx={{ margin: "10px 0" }} />
-            <img
-              src="/path/to/fish-image.jpg"
-              alt="Fish"
-              style={{
-                width: "100%",
-                height: "auto",
-                borderRadius: "8px",
-                marginBottom: "20px",
-              }}
+            {imagePreview ? (
+              <img
+                src={imagePreview}
+                alt="Fish"
+                style={{
+                  width: "50%",
+                  height: "auto",
+                  borderRadius: "8px",
+                  marginBottom: "20px",
+                }}
+              />
+            ) : (
+              <></>
+            )}
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              style={{ display: "none" }}
+              id="image-input"
             />
             <Button
+              component="label"
+              htmlFor="image-input"
               variant="contained"
               color="success"
-              startIcon={<AddCircleOutlineIcon />}
               sx={{ marginBottom: 2, width: "100%" }}
             >
-              Tạo thêm cá mới
+              Chọn ảnh
             </Button>
             <Button
               component={Link}
@@ -76,9 +103,6 @@ const FishForm = () => {
               sx={{ marginBottom: 2, width: "100%" }}
             >
               Xem danh sách cá của tôi
-            </Button>
-            <Button variant="contained" sx={{ width: "100%" }}>
-              Thêm vào cá yêu thích
             </Button>
           </Card>
         </Grid>
@@ -101,8 +125,8 @@ const FishForm = () => {
                   <TextField
                     fullWidth
                     label="Giống loài"
-                    name="species"
-                    value={formData.species}
+                    name="type"
+                    value={formData.type}
                     onChange={handleChange}
                   />
                 </Grid>
@@ -145,18 +169,36 @@ const FishForm = () => {
                 <Grid item xs={12} sm={6}>
                   <TextField
                     fullWidth
-                    label="Đặc điểm nổi bật"
-                    name="feature"
-                    value={formData.feature}
+                    label="Tuổi"
+                    name="age"
+                    value={formData.age}
                     onChange={handleChange}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
                     fullWidth
-                    label="Hồ đang sống"
-                    name="habitat"
-                    value={formData.habitat}
+                    label="Tình trạng sức khỏe"
+                    name="health"
+                    value={formData.health}
+                    onChange={handleChange}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    label="Nguồn gốc / Xuất xứ"
+                    name="origin"
+                    value={formData.origin}
+                    onChange={handleChange}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    label="Giá trị của cá"
+                    name="price"
+                    value={formData.price}
                     onChange={handleChange}
                   />
                 </Grid>

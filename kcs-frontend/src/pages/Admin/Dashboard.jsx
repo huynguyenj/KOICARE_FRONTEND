@@ -44,7 +44,7 @@ const Dashboard = () => {
          <Typography
            variant="h4"
            gutterBottom
-           sx={{ textAlign: "center", color: "#fff", fontSize: "50px", mb: 4 }}
+           sx={{fontWeight: "bold", textAlign: "center", color: "#fff", fontSize: "50px", mb: 4 }}
          >
            Dashboard
          </Typography>

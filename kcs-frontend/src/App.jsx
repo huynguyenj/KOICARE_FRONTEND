@@ -19,6 +19,9 @@ import HomeForShop from "./pages/HomeForShop/HomeForShop";
 import ShowProduct from "./pages/Products/ShowProducts/ShowProducts";
 import Notification from "./pages/Admin/Notification";
 import FishList from "./pages/MyFish/MyFish";
+import News from "./pages/News/News";
+import Store from "./pages/Store/Product";
+import Details from "./pages/Store/Details";
 function App() {
   const router = createBrowserRouter([
     {
@@ -28,7 +31,6 @@ function App() {
         { index: true, element: <Home /> },
         { path: "login", element: <Login /> },
         { path: "register", element: <Register /> },
-        { path: "userpage", element: <User /> },
         {
           path: "userhome",
           element: <Drawers />,
@@ -37,18 +39,20 @@ function App() {
             { path: "myfish", element: <MyFish /> },
             { path: "myfishlist", element: <FishList /> },
             { path: "mypond", element: <MyPond /> },
+            { path: "store", element: <Store /> },
+            { path: "/userhome/store/:id", element: <Details /> },
             { path: "", element: <Navigate to="mypond" replace /> },
           ],
         },
       ],
     },
+    { path: "news", element: <News /> },
     {
-      path:'admin',
-      element:<Admin/>,
+      path: "admin",
+      element: <Admin />,
       children: [
         { path: "userInfo", element: <UserInfo /> },
-        { path: "", element: <Navigate to="userInfo" replace /> }
-
+        { path: "", element: <Navigate to="userInfo" replace /> },
       ],
     },
     {
@@ -65,8 +69,6 @@ function App() {
 
   return (
     <>
-      {/* <Admin />
-      <Dashboard /> */}
       <RouterProvider router={router} />
     </>
   );

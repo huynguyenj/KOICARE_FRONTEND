@@ -45,8 +45,8 @@ function MyFishList() {
   }
 
   return (
-    <>
-      <div className='grid-container'>
+    <div>
+      <div className='grid-container' >
         <h1 style={style.list}>Danh sách cá của tôi</h1>
         <hr style={style.hr} />
         <div className="row" style={{ textAlign: 'center' }}>
@@ -78,9 +78,10 @@ function MyFishList() {
             </div>
           ))}
         </div>
+        <Footer />
       </div>
-      <Footer />
-    </>
+      
+    </div>
 
   )
 }

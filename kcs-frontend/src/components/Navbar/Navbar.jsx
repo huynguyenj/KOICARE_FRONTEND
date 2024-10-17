@@ -17,22 +17,22 @@ function Navbar() {
   }
 
   async function changeUserProfilePage() {
-    try {
-      // Call getMyInfo and only navigate if the call succeeds
-      await getMyInfo()
-          .then(() => {
-              // Navigate to the user home page if getMyInfo succeeds
-              navigator("/userhome");
-          })
-          .catch(() => {
-              // Alert user if the request fails
-              alert("Làm ơn đăng nhập để dùng chức năng");
-          });
-  } catch (error) {
-      alert("An error occurred");
-  }
+  //   try {
+  //     // Call getMyInfo and only navigate if the call succeeds
+  //     await getMyInfo()
+  //         .then(() => {
+  //             // Navigate to the user home page if getMyInfo succeeds
+  //             navigator("/userhome");
+  //         })
+  //         .catch(() => {
+  //             // Alert user if the request fails
+  //             alert("Làm ơn đăng nhập để dùng chức năng");
+  //         });
+  // } catch (error) {
+  //     alert("An error occurred");
+  // }
   
-    // navigator("/userhome");
+    navigator("/userhome");
   }
 
   function UserPage() {

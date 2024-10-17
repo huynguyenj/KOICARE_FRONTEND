@@ -100,8 +100,12 @@ const PondSection = () => {
             >
               Thêm hồ cá
             </Button>
-            <Button variant="outlined" startIcon={<ListIcon />}>
-              Xem thông tin hồ
+            <Button
+            component={Link}
+            to="/userhome/pondlist"
+             variant="outlined" 
+             startIcon={<ListIcon />}>
+              Xem danh sách hồ
             </Button>
           </Box>
         </Grid>

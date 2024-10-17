@@ -14,24 +14,23 @@ import {
   Divider,
 } from "@mui/material";
 import {
- 
+  AccountCircle,
+  Favorite,
   ShoppingCart,
+  Link,
   Lock,
 } from "@mui/icons-material";
 
 import { useLocation, useNavigate } from "react-router-dom";
-import { getMyInfo, updateInfo } from "../../api/userService";
-import { ToastContainer, toast } from "react-toastify";
+import { getMyInfo } from "../../api/userService";
 
 
 function UserProfile() {
   const [userInfo, setUserInfo] = useState({});
   const [formData, setFormData] = useState({
-    userId: 0,
-    userName: "",
-    password:"",
-    phone: "",
+    username: "",
     email: "",
+    phone: "",
   });
 
   useEffect(()=>{
@@ -61,12 +60,9 @@ function UserProfile() {
     // Update formData with userInfo values when userInfo changes
     if (userInfo) {
       setFormData({
-        userId:userInfo.userId || "",
-        userName: userInfo.userName || "",
-        password: userInfo.password || "",
+        username: userInfo.userName || "",
         email: userInfo.email || "",
         phone: userInfo.phone || "",
-        
       });
     }
   }, [userInfo]);
@@ -79,38 +75,22 @@ function UserProfile() {
     });
   };
 
-  const [errors, setErrors] = useState({ email: "", phone: "" });
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-         setErrors({ email: "", phone: "" }); // Reset errors
-
-    // Validate email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-        setErrors((prev) => ({ ...prev, email: "Vui lòng nhập đúng định dạng gmail có @." }));
-        return;
-    }
-
-    // Validate phone number
-    const phoneRegex = /^\d{10}$/;
-    if (!phoneRegex.test(formData.phone)) {
-        setErrors((prev) => ({ ...prev, phone: "Vui lòng nhập 10 chữ số." }));
-        return;
-    }
     console.log("Form submitted:", formData);
-    await updateInfo(formData.userId,formData)
-        .then(()=>toast.success("Thông tin của bạn đã được cập nhật thành công!"))
-        .catch(()=> toast.error("Cập nhật thông tin không thành công!"))
   };
 
- 
+  const handleSaveInfo = (userId)=>{
+    e.preventDefault();
+
+  }
   const handleReset = () => {
     setFormData({
-        userName: userInfo.userName || "",
-        email: userInfo.email || "",
-        phone: userInfo.phone || "",
+      username: "",
+      password: "",
+      gender: "",
+      email: "",
+      phone: "",
     });
   };
 
@@ -118,9 +98,7 @@ function UserProfile() {
   const navigate = useNavigate();
 
   return (
-    
     <div>
-       <ToastContainer />
       <Box
         sx={{
           height: "100vh",
@@ -138,7 +116,8 @@ function UserProfile() {
                 src="/Avatar.jpg"
                 alt="User avatar"
               />
-              <Typography variant="h6">{formData.userName}</Typography>
+              <Typography variant="h6">{</Typography>
+              <Typography variant="body2">Thay đổi ảnh đại diện</Typography>
               <Button
                 variant="contained"
                 color="success"
@@ -151,9 +130,27 @@ function UserProfile() {
               <List>
                 <ListItem>
                   <ListItemIcon>
+                    <AccountCircle />
+                  </ListItemIcon>
+                  <ListItemText primary="Chỉnh sửa tài khoản" />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <Favorite />
+                  </ListItemIcon>
+                  <ListItemText primary="Cá yêu thích" />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
                     <ShoppingCart />
                   </ListItemIcon>
                   <ListItemText primary="Sản phẩm đã mua" />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <Link />
+                  </ListItemIcon>
+                  <ListItemText primary="Liên kết xã hội" />
                 </ListItem>
                 <ListItem>
                   <ListItemIcon>
@@ -171,9 +168,9 @@ function UserProfile() {
               <form onSubmit={handleSubmit}>
                 <TextField
                   fullWidth
-                  label="Tên người dùng"
-                  name="userName"
-                  value={formData.userName}
+                  label={formData.username}
+                  name="username"
+                  value={formData.username}
                   onChange={handleChange}
                   margin="normal"
                 />
@@ -184,8 +181,6 @@ function UserProfile() {
                   value={formData.email}
                   onChange={handleChange}
                   margin="normal"
-                  error={!!errors.email} // Set error state
-                  helperText={errors.email} // Display error message
                 />
                 <TextField
                   fullWidth
@@ -194,8 +189,6 @@ function UserProfile() {
                   value={formData.phone}
                   onChange={handleChange}
                   margin="normal"
-                  error={!!errors.phone} // Set error state
-                  helperText={errors.phone} // Display error message
                 />
                 <Box
                   sx={{
@@ -211,7 +204,7 @@ function UserProfile() {
                   >
                     Tải lại
                   </Button>
-                  <Button type="submit" variant="contained" color="primary">
+                  <Button type="submit" variant="contained" color="primary" onClick={()=>handleSaveInfo(userInfo.userId)}>
                     Lưu
                   </Button>
                 </Box>

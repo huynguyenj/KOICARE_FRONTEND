@@ -46,7 +46,7 @@ export const updateInfo =async (userId, userInfo)=>{
             if(!token){
                   throw new Error('Token not find')
             }
-            const res = await axios.put(REST_API_BASE_URL+`/api/update_User/${userId}`,userInfo,{
+            const res = await axios.get(REST_API_BASE_URL+`/api/update_User/${userId}`,userInfo,{
                   headers: {
                         Authorization: `Bearer ${token}`
                   }

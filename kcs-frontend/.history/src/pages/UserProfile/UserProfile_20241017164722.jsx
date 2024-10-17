@@ -21,7 +21,7 @@ import {
 
 import { useLocation, useNavigate } from "react-router-dom";
 import { getMyInfo, updateInfo } from "../../api/userService";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 
 function UserProfile() {
@@ -89,20 +89,17 @@ function UserProfile() {
     // Validate email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
-        setErrors((prev) => ({ ...prev, email: "Vui lòng nhập đúng định dạng gmail có @." }));
+        setErrors((prev) => ({ ...prev, email: "Invalid email format." }));
         return;
     }
 
     // Validate phone number
-    const phoneRegex = /^\d{10}$/;
     if (!phoneRegex.test(formData.phone)) {
-        setErrors((prev) => ({ ...prev, phone: "Vui lòng nhập 10 chữ số." }));
+        setErrors((prev) => ({ ...prev, phone: "Phone number must be 8 digits." }));
         return;
     }
     console.log("Form submitted:", formData);
-    await updateInfo(formData.userId,formData)
-        .then(()=>toast.success("Thông tin của bạn đã được cập nhật thành công!"))
-        .catch(()=> toast.error("Cập nhật thông tin không thành công!"))
+    await updateInfo(formData.userId,formData).then(()=>toast("Update successfully!")).catch((error)=>console.log(error))
   };
 
  
@@ -118,9 +115,7 @@ function UserProfile() {
   const navigate = useNavigate();
 
   return (
-    
     <div>
-       <ToastContainer />
       <Box
         sx={{
           height: "100vh",
@@ -184,8 +179,6 @@ function UserProfile() {
                   value={formData.email}
                   onChange={handleChange}
                   margin="normal"
-                  error={!!errors.email} // Set error state
-                  helperText={errors.email} // Display error message
                 />
                 <TextField
                   fullWidth
@@ -194,8 +187,6 @@ function UserProfile() {
                   value={formData.phone}
                   onChange={handleChange}
                   margin="normal"
-                  error={!!errors.phone} // Set error state
-                  helperText={errors.phone} // Display error message
                 />
                 <Box
                   sx={{

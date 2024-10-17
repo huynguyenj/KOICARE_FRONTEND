@@ -100,9 +100,8 @@ function UserProfile() {
         return;
     }
     console.log("Form submitted:", formData);
-    await updateInfo(formData.userId,formData)
-        .then(()=>toast.success("Thông tin của bạn đã được cập nhật thành công!"))
-        .catch(()=> toast.error("Cập nhật thông tin không thành công!"))
+    await updateInfo(formData.userId,formData).then(()=>toast.success("Thông tin của bạn đã được cập nhật thành công!")).catch(()=> toast.error("Cập nhật thông tin không thành công!"))
+    toast.success("Thông tin của bạn đã được cập nhật thành công!")
   };
 
  
@@ -118,9 +117,7 @@ function UserProfile() {
   const navigate = useNavigate();
 
   return (
-    
     <div>
-       <ToastContainer />
       <Box
         sx={{
           height: "100vh",

@@ -101,8 +101,9 @@ function UserProfile() {
     }
     console.log("Form submitted:", formData);
     await updateInfo(formData.userId,formData)
-        .then(()=>toast.success("Thông tin của bạn đã được cập nhật thành công!"))
-        .catch(()=> toast.error("Cập nhật thông tin không thành công!"))
+    .
+    then(()=>toast.success("Thông tin của bạn đã được cập nhật thành công!"))
+    .catch(()=> toast.error("Cập nhật thông tin không thành công!"))
   };
 
  

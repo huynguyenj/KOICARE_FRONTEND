@@ -144,7 +144,7 @@ function NavbarUser({ user, onLogout }) {
           >
             <img src='Avatar.jpg' alt="User Avatar" style={avatarStyle} />
             <span style={{ color: "#F4CD79", marginRight: "5px" }}>
-              {user!=null? user:handleLogout()}
+              {user}
             </span>
           </button>
 

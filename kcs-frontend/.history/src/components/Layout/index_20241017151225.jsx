@@ -28,7 +28,8 @@ function Layout() {
     try {
       const response = await getMyInfo(); // Fetch user info from the API
       if (response && response.result) {
-        const parsedUserInfo = response.result; // Assuming the user data is in response.result  
+        const parsedUserInfo = response.result; // Assuming the user data is in response.result
+        
         if (parsedUserInfo.userName) {
           setUser(parsedUserInfo.userName); // Set user name from the fetched data
           setIsLoggedIn(true); // Update logged-in status

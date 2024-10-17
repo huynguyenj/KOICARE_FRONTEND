@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../../../components/Header/Header";
 import Footer from "../../../components/Footer/Footer";
+import FooterEnd from "../../../components/Footer/FooterEnd"
 import "./Home.css";
 
 function Home() {
@@ -131,6 +132,7 @@ function Home() {
         </div>
       </div>
       <Footer />
+      <FooterEnd />
     </div>
   );
 }

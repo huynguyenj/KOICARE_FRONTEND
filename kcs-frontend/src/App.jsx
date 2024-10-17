@@ -18,9 +18,8 @@ import Dashboard from "./pages/Admin/Dashboard";
 import UserInfo from "./pages/Admin/UserInfo";
 import HomeForShop from "./pages/HomeForShop/HomeForShop";
 import ShowProduct from "./pages/Products/ShowProducts/ShowProducts";
-import Notification from "./pages/Admin/Notification";
-import FishList from "./pages/MyFish/MyFish";
-import PondAdd from "./pages/MyPond/PondAdd";
+import AddProducts from "./pages/Products/AddProducts/AddProducts";
+<<<<<<< Updated upstream
 
 function App() {
   const router = createBrowserRouter([
@@ -66,13 +65,13 @@ function App() {
         { path: "Product", element: <ShowProduct /> },
       ],
     },
+
   ]);
 
   return (
     <>
-      {/* <Admin />
-      <Dashboard /> */}
       <RouterProvider router={router} />
+     <AddProducts/>
     </>
   );
 }

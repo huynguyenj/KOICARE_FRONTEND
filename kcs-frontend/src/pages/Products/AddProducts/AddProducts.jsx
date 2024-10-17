@@ -61,18 +61,10 @@ const AddProducts = () => {
 
           <div className="actions">
             <button type="submit">Thêm sản phẩm</button>
-            <div>
-              <i className="fa fa-trash" title="Xoá sản phẩm"></i>
-              <i className="fa fa-sync" title="Cập nhật"></i>
-            </div>
           </div>
         </form>
       </div>
-<<<<<<< Updated upstream
-
-=======
       <FooterEnd/>
->>>>>>> Stashed changes
     </>
   );
 };

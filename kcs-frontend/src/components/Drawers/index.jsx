@@ -1,5 +1,5 @@
 import * as React from "react";
-import { styled, useTheme } from "@mui/material/styles";
+import { styled, useTheme, alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -16,24 +16,63 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import { Button } from "@mui/material";
-// import { Link, Outlet } from "react-router-dom"
+import SearchIcon from "@mui/icons-material/Search";
+import Badge from "@mui/material/Badge";
+import MailIcon from "@mui/icons-material/Mail";
+import ShoppingCart from "@mui/icons-material/ShoppingCart";
+import AccountCircle from "@mui/icons-material/AccountCircle"; // Added AccountCircle import
+import { Button, InputBase } from "@mui/material";
 import { useNavigate, Outlet } from "react-router-dom";
-// FontAwesome Imports
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCartShopping,
   faClock,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
-
-
-
-
+import { useCart } from '../../pages/Store/Cart'; // Adjust the import path
 const drawerWidth = 240;
 
+const Search = styled("div")(({ theme }) => ({
+  position: "relative",
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  "&:hover": {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
+  },
+  marginRight: theme.spacing(2),
+  marginLeft: 0,
+  width: "100%",
+  [theme.breakpoints.up("sm")]: {
+    marginLeft: theme.spacing(3),
+    width: "auto",
+  },
+}));
+
+const SearchIconWrapper = styled("div")(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: "100%",
+  position: "absolute",
+  pointerEvents: "none",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: "inherit",
+  "& .MuiInputBase-input": {
+    padding: theme.spacing(1, 1, 1, 0),
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "20ch",
+    },
+  },
+}));
+
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
-  ({ theme }) => ({
+  ({ theme, open }) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
     transition: theme.transitions.create("margin", {
@@ -41,41 +80,31 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: `-${drawerWidth}px`,
-    variants: [
-      {
-        props: ({ open }) => open,
-        style: {
-          transition: theme.transitions.create("margin", {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-          }),
-          marginLeft: 0,
-        },
-      },
-    ],
+    ...(open && {
+      transition: theme.transitions.create("margin", {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      marginLeft: 0,
+    }),
   })
 );
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
-})(({ theme }) => ({
+})(({ theme, open }) => ({
   transition: theme.transitions.create(["margin", "width"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  variants: [
-    {
-      props: ({ open }) => open,
-      style: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: `${drawerWidth}px`,
-        transition: theme.transitions.create(["margin", "width"], {
-          easing: theme.transitions.easing.easeOut,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
-      },
-    },
-  ],
+  ...(open && {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: `${drawerWidth}px`,
+    transition: theme.transitions.create(["margin", "width"], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
 }));
 
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -87,10 +116,9 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export default function PersistentDrawerLeft() {
-  
   const theme = useTheme();
+  const { cartItems } = useCart(); // Use the Cart context
   const [open, setOpen] = React.useState(false);
-
   const navigate = useNavigate();
 
   const handleDrawerOpen = () => {
@@ -99,6 +127,12 @@ export default function PersistentDrawerLeft() {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  // Handle profile menu open (define your own logic for opening profile menu)
+  const handleProfileMenuOpen = (event) => {
+    // Implement the logic for opening the profile menu (e.g., a dropdown or a popover)
+    console.log("Profile menu opened");
   };
 
   const drawerItems = [
@@ -144,18 +178,45 @@ export default function PersistentDrawerLeft() {
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            sx={[
-              {
-                mr: 2,
-              },
-              open && { display: "none" },
-            ]}
+            sx={[{ mr: 2 }, open && { display: "none" }]}
           >
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
             Welcome
           </Typography>
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ "aria-label": "search" }}
+            />
+          </Search>
+          <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+            <IconButton
+              size="large"
+              aria-label="show 17 new notifications"
+              color="inherit"
+            >
+              <Badge badgeContent={cartItems.length} color="error">
+                {" "}
+                {/* Update this line */}
+                <ShoppingCart />
+              </Badge>
+            </IconButton>
+            <IconButton
+              size="large"
+              edge="end"
+              aria-label="account of current user"
+              onClick={handleProfileMenuOpen}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+          </Box>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -186,18 +247,18 @@ export default function PersistentDrawerLeft() {
             <ListItem key={text} disablePadding>
               <ListItemButton onClick={() => navigate(path)}>
                 <ListItemIcon>
-                  {iconType === "img" && (
+                  {iconType === "img" ? (
                     <img
                       src={iconSrc}
                       alt={text}
-                      width="30" // Set appropriate width
-                      height="30" // Set appropriate height
+                      width="30"
+                      height="30"
                       style={{
                         filter:
                           "invert(43%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(88%) contrast(87%)",
-                      }} // Set color
+                      }}
                     />
-                  )}
+                  ) : null}
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>
@@ -207,14 +268,14 @@ export default function PersistentDrawerLeft() {
         <Divider />
         <List>
           {[
-            { text: "Cửa hàng", icon: faCartShopping },
+            { text: "Cửa hàng", icon: faCartShopping, path: "/userhome/store" },
             { text: "Hẹn giờ", icon: faClock },
             { text: "Đánh giá", icon: faStar },
-          ].map(({ text, icon }) => (
+          ].map(({ text, icon, path }) => (
             <ListItem key={text} disablePadding>
-              <ListItemButton>
+              <ListItemButton onClick={() => navigate(path)}>
                 <ListItemIcon>
-                  <FontAwesomeIcon style={{fontSize: '24'}} icon={icon} />
+                  <FontAwesomeIcon style={{ fontSize: "24px" }} icon={icon} />
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>

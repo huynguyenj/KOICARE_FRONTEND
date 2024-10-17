@@ -94,47 +94,6 @@ function Footer() {
             />
           </div>
         </div>
-<<<<<<< Updated upstream
-
-        <div
-          className="row mt-5"
-          style={{
-            backgroundColor: "#212121",
-            padding: "1px",
-            position: "relative",
-            color: "#fff",
-          }}
-        >
-          <div
-            className="d-flex justify-content-around align-items-center"
-            style={fontStyle}
-          >
-            <div style={{ fontFamily: "JetBrains Mono", fontSize: "15px" }}>
-              &copy; 2024 Bảo lưu mọi quyền, Koiday&reg;
-              <br />
-              Chính sách quyền riêng tư | Điều khoản
-            </div>
-            <div className="social-icons" style={socialIconsStyle}>
-              <a>
-                <i style={iconStyle}>
-                  <FontAwesomeIcon icon={faFacebook} />
-                </i>
-              </a>
-              <a>
-                <i style={iconStyle}>
-                  <FontAwesomeIcon icon={faTelegram} />
-                </i>
-              </a>
-              <a>
-                <i style={iconStyle}>
-                  <FontAwesomeIcon icon={faPinterest} />
-                </i>
-              </a>
-            </div>
-          </div>
-        </div>
-=======
->>>>>>> Stashed changes
       </div>
     </>
   );

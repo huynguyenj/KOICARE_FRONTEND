@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../../../components/Header/Header";
 import Footer from "../../../components/Footer/Footer";
+import FooterEnd from "../../../components/Footer/FooterEnd"
 import "./Home.css";
 
 function Home() {
@@ -24,13 +25,13 @@ function Home() {
       maxWidth: "1200px",
       lineHeight: "1.3",
       fontFamily: "JetBrains Mono",
-      fontSize: "18px",
+      fontSize: "20px",
     },
     smallText: {
       maxWidth: "1200px",
       lineHeight: "1.3",
       fontFamily: "JetBrains Mono",
-      fontSize: "15px",
+      fontSize: "20px",
     },
     imgContainer: {
       display: "grid",
@@ -131,6 +132,7 @@ function Home() {
         </div>
       </div>
       <Footer />
+      <FooterEnd />
     </div>
   );
 }

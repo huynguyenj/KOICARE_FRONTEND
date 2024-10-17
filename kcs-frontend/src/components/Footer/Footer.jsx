@@ -1,10 +1,4 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faFacebook,
-  faPinterest,
-  faTelegram,
-} from "@fortawesome/free-brands-svg-icons";
 
 function Footer() {
   // Define the inline styles as objects
@@ -16,8 +10,7 @@ function Footer() {
   };
 
   const footerContainerStyle = {
-    padding: "10px",
-    borderTop: "2px solid #fff",
+    padding: "5px",
     borderRadius: "0px 0px 10px 10px",
     justifyContent: "space-around",
     display: "flex",
@@ -57,71 +50,40 @@ function Footer() {
     justifyContent: "center",
     marginRight: "30px",
   };
-
-  const iconStyle = {
-    margin: "0 15px",
-  };
-
-  const socialIconsStyle = {
-    fontSize: "24px",
-    display: "flex",
-    justifyContent: "center",
-    margin: "20px"
-  };
-
-  const fontStyle = {
-    fontWeight: "bold",
-    fontSize: "14px",
-    fontFamily: "JetBrains Mono",
-  };
-
+  
   return (
     <>
       <div style={footerBackgroundStyle}>
         <img className="bg-image" src="/BG.jpg" alt="" style={bgImageStyle} />
-        <div className="custom-divider"></div>
         <div style={footerContainerStyle}>
           <div style={footerSectionStyle}>
             <h4 style={{ fontFamily: "JetBrains Mono" }}>Địa chỉ khu vực:</h4>
             <ul>
-              <li style={{ fontFamily: "JetBrains Mono" }}>
-                CS1: Hẻm 212/Đ, Đường Nguyễn Văn Linh, Quận 7
-              </li>
-              <li style={{ fontFamily: "JetBrains Mono" }}>
-                CS2: Số 17 Đường 37, P. Đông Hòa, Quận Cẩm Lệ, Thành Phố Đà Nẵng
-              </li>
-              <li style={{ fontFamily: "JetBrains Mono" }}>
-                CS3: 99 Hồ Thị Tư, Thị Xã Tiền Hải, Tỉnh Thái Bình
-              </li>
-              <li style={{ fontFamily: "JetBrains Mono" }}>
-                CS4: số 11, Phố Gia Thượng, Phường Ngọc Thụy, Quận Long Biên,
-                Thành Phố Hà Nội
-              </li>
+              <li style={{ fontFamily: "JetBrains Mono" }}>CS1: Hẻm 212/Đ, Đường Nguyễn Văn Linh, Quận 7</li>
+              <li style={{ fontFamily: "JetBrains Mono" }}>CS2: Số 17 Đường 37, P. Đông Hòa, Quận Cẩm Lệ, Thành Phố Đà Nẵng</li>
+              <li style={{ fontFamily: "JetBrains Mono" }}>CS3: 99 Hồ Thị Tư, Thị Xã Tiền Hải, Tỉnh Thái Bình</li>
+              <li style={{ fontFamily: "JetBrains Mono" }}>CS4: số 11, Phố Gia Thượng, Phường Ngọc Thụy, Quận Long Biên,Thành Phố Hà Nội</li>
             </ul>
           </div>
 
           <div style={footerSectionStyle}>
             <h4 style={{ fontFamily: "JetBrains Mono" }}>Chính sách Koiday</h4>
             <hr style={footerDividerStyle} />
-            <ul>
-              <li style={{ fontFamily: "JetBrains Mono" }}>Mua hàng</li>
-              <li style={{ fontFamily: "JetBrains Mono" }}>Vận chuyển</li>
-              <li style={{ fontFamily: "JetBrains Mono" }}>Thanh toán</li>
-              <li style={{ fontFamily: "JetBrains Mono" }}>Bảo mật</li>
+            <ul style={{fontFamily: 'JetBrains Mono'}}>
+              <li>Mua hàng</li>
+              <li>Vận chuyển</li>
+              <li>Thanh toán</li>
+              <li>Bảo mật</li>
             </ul>
           </div>
           <div style={footerSectionStyle}>
             <h4 style={{ fontFamily: "JetBrains Mono" }}>Chức năng</h4>
             <hr style={footerDividerStyle} />
             <ul>
-              <li style={{ fontFamily: "JetBrains Mono" }}>
-                Dịch vụ chăm sóc khách hàng
-              </li>
+              <li style={{ fontFamily: "JetBrains Mono" }}>Dịch vụ chăm sóc khách hàng</li>
               <li style={{ fontFamily: "JetBrains Mono" }}>Bảo dưỡng hồ cá</li>
               <li style={{ fontFamily: "JetBrains Mono" }}>Theo dõi định kỳ</li>
-              <li style={{ fontFamily: "JetBrains Mono" }}>
-                Bảo hành 12 tháng
-              </li>
+              <li style={{ fontFamily: "JetBrains Mono" }}>Bảo hành 12 tháng</li>
             </ul>
           </div>
           <div style={footerLogoStyle}>
@@ -132,11 +94,13 @@ function Footer() {
             />
           </div>
         </div>
+<<<<<<< Updated upstream
+
         <div
           className="row mt-5"
           style={{
             backgroundColor: "#212121",
-            padding: "20px",
+            padding: "1px",
             position: "relative",
             color: "#fff",
           }}
@@ -169,6 +133,8 @@ function Footer() {
             </div>
           </div>
         </div>
+=======
+>>>>>>> Stashed changes
       </div>
     </>
   );

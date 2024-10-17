@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Button, Grid, Typography, Card, CardMedia } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import ListIcon from "@mui/icons-material/List";
+import { Link } from "react-router-dom";
 
 const PondSection = () => {
   return (
@@ -76,7 +77,7 @@ const PondSection = () => {
 
         {/* Center Content */}
         <Grid item xs={12} md={6}
-          sx={{marginTop: "100vh"}}
+          sx={{marginTop: "80vh"}}
         >
           <Typography variant="h3" align="center">
             Hồ của tôi
@@ -91,6 +92,8 @@ const PondSection = () => {
           </Typography>
           <Box sx={{ textAlign: "center" }}>
             <Button
+              component={Link}
+              to="/userhome/pondadd"
               variant="contained"
               startIcon={<AddCircleOutlineIcon />}
               sx={{ marginRight: 2 }}

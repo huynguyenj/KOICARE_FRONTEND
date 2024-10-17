@@ -9,13 +9,18 @@ import User from "./pages/User/User";
 import Layout from "./components/Layout";
 import Drawers from "./components/Drawers";
 // import NavbarUser from "./components/NavbarAfterLogin/NavbarUser";
-import MyFish from "./pages/MyFish/FishAdd"
-import MyPond from "./pages/MyPond/MyPond"
+
+import MyFish from "./pages/MyFish/FishAdd";
+import MyPond from "./pages/MyPond/MyPond";
 import Admin from "./components/Drawers/Admin";
+import Shop from "./components/Drawers/Shop";
+import Dashboard from "./pages/Admin/Dashboard";
 import UserInfo from "./pages/Admin/UserInfo";
 import HomeForShop from "./pages/HomeForShop/HomeForShop";
+import ShowProduct from "./pages/Products/ShowProducts/ShowProducts";
 import AddProducts from "./pages/Products/AddProducts/AddProducts";
-import ShowProducts from "./pages/Products/ShowProducts/ShowProducts";
+<<<<<<< Updated upstream
+
 function App() {
   const router = createBrowserRouter([
     {
@@ -32,7 +37,9 @@ function App() {
           children: [
             { path: "userprofile", element: <UserProfile /> },
             { path: "myfish", element: <MyFish /> },
+            { path: "myfishlist", element: <FishList /> },
             { path: "mypond", element: <MyPond /> },
+            { path: "pondadd", element: <PondAdd/> },
             { path: "", element: <Navigate to="mypond" replace /> },
           ],
         },
@@ -43,28 +50,30 @@ function App() {
       element:<Admin/>,
       children: [
         { path: "userInfo", element: <UserInfo /> },
-        { path: "", element: <Navigate to="userInfo" replace /> }
-       
+        { path: "", element: <Navigate to="userInfo" replace /> },
+        { path: "dashboard", element: <Dashboard /> },
+
       ],
     },
-    // {
-    //   path:'shop',
-    //   element:<Admin/>,
-    //   children: [
-    //     { path: "userInfo", element: <UserInfo /> },
-    //     { path: "", element: <Navigate to="userInfo" replace /> },
-    //     { path: 'HomeForShop', element : <HomeForShop/>},
-    //     { path: 'Product', element :<Products/>},
-        
-    //   ],
-    // }
+    {
+      path: "shop",
+      element: <Shop />,
+      children: [
+        { path: "userInfo", element: <UserInfo /> },
+        { path: "", element: <Navigate to="userInfo" replace /> },
+        { path: "HomeForShop", element: <HomeForShop /> },
+        { path: "Product", element: <ShowProduct /> },
+      ],
+    },
 
   ]);
 
   return (
     <>
-     <RouterProvider router={router} />
-     
+      <RouterProvider router={router} />
+     <AddProducts/>
     </>
   );
 }
+
+export default App;

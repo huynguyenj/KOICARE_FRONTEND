@@ -1,53 +1,3 @@
-<<<<<<< Updated upstream
-/* General Navbar Styles */
-.navbar {
-    display: flex;
-    justify-content: space-between;  /* Căn logo bên trái và thông tin người dùng bên phải */
-    align-items: center;             /* Căn giữa theo chiều dọc */
-    background-color: #00CCCC;       /* Màu nền */
-    padding: 10px 20px;              /* Khoảng cách bên trong navbar */
-    border-bottom: 3px solid #0044cc; /* Đường viền dưới màu xanh */
-    width: 100vw;                    /* Chiều ngang chiếm 100% cửa sổ trình duyệt */
-    position: relative;              /* Giữ vị trí tĩnh (relative) trong trang */
-    left: 0;                         /* Đảm bảo rằng nó bắt đầu từ bên trái của trang */
-    box-sizing: border-box;          /* Đảm bảo padding không làm tăng kích thước của navbar */
-  }
-  
-  /* Logo Section */
-  .navbar-logo {
-    display: flex;
-    align-items: center;             /* Để logo và tên cửa hàng thẳng hàng theo chiều dọc */
-  }
-  
-  .koi-logo {
-    width: 50px;                     /* Kích thước logo */
-    margin-right: 10px;              /* Khoảng cách giữa logo và tên cửa hàng */
-  }
-  
-  .navbar-logo h1 {
-    font-size: 24px;                 /* Kích thước chữ cho tên cửa hàng */
-    margin: 0;
-    color: black;
-  }
-  
-  /* User Section */
-  .navbar-user {
-    display: flex;
-    align-items: center;             /* Để icon và văn bản thẳng hàng theo chiều dọc */
-  }
-  
-  .user-icon {
-    width: 30px;                     /* Kích thước biểu tượng người dùng */
-    margin-right: 8px;               /* Khoảng cách giữa icon và văn bản */
-  }
-  
-  .navbar-user span {
-    font-size: 16px;                 /* Kích thước chữ cho "xin chào admin" */
-    color: white;
-  }
-  
-=======
-
 .navbar {
   display: flex;
   align-items: center;
@@ -104,4 +54,3 @@
   margin-right: 30px;
   margin-top: 15px;
 }
->>>>>>> Stashed changes

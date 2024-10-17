@@ -1,17 +1,24 @@
 import React from 'react';
-import './NavbarShop.css'; // Đảm bảo rằng bạn đã tạo file CSS
+import './NavbarShop.css';
 
 function NavbarShop() {
+
+  const username = "Xin chào user !!!";
+  const profileImage = "/Avatar.jpg";
   return (
-    <div className="navbar">
-      <div className="navbar-logo">
-        <img src="favicon.ico" alt="Koiday Logo" className="koi-logo" />
+    <nav className="navbar">
+      <div className="navbar-brand">
+        <img src="/Logo.png" alt="Logo" className="logo" />
       </div>
-      <div className="navbar-user">
-        <img src="Avatar.jpg" alt="User Icon" className="user-icon" />
-        <span>xin chào admin</span>
-      </div>
-    </div>
+      <ul className="navbar-menu">
+        <li className="navbar-item-text">Thông tin chung</li>
+        <li className="navbar-item-text">Tin tức & Blog</li>
+        <li className="navbar-item-user-info">
+          <img src={profileImage} alt="User Avatar" className="profile-image" />
+          <span className="username">{username}</span>
+        </li>
+      </ul>
+    </nav>
   );
 }
 

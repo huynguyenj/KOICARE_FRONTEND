@@ -22,11 +22,9 @@ import { useNavigate, Outlet } from "react-router-dom";
 // FontAwesome Imports
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faUser,
   faCartShopping,
   faClock,
   faStar,
-  faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 
 
@@ -104,11 +102,36 @@ export default function PersistentDrawerLeft() {
   };
 
   const drawerItems = [
-    { text: "Thông tin cá nhân", icon: faInfoCircle, path: "/userhome/userprofile" },
-    { text: "Cá của tôi", icon: faUser, path: "/userhome/myfish" },
-    { text: "Hồ của tôi", icon: faCartShopping, path: "/userhome/mypond" },
-    { text: "Thông số đo", icon: faClock, path: "/measurement" },
-    { text: "Tính toán", icon: faStar, path: "/calculations" },
+    {
+      text: "Thông tin cá nhân",
+      iconType: "img",
+      iconSrc: "https://img.icons8.com/ios-glyphs/48/about-us-male.png",
+      path: "/userhome/userprofile",
+    },
+    {
+      text: "Cá của tôi",
+      iconType: "img",
+      iconSrc: "https://img.icons8.com/ios-filled/50/koi-fish.png",
+      path: "/userhome/myfish",
+    },
+    {
+      text: "Hồ của tôi",
+      iconType: "img",
+      iconSrc: "https://img.icons8.com/glyph-neue/50/lake.png",
+      path: "/userhome/mypond",
+    },
+    {
+      text: "Thông số đo",
+      iconType: "img",
+      iconSrc: "https://img.icons8.com/ios-filled/50/measure.png",
+      path: "/measurement",
+    },
+    {
+      text: "Tính toán",
+      iconType: "img",
+      iconSrc: "https://img.icons8.com/ios-filled/50/calculate.png",
+      path: "/calculations",
+    },
   ];
 
   return (
@@ -159,11 +182,22 @@ export default function PersistentDrawerLeft() {
         </DrawerHeader>
         <Divider />
         <List>
-          {drawerItems.map(({ text, icon, path }) => (
+          {drawerItems.map(({ text, iconType, iconSrc, path }) => (
             <ListItem key={text} disablePadding>
               <ListItemButton onClick={() => navigate(path)}>
                 <ListItemIcon>
-                  <FontAwesomeIcon icon={icon} />
+                  {iconType === "img" && (
+                    <img
+                      src={iconSrc}
+                      alt={text}
+                      width="30" // Set appropriate width
+                      height="30" // Set appropriate height
+                      style={{
+                        filter:
+                          "invert(43%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(88%) contrast(87%)",
+                      }} // Set color
+                    />
+                  )}
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>
@@ -180,7 +214,7 @@ export default function PersistentDrawerLeft() {
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  <FontAwesomeIcon icon={icon} />
+                  <FontAwesomeIcon style={{fontSize: '24'}} icon={icon} />
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>

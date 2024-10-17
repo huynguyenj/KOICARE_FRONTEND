@@ -1,34 +1,64 @@
 import React, { useState } from "react";
 import './AddProducts.css';
+import NavbarShop from "../../../components/NavbarShop/NavbarShop";
+import FooterEnd from "../../../components/Footer/FooterEnd";
 
-const AddProducts = () => {
+const ProductPage = () => {
   const [productName, setProductName] = useState('');
   const [productPrice, setProductPrice] = useState('');
   const [productType, setProductType] = useState('');
   const [productContent, setProductContent] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+
+  // State to hold the selected image
+  const [image, setImage] = useState(null);
+
+  // Handle image upload
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImage(URL.createObjectURL(file)); // Preview the image
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add your form submission logic here
+    
+    // Logic for form submission (e.g., send data to server)
     console.log({ productName, productPrice, productType, productContent });
+
+    setSuccessMessage("Bạn đã tạo thành công!!!");
   };
 
   return (
     <>
-      <header className="header">
-        <img src="logo.png" alt="Koiday logo" />
-        <div className="header-icons">
-          <i className="fa fa-globe" title="Language"></i>
-          <i className="fa fa-shopping-cart" title="Cart"></i>
-          <i className="fa fa-user" title="Profile"></i>
-        </div>
-      </header>
+      <NavbarShop/>
+
+      {/* <div className="top-actions">
+        <button className="action-btn">Thêm sản phẩm</button>
+        <button className="action-btn">Xóa sản phẩm</button>
+        <button className="action-btn">Sửa sản phẩm</button>
+      </div> */}
 
       <div className="container">
-        <h2>Thêm sản phẩm</h2>
-        
+        <div className="title-product">
+          <h2>Thêm Ảnh Sản Phẩm</h2>
+        </div>
         <div className="product-image">
-          <img src="product-image.png" alt="Product" />
+          <div className="upload-frame col-md-6">
+          <label htmlFor="file-upload" className="custom-file-upload">
+            Bấm để thêm ảnh khác
+          </label>
+          <input 
+            id="file-upload" 
+            type="file" 
+            onChange={handleImageUpload} 
+            accept="image/*" 
+          />
+          </div>
+          <div className="product-image-show">
+            <img src={image ? image : "\\BG2.jpg"} alt="Product" />
+          </div>
         </div>
 
         <form onSubmit={handleSubmit}>
@@ -46,12 +76,17 @@ const AddProducts = () => {
             onChange={(e) => setProductPrice(e.target.value)} 
           />
 
-          <input 
-            type="text" 
-            placeholder="Loại mặt hàng" 
+          <select 
             value={productType} 
-            onChange={(e) => setProductType(e.target.value)} 
-          />
+            onChange={(e) => setProductType(e.target.value)}
+          >
+            <option value="">Chọn loại mặt hàng</option> {/* Tùy chọn mặc định */}
+            <option value="Loai1">Đồ ăn</option>
+            <option value="Loai2">Tăng cường sức khỏe cho cá</option>
+            <option value="Loai3">Các dụng cụ hữu ích</option>
+            <option value="Loai4">Khác</option>
+            {/* Thêm các tùy chọn khác nếu cần */}
+          </select>
 
           <textarea 
             placeholder="Nội dung sản phẩm" 
@@ -61,9 +96,11 @@ const AddProducts = () => {
 
           <div className="actions">
             <button type="submit">Thêm sản phẩm</button>
+            {successMessage && <div className="success-message">{successMessage}</div>}
           </div>
         </form>
       </div>
+
       <FooterEnd/>
     </>
   );

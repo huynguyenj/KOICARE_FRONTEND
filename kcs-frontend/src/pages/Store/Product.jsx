@@ -15,9 +15,10 @@ import {
   useTheme,
   useMediaQuery,
 } from "@mui/material";
-// import { ShoppingCart } from "lucide-react";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import { useCart } from "../Store/Cart";
+
 const products = [
   {
     id: 1,
@@ -34,7 +35,7 @@ const products = [
     name: "Bột vệ sinh hồ cá",
     price: "20.000đ",
     description:
-      "Sản phẩm giúp làm trong nước hồ cá nhanh chóng. Sử dụng khi nước đó, đục.",
+      "Sản phẩm giúp làm trong nước hồ cá nhanh chóng. Sử dụng khi nước đục.",
     image:
       "https://images.unsplash.com/photo-1520301255226-bf5f144451c1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80",
     rating: 4.0,
@@ -82,14 +83,15 @@ const products = [
     rating: 4.1,
     inStock: true,
   },
+  // ...more products
 ];
 
-
 const Product = () => {
+  const { id } = useParams();
   const [page, setPage] = useState(1);
   const productsPerPage = 6;
   const pageCount = Math.ceil(products.length / productsPerPage);
-
+  const { addToCart } = useCart();
 
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -98,10 +100,17 @@ const Product = () => {
     setPage(value);
   };
 
+  // Find the product by ID
+  const product = products.find((p) => p.id === parseInt(id || "0"));
+
   const displayedProducts = products.slice(
     (page - 1) * productsPerPage,
     page * productsPerPage
   );
+
+  const handleAddToCart = (product) => {
+    addToCart(product);
+  };
 
   return (
     <Container maxWidth="lg" sx={{ mt: 1, mb: 4 }}>
@@ -142,10 +151,10 @@ const Product = () => {
               >
                 <CardMedia
                   component="img"
-                  height="auto"
+                  height="300"
                   image={product.image}
                   alt={product.name}
-                  sx={{ objectFit: "cover" }}
+                  sx={{ objectFit: "cover"}}
                 />
                 <CardContent sx={{ flexGrow: 1 }}>
                   <Typography variant="h6" gutterBottom noWrap>
@@ -195,8 +204,9 @@ const Product = () => {
                   startIcon={<ShoppingCartIcon />}
                   fullWidth
                   disabled={!product.inStock}
+                  onClick={() => handleAddToCart(product)} // Pass the product to addToCart
                 >
-                  {product.inStock ? "Thêm vào giỏ hàng" : "Hết hàng"}
+                  {product.inStock ? "MUA NGAY" : "Hết hàng"}
                 </Button>
               </Box>
             </Card>

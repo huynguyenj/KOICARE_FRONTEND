@@ -18,11 +18,12 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import SearchIcon from "@mui/icons-material/Search";
 import Badge from "@mui/material/Badge";
+import DeleteIcon from "@mui/icons-material/Delete";
 import ShoppingCart from "@mui/icons-material/ShoppingCart";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import AccountCircle from "@mui/icons-material/AccountCircle"; // Added AccountCircle import
-import { Button, InputBase } from "@mui/material";
+import { Button, CardMedia, InputBase } from "@mui/material";
 import { useNavigate, Outlet } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -142,6 +143,11 @@ export default function PersistentDrawerLeft() {
       addToCart(product);
     }
   };
+
+  const handleDeleteItem = (product) => {
+    removeFromCart(product.id);
+  };
+
 
   // Handle profile menu open (define your own logic for opening profile menu)
   const handleProfileMenuOpen = (event) => {
@@ -324,6 +330,13 @@ export default function PersistentDrawerLeft() {
             <List>
               {cartItems.map((item) => (
                 <ListItem key={item.product.id}>
+                  {/* Display the product image */}
+                  <CardMedia 
+                  component="img"
+                  sx={{width: 80, height: 80, objectFit: "cover", mr: 2,}}
+                  image={item.product.image}
+                  alt={item.product.name}
+                  />
                   <ListItemText
                     primary={item.product.name}
                     secondary={`Giá: ${item.product.price}`}
@@ -338,6 +351,13 @@ export default function PersistentDrawerLeft() {
                     onClick={() => handleQuantityChange(item.product, 1)}
                   >
                     <AddIcon />
+                  </IconButton>
+                  {/* Remove Product Item */}
+                  <IconButton edge="end"
+                  aria-label="delete"
+                  onClick={() => handleDeleteItem(item.product)}
+                  >
+                    <DeleteIcon />
                   </IconButton>
                 </ListItem>
               ))}

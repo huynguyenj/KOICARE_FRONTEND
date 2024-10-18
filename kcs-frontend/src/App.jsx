@@ -16,6 +16,7 @@ import Shop from "./components/Drawers/Shop";
 import Dashboard from "./pages/Admin/Dashboard";
 import UserInfo from "./pages/Admin/UserInfo";
 import HomeForShop from "./pages/HomeForShop/HomeForShop";
+import AddProducts from "./pages/Products/AddProducts/AddProducts"
 import ShowProduct from "./pages/Products/ShowProducts/ShowProducts";
 import Notification from "./pages/Admin/Notification";
 import FishList from "./pages/MyFish/MyFish";
@@ -56,7 +57,7 @@ function App() {
       ],
     },
     {
-      path: "shop",
+      path: "/shop",
       element: <Shop />,
       children: [
         { path: "userInfo", element: <UserInfo /> },
@@ -69,7 +70,8 @@ function App() {
 
   return (
     <>
-      <RouterProvider router={router} />
+      {/* <RouterProvider router={router} /> */}
+      <ShowProduct/>
     </>
   );
 }

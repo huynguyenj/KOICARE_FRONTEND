@@ -21,6 +21,8 @@ import ShowProduct from "./pages/Products/ShowProducts/ShowProducts";
 import AddProducts from "./pages/Products/AddProducts/AddProducts";
 import FishList from "./pages/MyFish/MyFish";
 import PondAdd from "./pages/MyPond/PondAdd";
+import PondList from "./pages/MyPond/PondList";
+import PondInfo from "./pages/MyPond/PondInfo";
 
 function App() {
   const router = createBrowserRouter([
@@ -41,6 +43,8 @@ function App() {
             { path: "myfishlist", element: <FishList /> },
             { path: "mypond", element: <MyPond /> },
             { path: "pondadd", element: <PondAdd/> },
+            { path: "pondlist", element: <PondList/>},
+            { path: "pondlist/pondinfo/:id", element: <PondInfo/>},
             { path: "", element: <Navigate to="mypond" replace /> },
           ],
         },

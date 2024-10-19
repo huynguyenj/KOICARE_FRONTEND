@@ -31,7 +31,7 @@ export const CartProvider = ({ children }) => {
   const removeFromCart = (productId) => {
     setCartItems((prevItems) =>
       prevItems.filter((item) => item.product.id !== productId)
-    );
+    );  
   };
 
    const calculateTotalPrice = () => {

@@ -12,9 +12,17 @@ import {
   Pagination,
   Rating,
   Chip,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
   useTheme,
   useMediaQuery,
+  TextField,
+  FormControlLabel,
+  Checkbox,
 } from "@mui/material";
+import SortIcon from "@mui/icons-material/Sort";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useParams, Link } from "react-router-dom";
 import { useCart } from "../Store/Cart";
@@ -90,9 +98,14 @@ const Product = () => {
   const { id } = useParams();
   const [page, setPage] = useState(1);
   const productsPerPage = 6;
-  const pageCount = Math.ceil(products.length / productsPerPage);
+  const [sortOrder, setSortOrder] = useState("asc");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [inStockOnly, setInStockOnly] = useState(false);
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(Infinity);
   const { addToCart } = useCart();
-
+  const [openDialog, setOpenDialog] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null); // Track the product for confirmation dialog
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -100,20 +113,50 @@ const Product = () => {
     setPage(value);
   };
 
-  // Find the product by ID
-  const product = products.find((p) => p.id === parseInt(id || "0"));
+  const toggleSortOrder = () => {
+    setSortOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
+  };
 
-  const displayedProducts = products.slice(
+  const handleAddToCart = (product) => {
+    setSelectedProduct(product); // Set the selected product
+    setOpenDialog(true); // Open the confirmation dialog
+  };
+
+  const confirmAddToCart = () => {
+    addToCart(selectedProduct); // Add product to cart after confirmation
+    setOpenDialog(false); // Close the dialog
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false); // Close the dialog without adding to cart
+  };
+
+  const filteredProducts = products
+    .filter((product) =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .filter((product) => !inStockOnly || product.inStock)
+    .filter((product) => {
+      const price = parseInt(product.price.replace(/[,.đ]/g, ""));
+      return price >= minPrice && price <= maxPrice;
+    });
+
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    if (sortOrder === "asc") {
+      return a.name.localeCompare(b.name);
+    } else {
+      return b.name.localeCompare(a.name);
+    }
+  });
+
+  const displayedProducts = sortedProducts.slice(
     (page - 1) * productsPerPage,
     page * productsPerPage
   );
 
-  const handleAddToCart = (product) => {
-    addToCart(product);
-  };
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 1, mb: 4 }}>
+   <Container maxWidth="lg" sx={{ mt: 1, mb: 4 }}>
       <Typography
         variant="h2"
         component="h1"
@@ -129,93 +172,144 @@ const Product = () => {
       >
         Cửa hàng
       </Typography>
+
+      {/* Filters Section */}
+      <Box sx={{ mb: 2, display: "flex", gap: 2 }}>
+        <TextField
+          label="Tìm kiếm sản phẩm"
+          variant="outlined"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          size="small"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={inStockOnly}
+              onChange={(e) => setInStockOnly(e.target.checked)}
+            />
+          }
+          label="Chỉ hiển thị sản phẩm còn hàng"
+        />
+        <TextField
+          label="Giá tối thiểu"
+          type="number"
+          value={minPrice}
+          onChange={(e) => setMinPrice(e.target.value)}
+          size="small"
+        />
+        <TextField
+          label="Giá tối đa"
+          type="number"
+          value={maxPrice}
+          onChange={(e) => setMaxPrice(e.target.value)}
+          size="small"
+        />
+        <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 1 }}>
+          <Button
+            variant="outlined"
+            startIcon={<SortIcon />}
+            onClick={toggleSortOrder}
+          >
+            {sortOrder === "asc" ? "A-Z" : "Z-A"}
+          </Button>
+        </Box>
+      </Box>
+
       <Grid container spacing={3}>
-        {displayedProducts.map((product) => (
-          <Grid item key={product.id} xs={12} sm={6} md={4}>
-            <Card
-              sx={{
-                height: "100%",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-                transition: "0.3s",
-                "&:hover": {
-                  transform: "translateY(-5px)",
-                  boxShadow: "0 6px 12px rgba(0,0,0,0.2)",
-                },
-              }}
-            >
-              <CardActionArea
-                component={Link}
-                to={`/userhome/store/${product.id}`}
+        {displayedProducts.length > 0 ? (
+          displayedProducts.map((product) => (
+            <Grid item key={product.id} xs={12} sm={6} md={4}>
+              <Card
+                sx={{
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+                  transition: "0.3s",
+                  "&:hover": {
+                    transform: "translateY(-5px)",
+                    boxShadow: "0 6px 12px rgba(0,0,0,0.2)",
+                  },
+                }}
               >
-                <CardMedia
-                  component="img"
-                  height="300"
-                  image={product.image}
-                  alt={product.name}
-                  sx={{ objectFit: "cover"}}
-                />
-                <CardContent sx={{ flexGrow: 1 }}>
-                  <Typography variant="h6" gutterBottom noWrap>
-                    {product.name}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{
-                      mb: 2,
-                      height: 40,
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                    }}
-                  >
-                    {product.description}
-                  </Typography>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      mb: 1,
-                    }}
-                  >
-                    <Typography variant="h6" color="primary">
-                      {product.price}
+                <CardActionArea
+                  component={Link}
+                  to={`/userhome/store/${product.id}`}
+                >
+                  <CardMedia
+                    component="img"
+                    height="300"
+                    image={product.image}
+                    alt={product.name}
+                    sx={{ objectFit: "cover" }}
+                  />
+                  <CardContent sx={{ flexGrow: 1 }}>
+                    <Typography variant="h6" gutterBottom noWrap>
+                      {product.name}
                     </Typography>
-                    <Chip
-                      label={product.inStock ? "Còn hàng" : "Hết hàng"}
-                      color={product.inStock ? "success" : "error"}
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{
+                        mb: 2,
+                        height: 40,
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
+                      {product.description}
+                    </Typography>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        mb: 1,
+                      }}
+                    >
+                      <Typography variant="h6" color="primary">
+                        {product.price}
+                      </Typography>
+                      <Chip
+                        label={product.inStock ? "Còn hàng" : "Hết hàng"}
+                        color={product.inStock ? "success" : "error"}
+                        size="small"
+                      />
+                    </Box>
+                    <Rating
+                      name="read-only"
+                      value={product.rating}
+                      precision={0.1}
+                      readOnly
                       size="small"
                     />
-                  </Box>
-                  <Rating
-                    name="read-only"
-                    value={product.rating}
-                    precision={0.1}
-                    readOnly
-                    size="small"
-                  />
-                </CardContent>
-              </CardActionArea>
-              <Box sx={{ p: 2 }}>
-                <Button
-                  variant="contained"
-                  startIcon={<ShoppingCartIcon />}
-                  fullWidth
-                  disabled={!product.inStock}
-                  onClick={() => handleAddToCart(product)} // Pass the product to addToCart
-                >
-                  {product.inStock ? "MUA NGAY" : "Hết hàng"}
-                </Button>
-              </Box>
-            </Card>
-          </Grid>
-        ))}
+                  </CardContent>
+                </CardActionArea>
+                <Box sx={{ p: 2 }}>
+                  <Button
+                    variant="contained"
+                    startIcon={<ShoppingCartIcon />}
+                    fullWidth
+                    disabled={!product.inStock}
+                    onClick={() => handleAddToCart(product)}
+                  >
+                    {product.inStock ? "MUA NGAY" : "Hết hàng"}
+                  </Button>
+                </Box>
+              </Card>
+            </Grid>
+          ))
+        ) : (
+          <Typography variant="h6" sx={{ textAlign: "center", width: "100%" }}>
+            Không có sản phẩm nào phù hợp với bộ lọc.
+          </Typography>
+        )}
       </Grid>
+
       <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
         <Pagination
-          count={pageCount}
+          count={Math.ceil(filteredProducts.length / productsPerPage)}
           page={page}
           onChange={handleChange}
           variant="outlined"
@@ -223,6 +317,22 @@ const Product = () => {
           size={isSmallScreen ? "small" : "medium"}
         />
       </Box>
+
+      {/* Confirmation Dialog */}
+      <Dialog open={openDialog} onClose={handleCloseDialog}>
+        <DialogTitle>Xác nhận</DialogTitle>
+        <DialogContent>
+          Bạn có muốn thêm sản phẩm {selectedProduct?.name} vào giỏ hàng không?
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog} color="primary">
+            Hủy
+          </Button>
+          <Button onClick={confirmAddToCart} color="primary" variant="contained">
+            Xác nhận
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
 };

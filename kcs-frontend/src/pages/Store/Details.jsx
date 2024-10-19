@@ -46,7 +46,7 @@ const Detail = () => {
   }
 
   const handleAddToCart = () => {
-    addToCart({ product, quantity });
+    addToCart(product);
   };
 
   const handleMinusQuantity = () => {
@@ -147,7 +147,7 @@ const Detail = () => {
             <Button
               variant="contained"
               startIcon={<ShoppingCartIcon />}
-              onClick={handleAddToCart}
+              onClick={() => handleAddToCart(product)}
               fullWidth
               sx={{ mb: 2 }}
             >

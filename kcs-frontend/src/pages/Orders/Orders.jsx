@@ -1,5 +1,7 @@
 import React from 'react';
-import './Order.css'; 
+import './Orders.css'; 
+import ShopD from "../../components/Drawers/Shop";
+import FooterEnd from '../../components/Footer/FooterEnd';
 
 const orders = [
   {
@@ -53,23 +55,17 @@ const Order = ({ order }) => {
 
 const Orders = () => {
   return (
-    <div className="app">
-      <header className="header">
-        <div className="logo">KoiDay</div>
-        <div className="icons">
-          <i className="fas fa-globe"></i>
-          <i className="fas fa-shopping-cart"></i>
-          <i className="fas fa-user"></i>
+    <div className="orders-page">
+      <ShopD/>
+      <div className='content'>
+        <h2 className="title">Danh sách đơn hàng đang giao</h2>
+        <div className="orders-list">
+          {orders.map((order, index) => (
+            <Order key={index} order={order} />
+          ))}
         </div>
-      </header>
-
-      <h2 className="title">Danh sách đơn hàng đang giao</h2>
-
-      <div className="orders-list">
-        {orders.map((order, index) => (
-          <Order key={index} order={order} />
-        ))}
       </div>
+      <FooterEnd/>
     </div>
   );
 };

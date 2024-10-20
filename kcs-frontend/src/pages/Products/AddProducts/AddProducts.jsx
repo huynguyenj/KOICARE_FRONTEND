@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './AddProducts.css';
 import FooterEnd from "../../../components/Footer/FooterEnd";
-import ShopD from "../../../components/Drawers/Shop"
+import ShopD from "../../../components/Drawers/Shop";
 
 const AddProducts = () => {
   const [productName, setProductName] = useState('');

@@ -16,9 +16,11 @@ import Shop from "./components/Drawers/Shop";
 import Dashboard from "./pages/Admin/Dashboard";
 import UserInfo from "./pages/Admin/UserInfo";
 import HomeForShop from "./pages/HomeForShop/HomeForShop";
-import AddProducts from "./pages/Products/AddProducts/AddProducts"
+import AddProducts from "./pages/Products/AddProducts/AddProducts";
 import ShowProduct from "./pages/Products/ShowProducts/ShowProducts";
 import Orders from "./pages/Orders/Orders";
+import Advertise from "./pages/Advertise/Advertise";
+import Revenue from "./pages/Revenue/Revenue"
 import Notification from "./pages/Admin/Notification";
 import FishList from "./pages/MyFish/MyFish";
 import News from "./pages/News/News";
@@ -72,7 +74,7 @@ function App() {
   return (
     <>
       {/* <RouterProvider router={router} /> */}
-      <Orders/>
+      <Revenue/>
     </>
   );
 }

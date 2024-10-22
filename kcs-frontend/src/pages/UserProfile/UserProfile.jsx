@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Avatar,
   Box,
@@ -18,24 +18,58 @@ import {
   FormLabel
 } from "@mui/material";
 import {
-  AccountCircle,
-  Favorite,
+ 
   ShoppingCart,
-  Link,
   Lock,
 } from "@mui/icons-material";
 
-import { useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
+import { getMyInfo, updateInfo } from "../../api/userService";
+import { ToastContainer, toast } from "react-toastify";
 
 
 function UserProfile() {
+  const [userInfo, setUserInfo] = useState({});
   const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-    gender: "",
-    email: "",
+    userId: 0,
+    userName: "",
     phone: "",
+    email: "",
   });
+
+  useEffect(()=>{
+    getInfo();
+   
+  },[])
+
+  async function getInfo() {
+    
+    try {
+      
+      const res = await getMyInfo();
+      setUserInfo(res.result)
+
+    } catch (error) {
+      alert("Xảy ra sự cố khi lấy dữ liệu!")
+      navigate("/")
+      console.log(error)
+    } 
+  }
+
+
+
+  useEffect(() => {
+    // Update formData with userInfo values when userInfo changes
+    if (userInfo) {
+      setFormData({
+        userId:userInfo.userId || "",
+        userName: userInfo.userName || "",
+        email: userInfo.email || "",
+        phone: userInfo.phone || "",
+        
+      });
+    }
+  }, [userInfo]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,25 +79,48 @@ function UserProfile() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const [errors, setErrors] = useState({ email: "", phone: "" });
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+         setErrors({ email: "", phone: "" }); // Reset errors
+
+    // Validate email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+        setErrors((prev) => ({ ...prev, email: "Vui lòng nhập đúng định dạng gmail có @." }));
+        return;
+    }
+
+    // Validate phone number
+    const phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(formData.phone)) {
+        setErrors((prev) => ({ ...prev, phone: "Vui lòng nhập 10 chữ số." }));
+        return;
+    }
     console.log("Form submitted:", formData);
+    await updateInfo(formData.userId,formData)
+        .then(()=>toast.success("Thông tin của bạn đã được cập nhật thành công!"))
+        .catch(()=> toast.error("Cập nhật thông tin không thành công!"))
   };
 
+ 
   const handleReset = () => {
     setFormData({
-      username: "",
-      password: "",
-      gender: "",
-      email: "",
-      phone: "",
+        userName: userInfo.userName || "",
+        email: userInfo.email || "",
+        phone: userInfo.phone || "",
     });
   };
+
 
   const navigate = useNavigate();
 
   return (
+    
     <div>
+       <ToastContainer />
       <Box
         sx={{
           height: "100vh",
@@ -81,8 +138,7 @@ function UserProfile() {
                 src="/Avatar.jpg"
                 alt="User avatar"
               />
-              <Typography variant="h6">Tên tài khoản đăng ký</Typography>
-              <Typography variant="body2">Thay đổi ảnh đại diện</Typography>
+              <Typography variant="h6">{formData.userName}</Typography>
               <Button
                 variant="contained"
                 color="success"
@@ -91,38 +147,13 @@ function UserProfile() {
               >
                 Trang chủ
               </Button>
-              <Button
-                variant="contained"
-                color="error"
-                sx={{ margin: "20px 10px" }}
-              >
-                Đăng xuất
-              </Button>
               <Divider sx={{ margin: "20px 0" }} />
               <List>
-                <ListItem>
-                  <ListItemIcon>
-                    <AccountCircle />
-                  </ListItemIcon>
-                  <ListItemText primary="Chỉnh sửa tài khoản" />
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon>
-                    <Favorite />
-                  </ListItemIcon>
-                  <ListItemText primary="Cá yêu thích" />
-                </ListItem>
                 <ListItem>
                   <ListItemIcon>
                     <ShoppingCart />
                   </ListItemIcon>
                   <ListItemText primary="Sản phẩm đã mua" />
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon>
-                    <Link />
-                  </ListItemIcon>
-                  <ListItemText primary="Liên kết xã hội" />
                 </ListItem>
                 <ListItem>
                   <ListItemIcon>
@@ -140,44 +171,12 @@ function UserProfile() {
               <form onSubmit={handleSubmit}>
                 <TextField
                   fullWidth
-                  label="Tên đăng nhập"
-                  name="username"
-                  value={formData.username}
+                  label="Tên người dùng"
+                  name="userName"
+                  value={formData.userName}
                   onChange={handleChange}
                   margin="normal"
                 />
-                <TextField
-                  fullWidth
-                  label="Mật khẩu"
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  margin="normal"
-                />
-                  <FormLabel component="" sx={{marginRight: "10px"}}>Giới tính:</FormLabel>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={formData.gender === "male"}
-                        onChange={handleChange}
-                        name="gender"
-                        value="male"
-                      />
-                    }
-                    label="Nam"
-                  />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={formData.gender === "female"}
-                        onChange={handleChange}
-                        name="gender"
-                        value="female"
-                      />
-                    }
-                    label="Nữ"
-                  />
                 <TextField
                   fullWidth
                   label="Email"
@@ -185,6 +184,8 @@ function UserProfile() {
                   value={formData.email}
                   onChange={handleChange}
                   margin="normal"
+                  error={!!errors.email} // Set error state
+                  helperText={errors.email} // Display error message
                 />
                 <TextField
                   fullWidth
@@ -193,6 +194,8 @@ function UserProfile() {
                   value={formData.phone}
                   onChange={handleChange}
                   margin="normal"
+                  error={!!errors.phone} // Set error state
+                  helperText={errors.phone} // Display error message
                 />
                 <Box
                   sx={{

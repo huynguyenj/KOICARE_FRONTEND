@@ -2,7 +2,7 @@ import { Button, Form, Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { getMyInfo, login } from "../../../api/userService";
-import FooterEnd from "../../../components/Footer/FooterEnd"
+
 
 function Login() {
   const [userName, setUserName] = useState("");
@@ -27,12 +27,13 @@ function Login() {
   async function loginUser(userInfo) {
     try {
       await login(userInfo);
-      const resUserInfo = await getMyInfo();
+      const resUserInfo = await getMyInfo()
       const userData = {
         userName: resUserInfo.result.userName,
       };
       
       localStorage.setItem("userInfo", JSON.stringify(userData));
+
       alert("Login successfully!");
       if (resUserInfo.result.roles?.[0].userType == "USER") {
         navigate(`/`);
@@ -130,17 +131,6 @@ function Login() {
                     required
                   />
                 </Form.Group>
-                <div className="text-end mb-3">
-                  <a
-                    href="#"
-                    style={{
-                      ...styles.formLink,
-                      fontSize: "18px",
-                    }}
-                  >
-                    Quên mật khẩu?
-                  </a>
-                </div>
                 <Button variant="primary" type="submit" className="w-100">
                   Đăng nhập
                 </Button>

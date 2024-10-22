@@ -1,7 +1,6 @@
 .homepage {
   text-align: center;
-  background-color: #f4f4f4;
-  padding: 20px;
+  font-family: Arial, sans-serif;
 }
 
 .image-gallery {
@@ -38,7 +37,7 @@
 .nav-item {
   background-color: #00c9a7;
   color: white;
-  padding: 15px 30px;
+  padding: 60px 30px;
   border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;

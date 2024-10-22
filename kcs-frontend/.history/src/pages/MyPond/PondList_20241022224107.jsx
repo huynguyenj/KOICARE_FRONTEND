@@ -49,11 +49,9 @@ function PondList() {
 
   const getPonds = async () => {
     try {
-      const res = await getAllPond();
-      setPonds(res.result);
+      
     } catch (error) {
-      console.log(error)
-      toast.error("Lấy dữ liệu thất bại!")
+      
     }
     
   };

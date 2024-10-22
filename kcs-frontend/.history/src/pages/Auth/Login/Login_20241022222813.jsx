@@ -35,7 +35,8 @@ function Login() {
       };
       
       localStorage.setItem("userInfo", JSON.stringify(userData));
-      toast.success("Đăng nhập thành công")
+
+      alert("Login successfully!");
       if (resUserInfo.result.roles?.[0].userType == "USER") {
         navigate(`/`);
       } else if(resUserInfo.result.roles?.[0].userType == "ADMIN") {
@@ -46,7 +47,7 @@ function Login() {
       // Navigate to home or a specific page
     } catch (error) {
       console.error("Login error:", error);
-      toast.error("Đăng nhập thất bại! Hãy kiểm tra lại tên hoặc mật khẩu của bạn.")
+      alert("Your username or password is incorrect! Please try again.");
     }
   }
 
@@ -95,14 +96,7 @@ function Login() {
 
   return (
     <div style={styles.page}>
-      <ToastContainer 
-          position="top-right" 
-           autoClose={2000} 
-           hideProgressBar={false} 
-           closeOnClick 
-           pauseOnHover 
-           draggable 
-           pauseOnFocusLoss/>
+      <Toa
       <img style={styles.bgImage} src="/BG.jpg" alt="Background" />
       <Container className="login-container" style={styles.container}>
         <Row>

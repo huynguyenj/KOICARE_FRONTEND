@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserTie, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import "./Navbar.css";
 import { getMyInfo } from "../../api/userService";
+import { useEffect } from "react";
 
 function Navbar() {
   const navigator = useNavigate();
@@ -15,6 +16,9 @@ function Navbar() {
   function register() {
     navigator("/register");
   }
+  useEffect(() => {
+    document.title = "Koi Care System"; // Set your app name here
+  }, []);
 
   async function changeUserProfilePage() {
     try {

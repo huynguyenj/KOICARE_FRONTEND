@@ -53,7 +53,7 @@ function PondList() {
       setPonds(res.result);
     } catch (error) {
       console.log(error)
-      toast.error("Lấy dữ liệu thất bại!")
+      toa
     }
     
   };

@@ -37,7 +37,7 @@ function Navbar() {
   
   function newspage() {
     navigator("/news");
-  }
+
   function UserPage() {
     alert("Làm ơn đăng nhập để dùng chức năng");
 
@@ -176,5 +176,5 @@ function Navbar() {
     </nav>
   );
 }
-
+}
 export default Navbar;

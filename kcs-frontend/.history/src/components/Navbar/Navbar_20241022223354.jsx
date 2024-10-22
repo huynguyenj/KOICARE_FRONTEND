@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserTie, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import "./Navbar.css";
 import { getMyInfo } from "../../api/userService";
+import { ToastContainer, toast } from "react-toastify";
 
 function Navbar() {
   const navigator = useNavigate();
@@ -98,6 +99,14 @@ function Navbar() {
 
   return (
     <nav className="navbar d-flex" style={navbarStyle}>
+       <ToastContainer 
+          position="top-right" 
+           autoClose={2000} 
+           hideProgressBar={false} 
+           closeOnClick 
+           pauseOnHover 
+           draggable 
+           pauseOnFocusLoss/>
       <HashLink to="/">
         <img
           className="logo ms-3"

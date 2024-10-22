@@ -55,11 +55,11 @@ function SignUp() {
       }
       const response = await register(userInfo,role);
       console.log(response.data.result);
-      toast.success("Đăng ký thành công!")
+      alert("Registered successfully!");
       navigate("/login");
     } catch (error) {
       console.error("Registration failed:", error);
-      toast.error("Đăng ký thất bại! Hãy thử lại.")
+      toast.error()
     }
   }
 
@@ -106,14 +106,7 @@ function SignUp() {
 
   return (
     <div style={styles.page}>
-      <ToastContainer
-       position="top-right" 
-       autoClose={2000} 
-       hideProgressBar={false} 
-       closeOnClick 
-       pauseOnHover 
-       draggable 
-       pauseOnFocusLoss/>
+      <ToastContainer/>
       <img style={styles.bgImage} src="/BG.jpg" alt="Background" />
       <Container style={styles.container}>
         <Row>

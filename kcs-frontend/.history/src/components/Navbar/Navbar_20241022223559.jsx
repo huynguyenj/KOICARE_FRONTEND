@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserTie, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import "./Navbar.css";
 import { getMyInfo } from "../../api/userService";
+import { ToastContainer, toast } from "react-toastify";
 
 function Navbar() {
   const navigator = useNavigate();
@@ -26,10 +27,11 @@ function Navbar() {
           })
           .catch(() => {
               // Alert user if the request fails
-              alert("Làm ơn đăng nhập để dùng chức năng");
+              toast.error("Vui lòng đăng nhập để dùng chức năng!")
           });
   } catch (error) {
       alert("An error occurred");
+      
   }
   
     navigator("/userhome");
@@ -39,7 +41,7 @@ function Navbar() {
     navigator("/news");
   }
   function UserPage() {
-    alert("Làm ơn đăng nhập để dùng chức năng");
+    toast.error("Vui lòng đăng nhập để dùng chức năng!")
 
   }
 
@@ -98,6 +100,7 @@ function Navbar() {
 
   return (
     <nav className="navbar d-flex" style={navbarStyle}>
+       
       <HashLink to="/">
         <img
           className="logo ms-3"

@@ -2,7 +2,6 @@ import { Button, Form, Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { register } from "../../../api/userService";
-import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast
 
 function SignUp() {
   const [userName, setUserName] = useState("");
@@ -37,29 +36,30 @@ function SignUp() {
 
   async function registerUser(userInfo) {
     try {
-
       setErrors({ email: "", phone: "" }); // Reset errors
 
       // Validate email
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(userInfo.email)) {
+      if (!emailRegex.test(formData.email)) {
           setErrors((prev) => ({ ...prev, email: "Vui lòng nhập đúng định dạng gmail có @." }));
           return;
       }
   
       // Validate phone number
       const phoneRegex = /^\d{10}$/;
-      if (!phoneRegex.test(userInfo.phone)) {
+      if (!phoneRegex.test(formData.phone)) {
           setErrors((prev) => ({ ...prev, phone: "Vui lòng nhập 10 chữ số." }));
           return;
       }
       const response = await register(userInfo,role);
       console.log(response.data.result);
-      toast.success("Đăng ký thành công!")
+      alert("Registered successfully!");
       navigate("/login");
     } catch (error) {
       console.error("Registration failed:", error);
-      toast.error("Đăng ký thất bại! Hãy thử lại.")
+      alert(
+        "Registration failed! Please try again with a different username or email."
+      );
     }
   }
 
@@ -106,14 +106,6 @@ function SignUp() {
 
   return (
     <div style={styles.page}>
-      <ToastContainer
-       position="top-right" 
-       autoClose={2000} 
-       hideProgressBar={false} 
-       closeOnClick 
-       pauseOnHover 
-       draggable 
-       pauseOnFocusLoss/>
       <img style={styles.bgImage} src="/BG.jpg" alt="Background" />
       <Container style={styles.container}>
         <Row>
@@ -157,8 +149,6 @@ function SignUp() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    error={!!errors.email} // Set error state
-                    helperText={errors.email} // Display error message
                   />
                 </Form.Group>
                 <Form.Group controlId="formPhone" className="">
@@ -168,8 +158,6 @@ function SignUp() {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     required
-                    error={!!errors.phone} // Set error state
-                    helperText={errors.phone} // Display error message
                   />
                      <Form.Group controlId="formRole" className="mt-3">
                   <Form.Select

@@ -15,6 +15,9 @@ function Navbar() {
   function register() {
     navigator("/register");
   }
+  useEffect(() => {
+    document.title = "Koi Care System"; // Set your app name here
+  }, []);
 
   async function changeUserProfilePage() {
     try {

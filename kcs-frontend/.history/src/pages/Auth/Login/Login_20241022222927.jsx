@@ -95,14 +95,7 @@ function Login() {
 
   return (
     <div style={styles.page}>
-      <ToastContainer 
-          position="top-right" 
-           autoClose={2000} 
-           hideProgressBar={false} 
-           closeOnClick 
-           pauseOnHover 
-           draggable 
-           pauseOnFocusLoss/>
+      <ToastContainer/>
       <img style={styles.bgImage} src="/BG.jpg" alt="Background" />
       <Container className="login-container" style={styles.container}>
         <Row>

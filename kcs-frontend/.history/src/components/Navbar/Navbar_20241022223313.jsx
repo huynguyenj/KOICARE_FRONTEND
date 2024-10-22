@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserTie, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import "./Navbar.css";
 import { getMyInfo } from "../../api/userService";
+import { ToastContainer, toast } from "react-toastify";
 
 function Navbar() {
   const navigator = useNavigate();

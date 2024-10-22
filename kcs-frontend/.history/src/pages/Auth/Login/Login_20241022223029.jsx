@@ -95,8 +95,7 @@ function Login() {
 
   return (
     <div style={styles.page}>
-      <ToastContainer 
-          position="top-right" 
+      <ToastContainer position="top-right" 
            autoClose={2000} 
            hideProgressBar={false} 
            closeOnClick 

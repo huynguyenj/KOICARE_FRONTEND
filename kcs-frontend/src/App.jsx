@@ -16,16 +16,22 @@ import Shop from "./components/Drawers/Shop";
 import Dashboard from "./pages/Admin/Dashboard";
 import UserInfo from "./pages/Admin/UserInfo";
 import HomeForShop from "./pages/HomeForShop/HomeForShop";
+import ShowProduct from "./pages/Products/ShowProducts/ShowProducts";
+// import AddProducts from "./pages/Products/AddProducts/AddProducts";
+import FishList from "./pages/MyFish/MyFish";
+import PondAdd from "./pages/MyPond/PondAdd";
+import PondList from "./pages/MyPond/PondList";
+import PondInfo from "./pages/MyPond/PondInfo";
+import Store from "./pages/Store/Product";
+import Details from "./pages/Store/Details";
 import AddProducts from "./pages/Products/AddProducts/AddProducts";
 import ShowProduct from "./pages/Products/ShowProducts/ShowProducts";
 import Orders from "./pages/Orders/Orders";
 import Advertise from "./pages/Advertise/Advertise";
 import Revenue from "./pages/Revenue/Revenue"
 import Notification from "./pages/Admin/Notification";
-import FishList from "./pages/MyFish/MyFish";
 import News from "./pages/News/News";
-import Store from "./pages/Store/Product";
-import Details from "./pages/Store/Details";
+
 function App() {
   const router = createBrowserRouter([
     {
@@ -43,8 +49,13 @@ function App() {
             { path: "myfish", element: <MyFish /> },
             { path: "myfishlist", element: <FishList /> },
             { path: "mypond", element: <MyPond /> },
+             
             { path: "store", element: <Store /> },
             { path: "/userhome/store/:id", element: <Details /> },
+             
+            { path: "pondadd", element: <PondAdd/> },
+            { path: "pondlist", element: <PondList/>},
+            { path: "pondlist/pondinfo/:id", element: <PondInfo/>},
             { path: "", element: <Navigate to="mypond" replace /> },
           ],
         },
@@ -73,8 +84,9 @@ function App() {
 
   return (
     <>
-      {/* <RouterProvider router={router} /> */}
-      <Revenue/>
+
+      <RouterProvider router={router} />
+     
     </>
   );
 }

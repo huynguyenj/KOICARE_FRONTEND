@@ -65,7 +65,7 @@ function Footer() {
     fontSize: "24px",
     display: "flex",
     justifyContent: "center",
-    margin: "20px"
+    margin: "20px",
   };
 
   const fontStyle = {
@@ -101,7 +101,7 @@ function Footer() {
           <div style={footerSectionStyle}>
             <h4 style={{ fontFamily: "JetBrains Mono" }}>Chính sách Koiday</h4>
             <hr style={footerDividerStyle} />
-            <ul style={{fontFamily: 'JetBrains Mono'}}>
+            <ul style={{ fontFamily: "JetBrains Mono" }}>
               <li>Mua hàng</li>
               <li>Vận chuyển</li>
               <li>Thanh toán</li>

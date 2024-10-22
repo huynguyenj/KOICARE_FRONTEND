@@ -22,7 +22,7 @@ import {
   FormControlLabel,
   Checkbox,
 } from "@mui/material";
-import SortIcon from "@mui/icons-material/Sort";
+// import SortIcon from "@mui/icons-material/Sort";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useParams, Link } from "react-router-dom";
 import { useCart } from "../Store/Cart";
@@ -37,6 +37,7 @@ const products = [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkPxVLmPOdZgPqdqKeqmviTb5aS4MJju5Yrw&s",
     rating: 4.5,
     inStock: true,
+    category: "Thức ăn",
   },
   {
     id: 2,
@@ -48,6 +49,7 @@ const products = [
       "https://images.unsplash.com/photo-1520301255226-bf5f144451c1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80",
     rating: 4.0,
     inStock: true,
+    category: "Dụng cụ",
   },
   {
     id: 3,
@@ -91,6 +93,17 @@ const products = [
     rating: 4.1,
     inStock: true,
   },
+  {
+    id: 7,
+    name: "BIO - Vi Sinh Làm Sạch Nước",
+    price: "50.000đ",
+    description:
+      "Hạn chế rêu, không gây hại cho cá. Cải thiện quá trình trao đổi chất của cá.",
+    image:
+      "https://images.unsplash.com/photo-1551024709-8f23befc6f87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2314&q=80",
+    rating: 4.1,
+    inStock: true,
+  },
   // ...more products
 ];
 
@@ -98,7 +111,8 @@ const Product = () => {
   const { id } = useParams();
   const [page, setPage] = useState(1);
   const productsPerPage = 6;
-  const [sortOrder, setSortOrder] = useState("asc");
+  // const [sortOrder, setSortOrder] = useState("asc");
+  const pageCount = Math.ceil(products.length / productsPerPage);
   const [searchTerm, setSearchTerm] = useState("");
   const [inStockOnly, setInStockOnly] = useState(false);
   const [minPrice, setMinPrice] = useState(0);
@@ -106,16 +120,18 @@ const Product = () => {
   const { addToCart } = useCart();
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null); // Track the product for confirmation dialog
+  const [quantity, setQuantity] = useState(1); // State for quantity
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   const handleChange = (event, value) => {
     setPage(value);
   };
 
-  const toggleSortOrder = () => {
-    setSortOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
-  };
+  // const toggleSortOrder = () => {
+  //   setSortOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
+  // };
 
   const handleAddToCart = (product) => {
     setSelectedProduct(product); // Set the selected product
@@ -139,24 +155,34 @@ const Product = () => {
     .filter((product) => {
       const price = parseInt(product.price.replace(/[,.đ]/g, ""));
       return price >= minPrice && price <= maxPrice;
-    });
+    })
+    .filter(
+      (product) =>
+        selectedCategory === "All" || product.category === selectedCategory
+    );
 
-  const sortedProducts = [...filteredProducts].sort((a, b) => {
-    if (sortOrder === "asc") {
-      return a.name.localeCompare(b.name);
-    } else {
-      return b.name.localeCompare(a.name);
-    }
-  });
+  // const sortedProducts = [...filteredProducts].sort((a, b) => {
+  //   if (sortOrder === "asc") {
+  //     return a.name.localeCompare(b.name);
+  //   } else {
+  //     return b.name.localeCompare(a.name);
+  //   }
+  // });
+  const handleQuantityChange = (operation) => {
+    setQuantity((prevQuantity) =>
+      operation === "increase"
+        ? prevQuantity + 1
+        : Math.max(1, prevQuantity - 1)
+    );
+  };
 
-  const displayedProducts = sortedProducts.slice(
+  const displayedProducts = filteredProducts.slice(
     (page - 1) * productsPerPage,
     page * productsPerPage
   );
 
-
   return (
-   <Container maxWidth="lg" sx={{ mt: 1, mb: 4 }}>
+    <Container maxWidth="lg" sx={{ mt: 1, mb: 4 }}>
       <Typography
         variant="h2"
         component="h1"
@@ -174,14 +200,26 @@ const Product = () => {
       </Typography>
 
       {/* Filters Section */}
-      <Box sx={{ mb: 2, display: "flex", gap: 2 }}>
+      <Box
+        sx={{
+          mb: 3,
+          display: "flex",
+          flexWrap: "wrap",
+          gap: 2,
+          alignItems: "center",
+        }}
+      >
+        {/* Search Product */}
         <TextField
           label="Tìm kiếm sản phẩm"
           variant="outlined"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           size="small"
+          sx={{ flexGrow: 1, minWidth: "180px" }}
         />
+
+        {/* InStock Filter */}
         <FormControlLabel
           control={
             <Checkbox
@@ -189,23 +227,62 @@ const Product = () => {
               onChange={(e) => setInStockOnly(e.target.checked)}
             />
           }
-          label="Chỉ hiển thị sản phẩm còn hàng"
+          label="Hiển thị sản phẩm còn hàng"
+          sx={{
+            "& .MuiFormControlLabel-label": {
+              fontSize: "14px", // Set your desired font size here
+            },
+          }}
         />
+
+        {/* Min Price Filter */}
         <TextField
           label="Giá tối thiểu"
           type="number"
           value={minPrice}
           onChange={(e) => setMinPrice(e.target.value)}
           size="small"
+          sx={{ minWidth: "130px" }}
         />
+
+        {/* Max Price Filter */}
         <TextField
           label="Giá tối đa"
           type="number"
           value={maxPrice}
           onChange={(e) => setMaxPrice(e.target.value)}
           size="small"
+          sx={{ minWidth: "130px" }}
         />
-        <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 1 }}>
+
+        {/* Category Filter */}
+        <TextField
+          label="Chọn danh mục"
+          select
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+          SelectProps={{
+            native: true,
+          }}
+          size="small"
+          sx={{ minWidth: "150px" }}
+        >
+          <option value="All">Tất cả</option>
+          <option value="Thức ăn">Thức ăn</option>
+          <option value="Vệ sinh hồ">Vệ sinh hồ</option>
+          <option value="Thuốc">Thuốc</option>
+          <option value="Dụng cụ">Dụng cụ</option>
+        </TextField>
+
+        {/* Sort Button */}
+        {/* <Box
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+            mb: 1,
+            width: 120,
+          }}
+        >
           <Button
             variant="outlined"
             startIcon={<SortIcon />}
@@ -213,7 +290,7 @@ const Product = () => {
           >
             {sortOrder === "asc" ? "A-Z" : "Z-A"}
           </Button>
-        </Box>
+        </Box> */}
       </Box>
 
       <Grid container spacing={3}>
@@ -247,6 +324,9 @@ const Product = () => {
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography variant="h6" gutterBottom noWrap>
                       {product.name}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      Danh mục: {product.category}
                     </Typography>
                     <Typography
                       variant="body2"
@@ -292,7 +372,8 @@ const Product = () => {
                     startIcon={<ShoppingCartIcon />}
                     fullWidth
                     disabled={!product.inStock}
-                    onClick={() => handleAddToCart(product)}
+                    component={Link}
+                    to={`/userhome/store/${product.id}`}
                   >
                     {product.inStock ? "MUA NGAY" : "Hết hàng"}
                   </Button>
@@ -328,7 +409,11 @@ const Product = () => {
           <Button onClick={handleCloseDialog} color="primary">
             Hủy
           </Button>
-          <Button onClick={confirmAddToCart} color="primary" variant="contained">
+          <Button
+            onClick={confirmAddToCart}
+            color="primary"
+            variant="contained"
+          >
             Xác nhận
           </Button>
         </DialogActions>

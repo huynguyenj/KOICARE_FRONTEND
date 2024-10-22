@@ -11,7 +11,7 @@ import {
   Grid,
   Rating,
   IconButton,
-  Container
+  Container,
 } from "@mui/material";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
@@ -46,15 +46,15 @@ const Detail = () => {
   }
 
   const handleAddToCart = () => {
-    addToCart(product);
+    addToCart(product, quantity); // Pass the selected quantity
   };
 
   const handleMinusQuantity = () => {
-    setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
+    setQuantity((prev) => (prev > 1 ? prev - 1 : 1)); // Decrease quantity but not below 1
   };
 
   const handlePlusQuantity = () => {
-    setQuantity((prev) => prev + 1);
+    setQuantity((prev) => prev + 1); // Increase quantity
   };
 
   return (

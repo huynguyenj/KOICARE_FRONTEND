@@ -9,6 +9,7 @@ import User from "./pages/User/User";
 import Layout from "./components/Layout";
 import Drawers from "./components/Drawers/User";
 // import NavbarUser from "./components/NavbarAfterLogin/NavbarUser";
+
 import MyFish from "./pages/MyFish/FishAdd";
 import MyPond from "./pages/MyPond/MyPond";
 import Admin from "./components/Drawers/Admin";
@@ -17,12 +18,15 @@ import Dashboard from "./pages/Admin/Dashboard";
 import UserInfo from "./pages/Admin/UserInfo";
 import HomeForShop from "./pages/HomeForShop/HomeForShop";
 import ShowProduct from "./pages/Products/ShowProducts/ShowProducts";
-import Notification from "./pages/Admin/Notification";
+// import AddProducts from "./pages/Products/AddProducts/AddProducts";
 import FishList from "./pages/MyFish/MyFish";
-import News from "./pages/News/News";
+import PondAdd from "./pages/MyPond/PondAdd";
+import PondList from "./pages/MyPond/PondList";
+import PondInfo from "./pages/MyPond/PondInfo";
 import Store from "./pages/Store/Product";
 import Details from "./pages/Store/Details";
-import CartTab from "./pages/Store/CartTab";
+import News from "./pages/News/News";
+
 function App() {
   const router = createBrowserRouter([
     {
@@ -40,9 +44,11 @@ function App() {
             { path: "myfish", element: <MyFish /> },
             { path: "myfishlist", element: <FishList /> },
             { path: "mypond", element: <MyPond /> },
+            { path: "pondadd", element: <PondAdd /> },
+            { path: "pondlist", element: <PondList /> },
+            { path: "pondlist/pondinfo/:id", element: <PondInfo /> },
             { path: "store", element: <Store /> },
             { path: "/userhome/store/:id", element: <Details /> },
-            { path: "/userhome/cart", element: <CartTab /> },
             { path: "", element: <Navigate to="mypond" replace /> },
           ],
         },
@@ -55,6 +61,7 @@ function App() {
       children: [
         { path: "userInfo", element: <UserInfo /> },
         { path: "", element: <Navigate to="userInfo" replace /> },
+        { path: "dashboard", element: <Dashboard /> },
       ],
     },
     {
@@ -72,7 +79,6 @@ function App() {
   return (
     <>
       <RouterProvider router={router} />
-      {/* <ShopD /> */}
     </>
   );
 }

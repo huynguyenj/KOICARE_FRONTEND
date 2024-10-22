@@ -119,7 +119,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 export default function PersistentDrawerLeft() {
   const theme = useTheme();
-  const { cartItems, addToCart, removeFromCart } = useCart(); // Use the Cart context
+  const { cartItems, updateQuantity, removeFromCart } = useCart(); // Use the Cart context
   const [open, setOpen] = React.useState(false);
   const [cartOpen, setCartOpen] = React.useState(false);
   const navigate = useNavigate();
@@ -147,7 +147,6 @@ export default function PersistentDrawerLeft() {
   const handleDeleteItem = (product) => {
     removeFromCart(product.id);
   };
-
 
   // Handle profile menu open (define your own logic for opening profile menu)
   const handleProfileMenuOpen = (event) => {
@@ -331,31 +330,44 @@ export default function PersistentDrawerLeft() {
               {cartItems.map((item) => (
                 <ListItem key={item.product.id}>
                   {/* Display the product image */}
-                  <CardMedia 
-                  component="img"
-                  sx={{width: 80, height: 80, objectFit: "cover", mr: 2,}}
-                  image={item.product.image}
-                  alt={item.product.name}
+                  <CardMedia
+                    component="img"
+                    sx={{ width: 80, height: 80, objectFit: "cover", mr: 2 }}
+                    image={item.product.image}
+                    alt={item.product.name}
                   />
                   <ListItemText
                     primary={item.product.name}
                     secondary={`Giá: ${item.product.price}`}
                   />
-                  <IconButton
-                    onClick={() => handleQuantityChange(item.product, -1)}
-                  >
-                    <RemoveIcon />
-                  </IconButton>
-                  <Typography>{item.quantity}</Typography>
-                  <IconButton
-                    onClick={() => handleQuantityChange(item.product, 1)}
-                  >
-                    <AddIcon />
-                  </IconButton>
+                  {/* Display Quantity */}
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <IconButton
+                      onClick={() =>
+                        updateQuantity(item.product.id, item.quantity - 1)
+                      }
+                      disabled={item.quantity <= 1}
+                    >
+                      <RemoveIcon />
+                    </IconButton>
+                    {/* Display the actual quantity as a number */}
+                    <Typography variant="body1">
+                      {item.quantity}
+                    </Typography>{" "}
+                    {/* Quantity Display */}
+                    <IconButton
+                      onClick={() =>
+                        updateQuantity(item.product.id, item.quantity + 1)
+                      }
+                    >
+                      <AddIcon />
+                    </IconButton>
+                  </Box>
                   {/* Remove Product Item */}
-                  <IconButton edge="end"
-                  aria-label="delete"
-                  onClick={() => handleDeleteItem(item.product)}
+                  <IconButton
+                    edge="end"
+                    aria-label="delete"
+                    onClick={() => handleDeleteItem(item.product)}
                   >
                     <DeleteIcon />
                   </IconButton>

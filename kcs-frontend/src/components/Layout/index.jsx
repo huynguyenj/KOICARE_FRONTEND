@@ -2,24 +2,19 @@ import { useEffect, useState } from "react";
 import Navbar from "../Navbar/Navbar.jsx";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import NavbarUser from "../NavbarAfterLogin/NavbarUser.jsx";
-import { logout } from "../../api/userService.js";
+import { getMyInfo, logout } from "../../api/userService.js";
 
 function Layout() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState("");
   const location = useLocation();
   const navigator = useNavigate()
 
 
   useEffect(() => {
    
-    const storedUserInfo = localStorage.getItem("userInfo");
-    
-    if (storedUserInfo) {
-      const parsedUserInfo = JSON.parse(storedUserInfo);
-      setUser(parsedUserInfo);
-      setIsLoggedIn(true);
-    }
+  
+    fetchUserInfo();
   }, [location]);
 
   // Function to handle logout, switching to Navbar when logged out
@@ -29,7 +24,25 @@ function Layout() {
     navigator('/login'); // Redirect to login page after logging out
     
   };
-
+    const fetchUserInfo = async () => {
+    try {
+      const response = await getMyInfo(); // Fetch user info from the API
+      if (response && response.result) {
+        const parsedUserInfo = response.result; // Assuming the user data is in response.result  
+        if (parsedUserInfo.userName) {
+          setUser(parsedUserInfo.userName); // Set user name from the fetched data
+          setIsLoggedIn(true); // Update logged-in status
+        } else {
+          console.log("User name not found in the fetched information.");
+        }
+      } else {
+        console.log("No user information found in the response.");
+      }
+    } catch (error) {
+      console.error("Failed to fetch user info:", error);
+    }
+  };
+  
   const hideNavbar = location.pathname.startsWith("/userhome");
 
   return (

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -20,6 +20,8 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import { getAllUser, trackingUser } from "../../api/userService";
+import { toast, ToastContainer } from "react-toastify";
 
 const data = [
   { name: "Jan", users: 4000 },
@@ -31,6 +33,49 @@ const data = [
 ];
 
 const Dashboard = () => {
+  
+  const [sumUser, setSumUsers] = useState(0);
+  const [trackingUsers, setTrackingUsers] = useState(0);
+
+  useEffect(() => {
+    countUsers();
+    trackingUserLogin();
+  }, []);
+  
+
+  async function countUsers() {
+
+    try {
+      const res = await getAllUser();
+      if(res.code == 1010){
+        toast.success("Cập nhật người dùng")
+        setSumUsers(res.result.length);
+      }else{
+        toast.error("Cập nhật thất bại")
+      }
+  
+    } catch (error) {
+      console.error("Failed to fetch users:", error);
+    } 
+  }
+
+  
+  async function trackingUserLogin() {
+
+    try {
+      const res = await trackingUser();
+      if(res.code == 1010){
+        toast.success("Cập nhật người dùng")
+        setTrackingUsers(res.result.userCount)
+       
+      }else{
+        toast.error("Cập nhật thất bại")
+      }
+  
+    } catch (error) {
+      console.error("Failed to fetch users:", error);
+    } 
+  }
    return (
      <Box
        sx={{
@@ -48,18 +93,18 @@ const Dashboard = () => {
          >
            Dashboard
          </Typography>
-         <Grid container spacing={3} justifyContent="center">
+         <Grid container spacing={3} justifyContent="center" textAlign="center">
            <Grid item xs={12} sm={6} md={4}>
              <StatCard
                title="Số tài khoản đăng ký"
-               value="999,999,999"
+               value={sumUser}
                icon={People}
              />
            </Grid>
            <Grid item xs={12} sm={6} md={4}>
              <StatCard
                title="Lượt truy cập trang web"
-               value="999,999,999"
+               value={trackingUsers}
                icon={BarChart}
              />
            </Grid>

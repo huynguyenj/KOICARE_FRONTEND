@@ -9,7 +9,6 @@ import User from "./pages/User/User";
 import Layout from "./components/Layout";
 import Drawers from "./components/Drawers";
 // import NavbarUser from "./components/NavbarAfterLogin/NavbarUser";
-
 import MyFish from "./pages/MyFish/FishAdd";
 import MyPond from "./pages/MyPond/MyPond";
 import Admin from "./components/Drawers/Admin";
@@ -23,6 +22,15 @@ import FishList from "./pages/MyFish/MyFish";
 import PondAdd from "./pages/MyPond/PondAdd";
 import PondList from "./pages/MyPond/PondList";
 import PondInfo from "./pages/MyPond/PondInfo";
+import Store from "./pages/Store/Product";
+import Details from "./pages/Store/Details";
+import AddProducts from "./pages/Products/AddProducts/AddProducts";
+import ShowProduct from "./pages/Products/ShowProducts/ShowProducts";
+import Orders from "./pages/Orders/Orders";
+import Advertise from "./pages/Advertise/Advertise";
+import Revenue from "./pages/Revenue/Revenue"
+import Notification from "./pages/Admin/Notification";
+import News from "./pages/News/News";
 
 function App() {
   const router = createBrowserRouter([
@@ -33,7 +41,6 @@ function App() {
         { index: true, element: <Home /> },
         { path: "login", element: <Login /> },
         { path: "register", element: <Register /> },
-        { path: "userpage", element: <User /> },
         {
           path: "userhome",
           element: <Drawers />,
@@ -42,6 +49,10 @@ function App() {
             { path: "myfish", element: <MyFish /> },
             { path: "myfishlist", element: <FishList /> },
             { path: "mypond", element: <MyPond /> },
+             
+            { path: "store", element: <Store /> },
+            { path: "/userhome/store/:id", element: <Details /> },
+             
             { path: "pondadd", element: <PondAdd/> },
             { path: "pondlist", element: <PondList/>},
             { path: "pondlist/pondinfo/:id", element: <PondInfo/>},
@@ -50,18 +61,17 @@ function App() {
         },
       ],
     },
+    { path: "news", element: <News /> },
     {
-      path:'admin',
-      element:<Admin/>,
+      path: "admin",
+      element: <Admin />,
       children: [
         { path: "userInfo", element: <UserInfo /> },
         { path: "", element: <Navigate to="userInfo" replace /> },
-        { path: "dashboard", element: <Dashboard /> },
-
       ],
     },
     {
-      path: "shop",
+      path: "/shop",
       element: <Shop />,
       children: [
         { path: "userInfo", element: <UserInfo /> },
@@ -70,11 +80,11 @@ function App() {
         { path: "Product", element: <ShowProduct /> },
       ],
     },
-
   ]);
 
   return (
     <>
+
       <RouterProvider router={router} />
      
     </>

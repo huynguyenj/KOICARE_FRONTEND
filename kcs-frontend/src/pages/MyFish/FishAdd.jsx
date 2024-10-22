@@ -112,6 +112,7 @@ const FishForm = () => {
                 style={{ display: "none" }}
                 id="image-input"
               />
+
               <Button
                 component="label"
                 htmlFor="image-input"

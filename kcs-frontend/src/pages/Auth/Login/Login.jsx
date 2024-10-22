@@ -153,6 +153,7 @@ function Login() {
           </Col>
         </Row>
       </Container>
+      <FooterEnd/>
     </div>
   );
 }

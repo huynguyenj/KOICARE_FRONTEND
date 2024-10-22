@@ -4,10 +4,6 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { Button, Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-
-
-
-
 function PondList() {
     const pondList = [
         {

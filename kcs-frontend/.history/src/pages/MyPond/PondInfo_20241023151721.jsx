@@ -112,7 +112,7 @@ function PondInfo() {
     const fileInputRef = useRef(null);
     const [pondData, setPondData] = useState({
         id,
-        pondname: "Sample Pond",
+        name: "Sample Pond",
         size: 50.5,
         depth: 4.0,
         volumn: 102.0,
@@ -213,7 +213,7 @@ function PondInfo() {
                 backgroundColor: '#DCDCDC'
             }}>
                 <Grid container spacing={2}>
-                    <div item xs={12} sm={4} style={style.container1}>
+                    <div ite xs={12} sm={4} style={style.container1}>
                         {isEditing ? (
                             <>
                                 <TextField

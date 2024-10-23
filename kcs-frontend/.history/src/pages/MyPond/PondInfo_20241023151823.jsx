@@ -111,8 +111,8 @@ function PondInfo() {
     const [errors, setErrors] = useState({});
     const fileInputRef = useRef(null);
     const [pondData, setPondData] = useState({
-        id,
-        pondname: "Sample Pond",
+        Pid,
+        pondName: "Sample Pond",
         size: 50.5,
         depth: 4.0,
         volumn: 102.0,

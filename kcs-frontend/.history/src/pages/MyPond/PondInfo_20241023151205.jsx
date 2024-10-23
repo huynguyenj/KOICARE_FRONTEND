@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState ,useRef } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom';
-import { Button , Box, Grid, TextField, Alert} from '@mui/material';
+import { Button , Box, Gird} from '@mui/material';
 import { ToastContainer, toast } from "react-toastify";
 import { getPond } from '../../api/pond_fish';
 
@@ -112,7 +112,7 @@ function PondInfo() {
     const fileInputRef = useRef(null);
     const [pondData, setPondData] = useState({
         id,
-        pondname: "Sample Pond",
+        name: "Sample Pond",
         size: 50.5,
         depth: 4.0,
         volumn: 102.0,

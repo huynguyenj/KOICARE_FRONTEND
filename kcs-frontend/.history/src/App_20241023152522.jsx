@@ -5,7 +5,7 @@ import Home from "./pages/Guest/Home/Home";
 import Login from "./pages/Auth/Login/Login";
 import Register from "./pages/Auth/SignUp/SignUp";
 import UserProfile from "./pages/UserProfile/UserProfile";
-
+import User from "./pages/User/User";
 import Layout from "./components/Layout";
 import Drawers from "./components/Drawers/User";
 // import NavbarUser from "./components/NavbarAfterLogin/NavbarUser";
@@ -24,6 +24,14 @@ import PondList from "./pages/MyPond/PondList";
 import PondInfo from "./pages/MyPond/PondInfo";
 import Store from "./pages/Store/Product";
 import Details from "./pages/Store/Details";
+<<<<<<< HEAD
+=======
+import AddProducts from "./pages/Products/AddProducts/AddProducts";
+import Orders from "./pages/Orders/Orders";
+import Advertise from "./pages/Advertise/Advertise";
+import Revenue from "./pages/Revenue/Revenue"
+import Notification from "./pages/Admin/Notification";
+>>>>>>> 4dc1b09f92d0e19d6696ecc47c26cb6055d56be5
 import News from "./pages/News/News";
 
 function App() {
@@ -60,7 +68,10 @@ function App() {
       children: [
         { path: "userInfo", element: <UserInfo /> },
         { path: "", element: <Navigate to="userInfo" replace /> },
+<<<<<<< HEAD
         { path: "dashboard", element: <Dashboard /> },
+=======
+>>>>>>> 4dc1b09f92d0e19d6696ecc47c26cb6055d56be5
       ],
     },
     {

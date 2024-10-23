@@ -5,7 +5,7 @@ import Home from "./pages/Guest/Home/Home";
 import Login from "./pages/Auth/Login/Login";
 import Register from "./pages/Auth/SignUp/SignUp";
 import UserProfile from "./pages/UserProfile/UserProfile";
-
+import User from "./pages/User/User";
 import Layout from "./components/Layout";
 import Drawers from "./components/Drawers/User";
 // import NavbarUser from "./components/NavbarAfterLogin/NavbarUser";

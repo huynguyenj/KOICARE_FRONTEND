@@ -248,7 +248,7 @@ function PondInfo() {
                             Back to Pond List
                         </Button>
                     </div>
-                    <div item xs={12} sm={6} style={style.container2}>
+                    <div ite xs={12} sm={6} style={style.container2}>
                         <div style={style.buttonContainer}>
                             {isEditing ? (
                                 <>

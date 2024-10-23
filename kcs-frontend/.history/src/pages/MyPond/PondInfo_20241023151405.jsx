@@ -110,17 +110,17 @@ function PondInfo() {
     const [isEditing, setIsEditing] = useState(false);
     const [errors, setErrors] = useState({});
     const fileInputRef = useRef(null);
-    const [pondData, setPondData] = useState({
-        id,
-        pondname: "Sample Pond",
-        size: 50.5,
-        depth: 4.0,
-        volumn: 102.0,
-        drainCount: 4,
-        pumpCapacity: 20.0,
-        creationDate: "2021-01-01",
-        image: "https://i.pinimg.com/564x/b3/28/99/b32899495cf5a8bc7e016644e46fffed.jpg",
-    });
+    // const [pondData, setPondData] = useState({
+    //     id,
+    //     name: "Sample Pond",
+    //     size: 50.5,
+    //     depth: 4.0,
+    //     volumn: 102.0,
+    //     drainCount: 4,
+    //     pumpCapacity: 20.0,
+    //     creationDate: "2021-01-01",
+    //     image: "https://i.pinimg.com/564x/b3/28/99/b32899495cf5a8bc7e016644e46fffed.jpg",
+    // });
 
     const validateFields = () => {
         const newErrors = {};

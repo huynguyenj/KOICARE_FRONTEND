@@ -18,10 +18,12 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import SearchIcon from "@mui/icons-material/Search";
 import Badge from "@mui/material/Badge";
-import MailIcon from "@mui/icons-material/Mail";
+import DeleteIcon from "@mui/icons-material/Delete";
 import ShoppingCart from "@mui/icons-material/ShoppingCart";
+import RemoveIcon from "@mui/icons-material/Remove";
+import AddIcon from "@mui/icons-material/Add";
 import AccountCircle from "@mui/icons-material/AccountCircle"; // Added AccountCircle import
-import { Button, InputBase } from "@mui/material";
+import { Button, CardMedia, InputBase } from "@mui/material";
 import { useNavigate, Outlet } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -29,7 +31,7 @@ import {
   faClock,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
-import { useCart } from '../../pages/Store/Cart'; // Adjust the import path
+import { useCart } from "../../pages/Store/Cart"; // Adjust the import path
 const drawerWidth = 240;
 
 const Search = styled("div")(({ theme }) => ({
@@ -117,8 +119,9 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 export default function PersistentDrawerLeft() {
   const theme = useTheme();
-  const { cartItems } = useCart(); // Use the Cart context
+  const { cartItems, updateQuantity, removeFromCart } = useCart(); // Use the Cart context
   const [open, setOpen] = React.useState(false);
+  const [cartOpen, setCartOpen] = React.useState(false);
   const navigate = useNavigate();
 
   const handleDrawerOpen = () => {
@@ -127,6 +130,22 @@ export default function PersistentDrawerLeft() {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const toggleCartDrawer = (open) => () => {
+    setCartOpen(open);
+  };
+
+  const handleQuantityChange = (product, amount) => {
+    if (amount < 0) {
+      removeFromCart(product.id);
+    } else {
+      addToCart(product);
+    }
+  };
+
+  const handleDeleteItem = (product) => {
+    removeFromCart(product.id);
   };
 
   // Handle profile menu open (define your own logic for opening profile menu)
@@ -204,12 +223,11 @@ export default function PersistentDrawerLeft() {
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton
               size="large"
-              aria-label="show 17 new notifications"
+              aria-label={`show ${cartItems.length} items in cart`}
               color="inherit"
+              onClick={toggleCartDrawer(true)}
             >
               <Badge badgeContent={cartItems.length} color="error">
-                {" "}
-                {/* Update this line */}
                 <ShoppingCart />
               </Badge>
             </IconButton>
@@ -298,6 +316,86 @@ export default function PersistentDrawerLeft() {
           Back to Homepage
         </Button>
       </Drawer>
+
+      {/* Cart Drawer */}
+      <Drawer
+        anchor="right"
+        open={cartOpen}
+        onClose={toggleCartDrawer(false)}
+        sx={{
+          "& .MuiDrawer-paper": {
+            width: "400px",
+          },
+        }}
+      >
+        <Box sx={{ p: 2 }}>
+          <Typography variant="h6">Giỏ hàng của bạn</Typography>
+          <Divider sx={{ my: 2 }} />
+          {cartItems.length > 0 ? (
+            <List>
+              {cartItems.map((item) => (
+                <ListItem key={item.product.id}>
+                  {/* Display the product image */}
+                  <CardMedia
+                    component="img"
+                    sx={{ width: 80, height: 80, objectFit: "cover", mr: 2 }}
+                    image={item.product.image}
+                    alt={item.product.name}
+                  />
+                  <ListItemText
+                    primary={item.product.name}
+                    secondary={`Giá: ${item.product.price}`}
+                  />
+                  {/* Display Quantity */}
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <IconButton
+                      onClick={() =>
+                        updateQuantity(item.product.id, item.quantity - 1)
+                      }
+                      disabled={item.quantity <= 1}
+                    >
+                      <RemoveIcon />
+                    </IconButton>
+                    {/* Display the actual quantity as a number */}
+                    <Typography variant="body1">
+                      {item.quantity}
+                    </Typography>{" "}
+                    {/* Quantity Display */}
+                    <IconButton
+                      onClick={() =>
+                        updateQuantity(item.product.id, item.quantity + 1)
+                      }
+                    >
+                      <AddIcon />
+                    </IconButton>
+                  </Box>
+                  {/* Remove Product Item */}
+                  <IconButton
+                    edge="end"
+                    aria-label="delete"
+                    onClick={() => handleDeleteItem(item.product)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </ListItem>
+              ))}
+            </List>
+          ) : (
+            <Typography>Giỏ hàng của bạn đang trống</Typography>
+          )}
+          <Box sx={{ mt: 2 }}>
+            <Button
+              variant="contained"
+              fullWidth
+              color="primary"
+              onClick={() => navigate("/checkout")}
+            >
+              Tiến hành thanh toán
+            </Button>
+          </Box>
+        </Box>
+      </Drawer>
+
       <Main open={open}>
         <DrawerHeader />
         <Outlet />

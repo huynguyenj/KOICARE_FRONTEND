@@ -72,6 +72,24 @@ export default function PrimarySearchAppBar() {
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // Handle search input change
+  const handleSearchChange = (event) => {
+    const term = event.target.value;
+    setSearchTerm(term);
+    if (onSearch) {
+      onSearch(term); // Pass the search term to parent or handle in this component
+    }
+  };
+
+  // Optionally, handle search on enter or button press
+  const handleSearchSubmit = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      navigate(`/search?query=${searchTerm}`); // Example: navigate to a search results page
+    }
+  };
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -260,6 +278,9 @@ export default function PrimarySearchAppBar() {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
+              value={searchTerm}
+              onChange={handleSearchChange}
+              onKeyDown={handleSearchSubmit}
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />

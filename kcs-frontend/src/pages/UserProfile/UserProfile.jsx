@@ -15,18 +15,13 @@ import {
   FormGroup,
   FormControlLabel,
   Checkbox,
-  FormLabel
+  FormLabel,
 } from "@mui/material";
-import {
- 
-  ShoppingCart,
-  Lock,
-} from "@mui/icons-material";
+import { ShoppingCart, Lock } from "@mui/icons-material";
 
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getMyInfo, updateInfo } from "../../api/userService";
 import { ToastContainer, toast } from "react-toastify";
-
 
 function UserProfile() {
   const [userInfo, setUserInfo] = useState({});
@@ -37,36 +32,29 @@ function UserProfile() {
     email: "",
   });
 
-  useEffect(()=>{
+  useEffect(() => {
     getInfo();
-   
-  },[])
+  }, []);
 
   async function getInfo() {
-    
     try {
-      
       const res = await getMyInfo();
-      setUserInfo(res.result)
-
+      setUserInfo(res.result);
     } catch (error) {
-      alert("Xảy ra sự cố khi lấy dữ liệu!")
-      navigate("/")
-      console.log(error)
-    } 
+      alert("Xảy ra sự cố khi lấy dữ liệu!");
+      navigate("/");
+      console.log(error);
+    }
   }
-
-
 
   useEffect(() => {
     // Update formData with userInfo values when userInfo changes
     if (userInfo) {
       setFormData({
-        userId:userInfo.userId || "",
+        userId: userInfo.userId || "",
         userName: userInfo.userName || "",
         email: userInfo.email || "",
         phone: userInfo.phone || "",
-        
       });
     }
   }, [userInfo]);
@@ -84,43 +72,45 @@ function UserProfile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-         setErrors({ email: "", phone: "" }); // Reset errors
+    setErrors({ email: "", phone: "" }); // Reset errors
 
     // Validate email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
-        setErrors((prev) => ({ ...prev, email: "Vui lòng nhập đúng định dạng gmail có @." }));
-        return;
+      setErrors((prev) => ({
+        ...prev,
+        email: "Vui lòng nhập đúng định dạng gmail có @.",
+      }));
+      return;
     }
 
     // Validate phone number
     const phoneRegex = /^\d{10}$/;
     if (!phoneRegex.test(formData.phone)) {
-        setErrors((prev) => ({ ...prev, phone: "Vui lòng nhập 10 chữ số." }));
-        return;
+      setErrors((prev) => ({ ...prev, phone: "Vui lòng nhập 10 chữ số." }));
+      return;
     }
     console.log("Form submitted:", formData);
-    await updateInfo(formData.userId,formData)
-        .then(()=>toast.success("Thông tin của bạn đã được cập nhật thành công!"))
-        .catch(()=> toast.error("Cập nhật thông tin không thành công!"))
+    await updateInfo(formData.userId, formData)
+      .then(() =>
+        toast.success("Thông tin của bạn đã được cập nhật thành công!")
+      )
+      .catch(() => toast.error("Cập nhật thông tin không thành công!"));
   };
 
- 
   const handleReset = () => {
     setFormData({
-        userName: userInfo.userName || "",
-        email: userInfo.email || "",
-        phone: userInfo.phone || "",
+      userName: userInfo.userName || "",
+      email: userInfo.email || "",
+      phone: userInfo.phone || "",
     });
   };
-
 
   const navigate = useNavigate();
 
   return (
-    
     <div>
-       <ToastContainer />
+      <ToastContainer />
       <Box
         sx={{
           height: "100vh",

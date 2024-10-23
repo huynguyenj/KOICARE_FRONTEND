@@ -185,6 +185,12 @@ export default function PersistentDrawerLeft() {
       iconSrc: "https://img.icons8.com/ios-filled/50/calculate.png",
       path: "/calculations",
     },
+    {
+      text: "Blog",
+      iconType: "img",
+      iconSrc: "https://img.icons8.com/?size=100&id=58240&format=png&color=000000",
+      path: "/calculations",
+    },
   ];
 
   return (

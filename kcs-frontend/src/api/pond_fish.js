@@ -3,7 +3,31 @@ const REST_API_BASE_URL = "http://localhost:8081/pond";
 const REST_API_BASE_URL_FISH = "http://localhost:8081/fish";
 
 //Pond
+<<<<<<< HEAD
 export const addPond = async (pondInfo) => {
+=======
+export const addPond =async(pondInfo) => {
+ 
+            try {
+                
+                  const token = localStorage.getItem('token')
+                  if(!token){
+                        throw new Error('Token not find')
+                  }
+                  
+                  const res = await axios.post(REST_API_BASE_URL + '/add_Pond', pondInfo ,{
+                        headers: {
+                              'Authorization': `Bearer ${token}`,
+                              'Content-Type': 'multipart/form-data',
+                        }
+                  })
+                  return res.data;
+            } catch (error) {
+                  console.log("",error)
+                  throw error
+            }
+}
+>>>>>>> 4dc1b09f92d0e19d6696ecc47c26cb6055d56be5
 
       try {
 
@@ -132,6 +156,64 @@ export const deleteFish = async (fishId) => {
             })
       } catch (error) {
             console.log("", error)
+            throw error
+      }
+}
+
+//Fish
+export const addFish =async(fishInfo) => {
+ 
+      try {
+          
+            const token = localStorage.getItem('token')
+            if(!token){
+                  throw new Error('Token not find')
+            }
+            
+            const res = await axios.post(REST_API_BASE_URL_FISH + '/add_Fish', fishInfo ,{
+                  headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'multipart/form-data',
+                  }
+            })
+            return res.data;
+      } catch (error) {
+            console.log("",error)
+            throw error
+      }
+}
+
+export const getAllFish = async ()=>{
+      try {
+            const token = localStorage.getItem('token')
+            if(!token){
+                  throw new Error('Token not find')
+            }
+            const res = await axios.get(REST_API_BASE_URL_FISH+'/getAllFish',{
+                  headers: {
+                        Authorization: `Bearer ${token}`
+                  }
+            })
+            return res.data;
+      } catch (error) {
+            console.log("",error)
+            throw error
+      }
+}
+
+export const deleteFish = async(fishId)=>{
+      try {
+            const token = localStorage.getItem('token')
+            if(!token){
+                  throw new Error('Token not find')
+            }
+            await axios.delete(`${REST_API_BASE_URL_FISH}/delete_Fish/${fishId}`,{
+                  headers: {
+                        Authorization: `Bearer ${token}`
+                  }
+            })
+      } catch (error) {
+            console.log("",error)
             throw error
       }
 }

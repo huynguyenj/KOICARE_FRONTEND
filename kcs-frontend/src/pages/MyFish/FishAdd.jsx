@@ -65,7 +65,11 @@ const FishForm = () => {
 
     console.log("Form submitted:", formData);
     try {
+<<<<<<< HEAD
       await addFish(formData);
+=======
+      await addFish(formData)
+>>>>>>> 4dc1b09f92d0e19d6696ecc47c26cb6055d56be5
       toast.success("Cá đã được thêm thành công!");
     } catch (error) {
       console.log(error);

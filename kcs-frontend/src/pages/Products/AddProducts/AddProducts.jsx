@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './AddProducts.css';
-import NavbarShop from "../../../components/NavbarShop/NavbarShop";
 import FooterEnd from "../../../components/Footer/FooterEnd";
+import ShopD from "../../../components/Drawers/Shop";
 
 const AddProducts = () => {
   const [productName, setProductName] = useState('');
@@ -32,8 +32,7 @@ const AddProducts = () => {
 
   return (
     <>
-      <NavbarShop/>
-
+      <ShopD/>
       {/* <div className="top-actions">
         <button className="action-btn">Thêm sản phẩm</button>
         <button className="action-btn">Xóa sản phẩm</button>

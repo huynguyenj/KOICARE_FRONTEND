@@ -1,6 +1,9 @@
-import React, { useState, useRef } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { Box, Grid, Button, TextField, Alert } from '@mui/material';
+
+import React, { useEffect, useState ,useRef } from 'react';
+import { useParams, Link, useLocation } from 'react-router-dom';
+import { Button } from '@mui/material';
+import { ToastContainer, toast } from "react-toastify";
+import { getPond } from '../../api/pond_fish';
 
 const style = {
     container1: {
@@ -9,6 +12,7 @@ const style = {
         padding: '10px',
         backgroundColor: '#f0f0f0',
         borderRadius: '8px',
+
         boxShadow: '0 2px 4px rgba(2, 4, 4, 8)',
         fontFamily: 'Arial, sansSerif',
         fontSize: '17px',
@@ -26,6 +30,7 @@ const style = {
         borderRadius: '8px',
         boxShadow: '0 2px 4px rgba(2, 4, 4, 8)',
         minHeight: '400px',
+
     },
     image: {
         width: '100%',
@@ -40,6 +45,7 @@ const style = {
         height: '40px',
         display: 'flex',
         alignItems: 'center',
+
     },
     p: {
         color: '#34495e',
@@ -82,6 +88,25 @@ const style = {
 
 function PondInfo() {
     const { id } = useParams();
+  
+    const [pond,setPond] = useState({});
+
+    const location = useLocation();
+    useEffect(()=>{
+        getPondInfo();
+    },[location])
+
+    const getPondInfo = async ()=>{
+        try {
+            const res = await getPond(id);
+            setPond(res.result)
+        } catch (error) {
+            console.log(error)
+            toast.error("Xảy ra lỗi trong quá trình lấy dữ liệu!");
+        }
+      
+    }
+    
     const [isEditing, setIsEditing] = useState(false);
     const [errors, setErrors] = useState({});
     const fileInputRef = useRef(null);
@@ -329,18 +354,23 @@ function PondInfo() {
                                 </>
                             ) : (
                                 <>
-                                    <p style={style.p}>Độ sâu: {pondData.depth}m</p>
-                                    <p style={style.p}>Kích thước: {pondData.size}</p>
-                                    <p style={style.p}>Thể tích: {pondData.volumn}</p>
-                                    <p style={style.p}>Công suất bơm: {pondData.pumpCapacity}</p>
-                                    <p style={style.p}>Số lượng cống thải: {pondData.drainCount}</p>
+            <p style={style.p}>Number of fish: {Array.isArray(pond.fishResponses) ? pond.fishResponses.length : 0}</p>
+            <p style={style.p}>Created on: {new Date(pond.date).toLocaleDateString()}</p>
+            <p style={style.p}>Kích thước: {pond.size}m</p>
+            <p style={style.p}>Độ sâu: {pond.depth}m</p>
+            <p style={style.p}>Thể tích: {pond.volume}l</p>
+            <p style={style.p}>Số ống xả: {pond.drainCount} cái</p>
+            <p style={style.p}>Lưu lượng máy bơm: {pond.pumpCapacity}w</p>
                                 </>
                             )}
                         </div>
                     </div>
                 </Grid>
             </Box>
+
         </div>
+        </>
+        
     );
 }
 

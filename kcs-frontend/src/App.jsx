@@ -65,8 +65,12 @@ function App() {
       children: [
         { path: "userInfo", element: <UserInfo /> },
         { path: "", element: <Navigate to="userInfo" replace /> },
-        { path: "HomeForShop", element: <HomeForShop /> },
-        { path: "Product", element: <ShowProduct /> },
+        { path: "homeForShop", element: <HomeForShop /> },
+        { path: "addProducts", element: <AddProducts /> },
+        { path: "showProduct", element: <ShowProduct /> },
+        { path: "orders", element: <Orders /> },
+        { path: "revenue", element: <Revenue /> },
+        { path: "status_Products", element: <Status_Products /> },
       ],
     },
   ]);

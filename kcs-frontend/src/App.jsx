@@ -5,9 +5,9 @@ import Home from "./pages/Guest/Home/Home";
 import Login from "./pages/Auth/Login/Login";
 import Register from "./pages/Auth/SignUp/SignUp";
 import UserProfile from "./pages/UserProfile/UserProfile";
-import User from "./pages/User/User";
+
 import Layout from "./components/Layout";
-import Drawers from "./components/Drawers";
+import Drawers from "./components/Drawers/User";
 // import NavbarUser from "./components/NavbarAfterLogin/NavbarUser";
 import MyFish from "./pages/MyFish/FishAdd";
 import MyPond from "./pages/MyPond/MyPond";
@@ -16,13 +16,19 @@ import Shop from "./components/Drawers/Shop";
 import Dashboard from "./pages/Admin/Dashboard";
 import UserInfo from "./pages/Admin/UserInfo";
 import HomeForShop from "./pages/HomeForShop/HomeForShop";
-import AddProducts from "./pages/Products/AddProducts/AddProducts";
-import ShowProduct from "./pages/Products/ShowProducts/ShowProducts";
-import Orders from "./pages/Orders/Orders";
-import Revenue from "./pages/Revenue/Revenue"
-import Status_Products from "./pages/Status_Products/Status_Products";
-import Notification from "./pages/Admin/Notification";
+// import AddProducts from "./pages/Products/AddProducts/AddProducts";
 import FishList from "./pages/MyFish/MyFish";
+import PondAdd from "./pages/MyPond/PondAdd";
+import PondList from "./pages/MyPond/PondList";
+import PondInfo from "./pages/MyPond/PondInfo";
+import Store from "./pages/Store/Product";
+import Details from "./pages/Store/Details";
+import Orders from "./pages/Orders/Orders";
+import Status_Products from "./pages/Status_Products/Status_Products";
+import ShowProduct from "./pages/Products/ShowProducts/ShowProducts";
+import AddProducts from "./pages/Products/AddProducts/AddProducts";
+import Revenue from "./pages/Revenue/Revenue"
+
 import News from "./pages/News/News";
 import Store from "./pages/Store/Product";
 import Details from "./pages/Store/Details";
@@ -43,6 +49,10 @@ function App() {
             { path: "myfish", element: <MyFish /> },
             { path: "myfishlist", element: <FishList /> },
             { path: "mypond", element: <MyPond /> },
+
+            { path: "pondadd", element: <PondAdd /> },
+            { path: "pondlist", element: <PondList /> },
+            { path: "pondlist/pondinfo/:id", element: <PondInfo /> },
             { path: "store", element: <Store /> },
             { path: "/userhome/store/:id", element: <Details /> },
             { path: "", element: <Navigate to="mypond" replace /> },
@@ -57,6 +67,7 @@ function App() {
       children: [
         { path: "userInfo", element: <UserInfo /> },
         { path: "", element: <Navigate to="userInfo" replace /> },
+        { path: "dashboard", element: <Dashboard /> },
       ],
     },
     {
@@ -77,8 +88,8 @@ function App() {
 
   return (
     <>
-      {/* <RouterProvider router={router} /> */}
-      <HomeForShop/>
+      <RouterProvider router={router} />
+
     </>
   );
 }

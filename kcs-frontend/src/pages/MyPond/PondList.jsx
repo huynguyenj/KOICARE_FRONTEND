@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
@@ -5,6 +6,7 @@ import { Button, Grid } from "@mui/material";
 import { Link } from "react-router-dom";
 import { deletePond, getAllPond } from "../../api/pond_fish";
 import { ToastContainer, toast } from "react-toastify";
+
 
 function PondList() {
   const [ponds, setPonds] = useState([]);
@@ -48,8 +50,14 @@ function PondList() {
   }, []);
 
   const getPonds = async () => {
-    const res = await getAllPond();
-    setPonds(res.result);
+    try {
+      const res = await getAllPond();
+      setPonds(res.result);
+    } catch (error) {
+      console.log(error)
+      toast.error("Lấy dữ liệu thất bại!")
+    }
+    
   };
 
   const handleDeletePond = async (pondId) => {

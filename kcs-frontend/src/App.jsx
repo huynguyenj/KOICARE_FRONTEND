@@ -24,15 +24,8 @@ import PondList from "./pages/MyPond/PondList";
 import PondInfo from "./pages/MyPond/PondInfo";
 import Store from "./pages/Store/Product";
 import Details from "./pages/Store/Details";
-<<<<<<< HEAD
-=======
-import AddProducts from "./pages/Products/AddProducts/AddProducts";
-import Orders from "./pages/Orders/Orders";
-import Advertise from "./pages/Advertise/Advertise";
-import Revenue from "./pages/Revenue/Revenue"
-import Notification from "./pages/Admin/Notification";
->>>>>>> 4dc1b09f92d0e19d6696ecc47c26cb6055d56be5
 import News from "./pages/News/News";
+import Payment from "./pages/Payment/Payment";
 
 function App() {
   const router = createBrowserRouter([
@@ -51,37 +44,25 @@ function App() {
             { path: "myfish", element: <MyFish /> },
             { path: "myfishlist", element: <FishList /> },
             { path: "mypond", element: <MyPond /> },
-<<<<<<< HEAD
             { path: "pondadd", element: <PondAdd /> },
             { path: "pondlist", element: <PondList /> },
             { path: "pondlist/pondinfo/:id", element: <PondInfo /> },
             { path: "store", element: <Store /> },
             { path: "/userhome/store/:id", element: <Details /> },
-=======
-             
-            { path: "store", element: <Store /> },
-            { path: "/userhome/store/:id", element: <Details /> },
-             
-            { path: "pondadd", element: <PondAdd/> },
-            { path: "pondlist", element: <PondList/>},
-            { path: "pondlist/pondinfo/:id", element: <PondInfo/>},
->>>>>>> 4dc1b09f92d0e19d6696ecc47c26cb6055d56be5
             { path: "", element: <Navigate to="mypond" replace /> },
           ],
         },
       ],
     },
     { path: "news", element: <News /> },
+    { path: "payment", element: <Payment /> },
     {
       path: "admin",
       element: <Admin />,
       children: [
         { path: "userInfo", element: <UserInfo /> },
         { path: "", element: <Navigate to="userInfo" replace /> },
-<<<<<<< HEAD
         { path: "dashboard", element: <Dashboard /> },
-=======
->>>>>>> 4dc1b09f92d0e19d6696ecc47c26cb6055d56be5
       ],
     },
     {
@@ -98,7 +79,6 @@ function App() {
 
   return (
     <>
-
       <RouterProvider router={router} />
     </>
   );

@@ -34,45 +34,6 @@ import {
 import { useCart } from "../../pages/Store/Cart"; // Adjust the import path
 const drawerWidth = 240;
 
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
-}));
-
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme, open }) => ({
     flexGrow: 1,
@@ -119,7 +80,8 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 export default function PersistentDrawerLeft() {
   const theme = useTheme();
-  const { cartItems, updateQuantity, removeFromCart } = useCart(); // Use the Cart context
+  const { cartItems, updateQuantity, removeFromCart, calculateTotalPrice } =
+    useCart(); // Use the Cart context
   const [open, setOpen] = React.useState(false);
   const [cartOpen, setCartOpen] = React.useState(false);
   const navigate = useNavigate();
@@ -153,6 +115,17 @@ export default function PersistentDrawerLeft() {
     // Implement the logic for opening the profile menu (e.g., a dropdown or a popover)
     console.log("Profile menu opened");
   };
+
+  const formatPrice = (price) => {
+    return price.toLocaleString("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    });
+  };
+
+  function payment() {
+    navigate("/payment");
+  }
 
   const drawerItems = [
     {
@@ -188,7 +161,8 @@ export default function PersistentDrawerLeft() {
     {
       text: "Blog",
       iconType: "img",
-      iconSrc: "https://img.icons8.com/?size=100&id=58240&format=png&color=000000",
+      iconSrc:
+        "https://img.icons8.com/?size=100&id=58240&format=png&color=000000",
       path: "/calculations",
     },
   ];
@@ -210,15 +184,6 @@ export default function PersistentDrawerLeft() {
           <Typography variant="h6" noWrap component="div">
             Welcome
           </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton
@@ -384,11 +349,14 @@ export default function PersistentDrawerLeft() {
             <Typography>Giỏ hàng của bạn đang trống</Typography>
           )}
           <Box sx={{ mt: 2 }}>
+            <Typography variant="h6" align="right">
+              Tổng cộng: {formatPrice(calculateTotalPrice())}
+            </Typography>
             <Button
               variant="contained"
               fullWidth
               color="primary"
-              onClick={() => navigate("/checkout")}
+              onClick={payment}
             >
               Tiến hành thanh toán
             </Button>

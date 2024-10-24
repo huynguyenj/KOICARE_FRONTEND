@@ -132,7 +132,7 @@ function SignUp() {
                 </Button>
               </div>
               <Form onSubmit={handleSubmit}>
-                <Form.Group controlId="formUsername" className="">
+                <Form.Group controlId="formUsername" className="mb-3">
                   <Form.Control
                     type="text"
                     placeholder="Tên đăng nhập"
@@ -141,7 +141,7 @@ function SignUp() {
                     required
                   />
                 </Form.Group>
-                <Form.Group controlId="formPassword" className="">
+                <Form.Group controlId="formPassword" className="mb-3">
                   <Form.Control
                     type="password"
                     placeholder="Mật khẩu"
@@ -150,7 +150,7 @@ function SignUp() {
                     required
                   />
                 </Form.Group>
-                <Form.Group controlId="formEmail" className="">
+                <Form.Group controlId="formEmail" className="mb-3">
                   <Form.Control
                     type="email"
                     placeholder="Email"
@@ -161,7 +161,7 @@ function SignUp() {
                     helperText={errors.email} // Display error message
                   />
                 </Form.Group>
-                <Form.Group controlId="formPhone" className="">
+                <Form.Group controlId="formPhone" className="mb-3">
                   <Form.Control
                     type="number"
                     placeholder="Số điện thoại"

@@ -30,6 +30,7 @@ import Advertise from "./pages/Advertise/Advertise";
 import Revenue from "./pages/Revenue/Revenue"
 import Notification from "./pages/Admin/Notification";
 import News from "./pages/News/News";
+import FishInfo from "./pages/MyFish/FishInfo";
 
 function App() {
   const router = createBrowserRouter([
@@ -47,6 +48,7 @@ function App() {
             { path: "userprofile", element: <UserProfile /> },
             { path: "myfish", element: <MyFish /> },
             { path: "myfishlist", element: <FishList /> },
+            { path: "myfishlist/fishinfo/:id", element: <FishInfo/>},
             { path: "mypond", element: <MyPond /> },
              
             { path: "store", element: <Store /> },

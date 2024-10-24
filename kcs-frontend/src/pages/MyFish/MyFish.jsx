@@ -11,7 +11,50 @@ import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer
 function MyFishList() {
   const [heartIconClicked, setHeartIconClicked] = useState(false);
 
-  const [koiFishList, setKoiFishList] = useState([]);
+  // const [koiFishList, setKoiFishList] = useState([]);
+
+  const koiFishList = [
+    {
+      fishId: 1,
+      fishImg: "https://images.unsplash.com/photo-1583132648365-b3e4e0f8c8f7",
+      fishName: "Kohaku Koi"
+    },
+    {
+      fishId: 2,
+      fishImg: "https://images.unsplash.com/photo-1583132648534-3f4eb6d4f374",
+      fishName: "Showa Sanshoku"
+    },
+    {
+      fishId: 3,
+      fishImg: "https://images.unsplash.com/photo-1583132648476-f5c7cb875932",
+      fishName: "Taisho Sanshoku"
+    },
+    {
+      fishId: 4,
+      fishImg: "https://images.unsplash.com/photo-1583132648412-5c75d0b9e1c1",
+      fishName: "Asagi Koi"
+    },
+    {
+      fishId: 5,
+      fishImg: "https://images.unsplash.com/photo-1583132648498-d3d13e8e5a0e",
+      fishName: "Shiro Utsuri"
+    },
+    {
+      fishId: 6,
+      fishImg: "https://images.unsplash.com/photo-1583132648387-6c69b55b6cd7",
+      fishName: "Tancho Koi"
+    },
+    {
+      fishId: 7,
+      fishImg: "https://images.unsplash.com/photo-1583132648323-9c5c9f35b912",
+      fishName: "Bekko Koi"
+    },
+    {
+      fishId: 8,
+      fishImg: "https://images.unsplash.com/photo-1583132648345-8ec453d4a084",
+      fishName: "Chagoi Koi"
+    }
+  ];
 
   const style = {
     list: {
@@ -48,35 +91,35 @@ function MyFishList() {
 
   const location = useLocation();
 
-  useEffect(() => {
-    getFishes();
-  }, [location]);
+  // useEffect(() => {
+  //   getFishes();
+  // }, [location]);
 
-  const getFishes = async () => {
-    try {
-      const res = await getAllFish();
-      setKoiFishList(res.result);
-    } catch (error) {
-      console.log(error);
-      toast.error("Lấy dữ liệu thất bại!");
-    }
-  };
+  // const getFishes = async () => {
+  //   try {
+  //     const res = await getAllFish();
+  //     setKoiFishList(res.result);
+  //   } catch (error) {
+  //     console.log(error);
+  //     toast.error("Lấy dữ liệu thất bại!");
+  //   }
+  // };
 
-  const handleLogout = async (fishId) => {
-    try {
-      const confirmDelete = window.confirm("Bạn có chắc chắn muốn xóa hồ này?");
+  // const handleLogout = async (fishId) => {
+  //   try {
+  //     const confirmDelete = window.confirm("Bạn có chắc chắn muốn xóa con cá này?");
 
-      if (!confirmDelete) {
-        return;
-      }
-      await deleteFish(fishId);
-      toast.success("Xóa thành công");
-      getFishes();
-    } catch (error) {
-      console.log(error);
-      toast.error("Xóa dữ liệu thất bại!");
-    }
-  };
+  //     if (!confirmDelete) {
+  //       return;
+  //     }
+  //     await deleteFish(fishId);
+  //     toast.success("Xóa thành công");
+  //     getFishes();
+  //   } catch (error) {
+  //     console.log(error);
+  //     toast.error("Xóa dữ liệu thất bại!");
+  //   }
+  // };
 
   return (
     <div>
@@ -137,7 +180,7 @@ function MyFishList() {
                 <span style={style.fishName}>{fish.fishName}</span>
                 <br />
 
-                <Link style={style.moreInfo}>Xem thông tin</Link>
+                <Link component={Link} to={`/userhome/myfishlist/fishinfo/${fish.fishId}`} style={style.moreInfo}>Xem thông tin</Link>
               </div>
             </div>
           ))}

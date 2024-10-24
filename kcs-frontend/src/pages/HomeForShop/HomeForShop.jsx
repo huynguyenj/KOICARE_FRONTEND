@@ -18,7 +18,6 @@ const HomeForShop = () => {
       <div className="nav-options">
         <div className="nav-item">Sản phẩm</div>
         <div className="nav-item">Đơn hàng</div>
-        <div className="nav-item">Khuyến mãi</div>
         <div className="nav-item">Doanh thu</div>
         <div className="nav-item">Trạng thái</div>
         </div>

@@ -16,7 +16,6 @@ import Shop from "./components/Drawers/Shop";
 import Dashboard from "./pages/Admin/Dashboard";
 import UserInfo from "./pages/Admin/UserInfo";
 import HomeForShop from "./pages/HomeForShop/HomeForShop";
-import ShowProduct from "./pages/Products/ShowProducts/ShowProducts";
 // import AddProducts from "./pages/Products/AddProducts/AddProducts";
 import FishList from "./pages/MyFish/MyFish";
 import PondAdd from "./pages/MyPond/PondAdd";
@@ -24,8 +23,15 @@ import PondList from "./pages/MyPond/PondList";
 import PondInfo from "./pages/MyPond/PondInfo";
 import Store from "./pages/Store/Product";
 import Details from "./pages/Store/Details";
-import News from "./pages/News/News";
+import Orders from "./pages/Orders/Orders";
+import Status_Products from "./pages/Status_Products/Status_Products";
+import ShowProduct from "./pages/Products/ShowProducts/ShowProducts";
+import AddProducts from "./pages/Products/AddProducts/AddProducts";
+import Revenue from "./pages/Revenue/Revenue"
 
+import News from "./pages/News/News";
+import Store from "./pages/Store/Product";
+import Details from "./pages/Store/Details";
 function App() {
   const router = createBrowserRouter([
     {
@@ -43,6 +49,7 @@ function App() {
             { path: "myfish", element: <MyFish /> },
             { path: "myfishlist", element: <FishList /> },
             { path: "mypond", element: <MyPond /> },
+
             { path: "pondadd", element: <PondAdd /> },
             { path: "pondlist", element: <PondList /> },
             { path: "pondlist/pondinfo/:id", element: <PondInfo /> },
@@ -69,16 +76,20 @@ function App() {
       children: [
         { path: "userInfo", element: <UserInfo /> },
         { path: "", element: <Navigate to="userInfo" replace /> },
-        { path: "HomeForShop", element: <HomeForShop /> },
-        { path: "Product", element: <ShowProduct /> },
+        { path: "homeForShop", element: <HomeForShop /> },
+        { path: "addProducts", element: <AddProducts /> },
+        { path: "showProduct", element: <ShowProduct /> },
+        { path: "orders", element: <Orders /> },
+        { path: "revenue", element: <Revenue /> },
+        { path: "status_Products", element: <Status_Products /> },
       ],
     },
   ]);
 
   return (
     <>
-
       <RouterProvider router={router} />
+
     </>
   );
 }

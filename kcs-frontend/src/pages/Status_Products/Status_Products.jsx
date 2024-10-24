@@ -4,6 +4,16 @@ import ShopD from "../../components/Drawers/Shop";
 import FooterEnd from "../../components/Footer/FooterEnd";
 
 const Status_Products = () => {
+  // State to manage whether each section is expanded or collapsed
+  const [isExpanded, setIsExpanded] = useState([false, false, false]);
+
+  // Function to toggle the expansion of each section
+  const toggleExpand = (index) => {
+    const updatedState = [...isExpanded];
+    updatedState[index] = !updatedState[index];
+    setIsExpanded(updatedState);
+  };
+
   return (
     <div className="Status_Products-container">
       <ShopD />
@@ -12,25 +22,30 @@ const Status_Products = () => {
         <input type="date" />
         <label>Đến</label>
         <input type="date" />
-        <select className="sort-select">
-          <option>Sắp xếp</option>
-          <option>Gần nhất</option>
-          <option>Xa nhất</option>
-        </select>
-        <select className="status-select">
-          <option>Trạng thái</option>
-          <option>Đang hoạt động</option>
-          <option>Ngưng hoạt động</option>
-        </select>
-        <input
-          type="text"
-          placeholder="Tìm kiếm sản phẩm"
-          className="search-bar"
-        />
-        <button className="btn-display">
-          <p4 className="btn-show">Hiển thị</p4>
-        </button>
       </div>
+      <div>
+        <p2 className="title-of-page">Thông tin trạng thái đơn hàng</p2>
+      </div>
+
+      {["Đơn hàng đã bị hủy", "Đơn hàng đã bán", "Số lượng sản phẩm còn trong kho", "Đơn hàng đang vận chuyển"].map((title, index) => (
+        <div key={index} className="status-section">
+          <div className="status-header" onClick={() => toggleExpand(index)}>
+            <span>{title}</span>
+            <span>{isExpanded[index] ? "▲" : "▼"}</span>
+          </div>
+          {isExpanded[index] && (
+            <div className="status-content">
+              {index === 2 ? (
+                <div className="stasub">
+                  <img src="BG.jpg" alt="" className="status-info" />
+                </div>
+              ) : (
+                <p>Chưa có dữ liệu.</p>
+              )}
+            </div>
+          )}
+        </div>
+      ))}
       <FooterEnd />
     </div>
   );

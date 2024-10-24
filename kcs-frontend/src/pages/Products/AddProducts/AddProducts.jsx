@@ -33,18 +33,16 @@ const AddProducts = () => {
   return (
     <>
       <ShopD/>
-      {/* <div className="top-actions">
-        <button className="action-btn">Thêm sản phẩm</button>
-        <button className="action-btn">Xóa sản phẩm</button>
-        <button className="action-btn">Sửa sản phẩm</button>
-      </div> */}
 
       <div className="container">
         <div className="title-product">
           <h2>Thêm Ảnh Sản Phẩm</h2>
         </div>
         <div className="product-image">
-          <div className="upload-frame col-md-6">
+          <div className="product-image-show">
+            <img src={image ? image : "\\BG2.jpg"} alt="Product" />
+          </div>
+          <div className="upload-frame">
           <label htmlFor="file-upload" className="custom-file-upload">
             Bấm để thêm ảnh khác
           </label>
@@ -54,9 +52,6 @@ const AddProducts = () => {
             onChange={handleImageUpload} 
             accept="image/*" 
           />
-          </div>
-          <div className="product-image-show">
-            <img src={image ? image : "\\BG2.jpg"} alt="Product" />
           </div>
         </div>
 

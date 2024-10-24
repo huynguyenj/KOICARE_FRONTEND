@@ -78,7 +78,7 @@ function App() {
   return (
     <>
       {/* <RouterProvider router={router} /> */}
-      <HomeForShop/>
+      <ShowProduct/>
     </>
   );
 }

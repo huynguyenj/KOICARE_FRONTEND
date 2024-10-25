@@ -8,6 +8,9 @@ const ShowProduct = () => {
     <div className="app-container">
       <ShopD/>
       <div className="main-content">
+        <div className="title-showproduct">
+          <p></p>
+        </div>
         <div className="product-list">
           {Array(5).fill(null).map((_, index) => (
             <div className="product-item" key={index}>

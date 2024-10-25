@@ -159,11 +159,12 @@ export default function PersistentDrawerLeft() {
       path: "/calculations",
     },
     {
+    
       text: "Blog",
       iconType: "img",
-      iconSrc:
-        "https://img.icons8.com/?size=100&id=58240&format=png&color=000000",
-      path: "/calculations",
+      iconSrc: "https://img.icons8.com/?size=100&id=58240&format=png&color=000000",
+      path: "/news",
+
     },
   ];
 

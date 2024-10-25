@@ -12,9 +12,9 @@ import { Typography } from "antd";
 
 function MyFishList() {
   const [heartIconClicked, setHeartIconClicked] = useState(false);
-
   const [koiFishList, setKoiFishList] = useState([]);
   const [loading, setLoading] = useState(true); // Loading state
+
   const style = {
     list: {
       textAlign: "center",
@@ -50,9 +50,10 @@ function MyFishList() {
 
   const location = useLocation();
 
-  useEffect(() => {
-    getFishes();
-  }, [location]);
+  // useEffect(() => {
+  //   getFishes();
+  // }, [location]);
+
 
   const getFishes = async () => {
     try {
@@ -66,21 +67,22 @@ function MyFishList() {
     }
   };
 
-  const handleLogout = async (fishId) => {
-    try {
-      const confirmDelete = window.confirm("Bạn có chắc chắn muốn xóa hồ này?");
 
-      if (!confirmDelete) {
-        return;
-      }
-      await deleteFish(fishId);
-      toast.success("Xóa thành công");
-      getFishes();
-    } catch (error) {
-      console.log(error);
-      toast.error("Xóa dữ liệu thất bại!");
-    }
-  };
+  // const handleLogout = async (fishId) => {
+  //   try {
+  //     const confirmDelete = window.confirm("Bạn có chắc chắn muốn xóa con cá này?");
+
+  //     if (!confirmDelete) {
+  //       return;
+  //     }
+  //     await deleteFish(fishId);
+  //     toast.success("Xóa thành công");
+  //     getFishes();
+  //   } catch (error) {
+  //     console.log(error);
+  //     toast.error("Xóa dữ liệu thất bại!");
+  //   }
+  // };
 
   if (loading) {
     return (
@@ -153,7 +155,7 @@ function MyFishList() {
                 <span style={style.fishName}>{fish.fishName}</span>
                 <br />
 
-                <Link style={style.moreInfo}>Xem thông tin</Link>
+                <Link component={Link} to={`/userhome/myfishlist/fishinfo/${fish.fishId}`} style={style.moreInfo}>Xem thông tin</Link>
               </div>
             </div>
           ))}

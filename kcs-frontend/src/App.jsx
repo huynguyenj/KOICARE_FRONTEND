@@ -10,6 +10,7 @@ import Layout from "./components/Layout";
 import Drawers from "./components/Drawers/User";
 // import NavbarUser from "./components/NavbarAfterLogin/NavbarUser";
 import MyFish from "./pages/MyFish/FishAdd";
+import FishInfo from "./pages/MyFish/FishInfo";
 import MyPond from "./pages/MyPond/MyPond";
 import Admin from "./components/Drawers/Admin";
 import Shop from "./components/Drawers/Shop";
@@ -30,10 +31,12 @@ import AddProducts from "./pages/Products/AddProducts/AddProducts";
 import Revenue from "./pages/Revenue/Revenue"
 
 import News from "./pages/News/News";
+
 import AddBlog from "./pages/News/AddBlog";
 import BlogInfo from "./pages/News/blogInfo";
 import MyBlog from "./pages/News/MyBlog";
 import UpdateBlog from "./pages/News/UpdateBlog";
+
 
 function App() {
   const router = createBrowserRouter([
@@ -51,6 +54,7 @@ function App() {
             { path: "userprofile", element: <UserProfile /> },
             { path: "myfish", element: <MyFish /> },
             { path: "myfishlist", element: <FishList /> },
+            { path: "myfishlist/fishinfo/:id", element: <FishInfo/>},
             { path: "mypond", element: <MyPond /> },
             { path: "pondadd", element: <PondAdd /> },
             { path: "pondlist", element: <PondList /> },

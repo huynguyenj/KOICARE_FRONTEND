@@ -65,10 +65,7 @@ const MyBlog = () => {
   }
   const handleDelete = async (e,blogId) =>{
       e.stopPropagation();
-      const confirmDelete = window.confirm("Bạn có chắc chắn muốn xóa bài này?");
-      if (!confirmDelete) {
-        return;
-      }
+      win
       try {
             console.log(blogId)
             await deleteBlog(blogId);

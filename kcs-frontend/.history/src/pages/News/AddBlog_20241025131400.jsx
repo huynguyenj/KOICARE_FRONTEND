@@ -161,7 +161,7 @@ const AddBlog = () => {
         />}
          
        
-         <Button variant="contained" color="primary" type="submit" sx={{ mt: 2 }} disabled={updating}>
+         <Button variant="contained" color="primary" onClick={handleUpdate} sx={{ mt: 2 }} disabled={updating}>
           {updating ? <CircularProgress size={24} color="inherit" /> : "Đăng tin"}
         </Button>
         </form>

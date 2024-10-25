@@ -8,7 +8,6 @@ import {
   AppBar,
   Toolbar,
   IconButton,
-  CircularProgress,
 } from "@mui/material";
 import { ChevronLeft } from "lucide-react";
 import { postBlog } from "../../api/userService";
@@ -161,7 +160,7 @@ const AddBlog = () => {
         />}
          
        
-         <Button variant="contained" color="primary" type="submit" sx={{ mt: 2 }} disabled={updating}>
+         <Button variant="contained" color="primary" onClick={handleUpdate} sx={{ mt: 2 }} disabled={updating}>
           {updating ? <CircularProgress size={24} color="inherit" /> : "Đăng tin"}
         </Button>
         </form>

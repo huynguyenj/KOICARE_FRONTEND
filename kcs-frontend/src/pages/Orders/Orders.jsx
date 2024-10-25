@@ -38,11 +38,11 @@ const Order = ({ order }) => {
         <p>Ngày: {order.date}</p>
         <p>Địa chỉ: {order.address}</p>
       </div>
-      <div className="products-grid">
+      <div className="orderproducts-grid">
         {order.products.map((product, index) => (
-          <div key={index} className="product">
-            <div className="product-image"></div>
-            <div className="product-info">
+          <div key={index} className="orderproduct">
+            <div className="orderproduct-image"></div>
+            <div className="orderproduct-info">
               <p>{product.name}</p>
               <p>Số lượng: {product.quantity}</p>
             </div>
@@ -57,7 +57,7 @@ const Orders = () => {
   return (
     <div className="orders-page">
       <div className='content'>
-        <h2 className="title">Danh sách đơn hàng đang giao</h2>
+        <h2 className="order-title">Danh sách đơn hàng đang giao</h2>
         <div className="orders-list">
           {orders.map((order, index) => (
             <Order key={index} order={order} />

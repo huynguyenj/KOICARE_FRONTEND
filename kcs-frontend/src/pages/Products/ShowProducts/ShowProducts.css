@@ -3,10 +3,44 @@
   padding: 20px;
 }
 
+.top-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+.action-btn {
+  background-color: red;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.action-btn:hover {
+  background-color: red;
+  transform: translateY(-2px);
+}
+
+.action-btn:active {
+  background-color: red;
+  transform: translateY(1px); 
+}
+
 .product-list {
   display: grid;
   grid-template-columns: 1fr;
   gap: 15px;
+}
+
+.title-product {
+  justify-content: flex-start;
+  padding-left: 20px;
 }
 
 .product-item {

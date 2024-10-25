@@ -32,13 +32,13 @@ const AddProducts = () => {
 
   return (
     <>
-      <ShopD />
-      <div className="top-actions">
-        <button className="action-btn">Thêm sản phẩm</button>
-        <button className="action-btn">Xóa sản phẩm</button>
-        <button className="action-btn">Sửa sản phẩm</button>
-      </div>
+      {/* <ShopD /> */}
       <div className="container">
+        <div className="top-actions">
+          <button className="action-btn">Thêm sản phẩm</button>
+          <button className="action-btn">Xóa sản phẩm</button>
+          <button className="action-btn">Sửa sản phẩm</button>
+        </div>
         <div className="title-product">
           <h2>Thêm Ảnh Sản Phẩm</h2>
         </div>

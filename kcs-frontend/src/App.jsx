@@ -36,7 +36,7 @@ import AddBlog from "./pages/News/AddBlog";
 import BlogInfo from "./pages/News/blogInfo";
 import MyBlog from "./pages/News/MyBlog";
 import UpdateBlog from "./pages/News/UpdateBlog";
-import { Payment } from "@mui/icons-material";
+import Payment from "./pages/Payment/Payment";
 
 
 function App() {

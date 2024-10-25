@@ -296,10 +296,17 @@ export default function PersistentDrawerLeft() {
           <Typography variant="h6">Giỏ hàng của bạn</Typography>
           <Divider sx={{ my: 2 }} />
           {cartItems.length > 0 ? (
-            <List>
+            <List sx={{ bgcolor: "background.paper", borderRadius: 2 }}>
               {cartItems.map((item) => (
-                <ListItem key={item.product.id}>
-                  {/* Display the product image */}
+                <ListItem
+                  key={item.product.id}
+                  sx={{
+                    bgcolor: "#e0e0e0 ", // Light grey background
+                    mb: 1, // Margin between items
+                    borderRadius: 1, // Rounded corners
+                    boxShadow: 1, // Subtle shadow for depth
+                  }}
+                >
                   <CardMedia
                     component="img"
                     sx={{ width: 80, height: 80, objectFit: "cover", mr: 2 }}
@@ -310,7 +317,6 @@ export default function PersistentDrawerLeft() {
                     primary={item.product.name}
                     secondary={`Giá: ${item.product.price}`}
                   />
-                  {/* Display Quantity */}
                   <Box sx={{ display: "flex", alignItems: "center" }}>
                     <IconButton
                       onClick={() =>
@@ -320,11 +326,7 @@ export default function PersistentDrawerLeft() {
                     >
                       <RemoveIcon />
                     </IconButton>
-                    {/* Display the actual quantity as a number */}
-                    <Typography variant="body1">
-                      {item.quantity}
-                    </Typography>{" "}
-                    {/* Quantity Display */}
+                    <Typography variant="body1">{item.quantity}</Typography>
                     <IconButton
                       onClick={() =>
                         updateQuantity(item.product.id, item.quantity + 1)
@@ -333,7 +335,6 @@ export default function PersistentDrawerLeft() {
                       <AddIcon />
                     </IconButton>
                   </Box>
-                  {/* Remove Product Item */}
                   <IconButton
                     edge="end"
                     aria-label="delete"

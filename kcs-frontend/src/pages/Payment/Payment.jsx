@@ -16,12 +16,15 @@ import {
   InputAdornment,
 } from "@mui/material";
 import { ChevronLeft } from "lucide-react";
-import RemoveIcon from "@mui/icons-material/Remove";
+// import RemoveIcon from "@mui/icons-material/Remove";
+import DeleteIcon from "@mui/icons-material/Delete";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../Store/Cart";
 
 const Payment = () => {
+  const { cartItems, calculateTotalPrice, removeFromCart } = useCart();
   const [paymentMethod, setPaymentMethod] = useState("credit");
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -39,29 +42,23 @@ const Payment = () => {
     cvc: "",
   });
 
-  const [cartItems, setCartItems] = useState([
-    // Example items in the cart
-    { id: 1, name: "Item 1", price: 500000, quantity: 1 },
-    { id: 2, name: "Item 2", price: 500000, quantity: 1 },
-  ]);
-
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+  
 
   const calculateTotal = () => {
     const subtotal = cartItems.reduce(
       (total, item) => total + item.price * item.quantity,
       0
     );
-    const shipping = 10; // Example: 48,000 VND shipping fee
+    const shipping = 48000; // Updated shipping fee
     return subtotal + shipping;
   };
 
   const handleCheckout = async () => {
     setLoading(true);
     try {
-      // Step 1: Collect all necessary information
       const orderData = {
         personalInfo: {
           name: formData.name,
@@ -80,11 +77,9 @@ const Payment = () => {
         voucher: formData.voucher,
       };
 
-      // Step 2: Call the API to create the order
       const orderResponse = await axios.post("/api/orders/create", orderData);
 
       if (orderResponse.data.success) {
-        // Step 3: If payment method is credit/debit, process the payment
         if (paymentMethod === "credit") {
           const paymentData = {
             cardholderName: formData.cardholderName,
@@ -92,7 +87,7 @@ const Payment = () => {
             expDate: formData.expDate,
             cvc: formData.cvc,
             amount: calculateTotal(),
-            orderId: orderResponse.data.orderId, // Use order ID from the created order
+            orderId: orderResponse.data.orderId,
           };
 
           const paymentResponse = await axios.post(
@@ -101,9 +96,9 @@ const Payment = () => {
           );
 
           if (paymentResponse.data.success) {
-            alert("Payment successful!");
+            alert("Thanh toán thành công!");
           } else {
-            alert("Payment failed!");
+            alert("Thanh toán không thành công!");
           }
         } else {
           alert("Order created! You selected Cash on Delivery.");
@@ -113,23 +108,32 @@ const Payment = () => {
       }
     } catch (error) {
       console.error("Error during checkout:", error);
-      alert("Checkout failed.");
+      alert("Thanh toán không thành công!");
     } finally {
       setLoading(false);
     }
   };
 
-  
-   const navigate = useNavigate();
-  
+  const navigate = useNavigate();
+
   function backtoStore() {
     navigate("/userhome/store");
   }
+  // Total
+  const formatPrice = (price) => {
+    return price.toLocaleString("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    });
+  };
+
+  const getNumericPrice = (priceString) => {
+    return parseInt(priceString.replace(/[^0-9]/g, ""), 10);
+  };
 
   return (
     <Box p={4}>
       <Grid container spacing={4}>
-        {/* Personal Information */}
         <Grid item xs={12} md={8}>
           <IconButton
             edge="start"
@@ -138,24 +142,18 @@ const Payment = () => {
             sx={{
               mr: 2,
               mb: 2,
-              transition: "transform 0.3s ease-in-out", // Smooth transition
+              transition: "transform 0.3s ease-in-out",
               "&:hover": {
-                transform: "translateX(-1px)", // Move left on hover
+                transform: "translateX(-1px)",
                 "& .backText": {
-                  textDecoration: "underline", // Underline the text on hover
+                  textDecoration: "underline",
                 },
               },
             }}
-            onClick={backtoStore} // Call the function to go back to home
+            onClick={backtoStore}
           >
             <ChevronLeft />
-            <Typography
-              className="backText"
-              sx={{
-                fontSize: "20px",
-                transition: "text-decoration 0.3s ease-in-out", // Smooth underline transition
-              }}
-            >
+            <Typography className="backText" sx={{ fontSize: "20px" }}>
               Quay lại cửa hàng
             </Typography>
           </IconButton>
@@ -172,6 +170,7 @@ const Payment = () => {
                     value={formData.name}
                     onChange={handleInputChange}
                     fullWidth
+                    required
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -181,6 +180,7 @@ const Payment = () => {
                     value={formData.phone}
                     onChange={handleInputChange}
                     fullWidth
+                    required
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -190,13 +190,13 @@ const Payment = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     fullWidth
+                    required
                   />
                 </Grid>
               </Grid>
             </CardContent>
           </Card>
 
-          {/* Shipping Address */}
           <Box mt={3}>
             <Card>
               <CardContent>
@@ -211,6 +211,7 @@ const Payment = () => {
                       value={formData.address}
                       onChange={handleInputChange}
                       fullWidth
+                      required
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
@@ -220,6 +221,7 @@ const Payment = () => {
                       value={formData.postalCode}
                       onChange={handleInputChange}
                       fullWidth
+                      required
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
@@ -229,15 +231,7 @@ const Payment = () => {
                       value={formData.city}
                       onChange={handleInputChange}
                       fullWidth
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      label="Quốc tịch"
-                      name="country"
-                      value={formData.country}
-                      onChange={handleInputChange}
-                      fullWidth
+                      required
                     />
                   </Grid>
                 </Grid>
@@ -245,7 +239,6 @@ const Payment = () => {
             </Card>
           </Box>
 
-          {/* Payment Methods */}
           <Box mt={3}>
             <Card>
               <CardContent>
@@ -273,7 +266,6 @@ const Payment = () => {
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
                       <TextField
-                        label="Cardholder Name"
                         name="cardholderName"
                         value={formData.cardholderName}
                         onChange={handleInputChange}
@@ -327,48 +319,54 @@ const Payment = () => {
               </CardContent>
             </Card>
           </Box>
-
         </Grid>
 
-        {/* Items and Total Section */}
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={4} mt={8}>
           <Card>
             <CardContent>
               <Typography variant="h6" gutterBottom>
-                Item
+                Sản phẩm
               </Typography>
 
-              {/* Example item */}
               {cartItems.map((item) => (
                 <Box
-                  key={item.id}
+                  key={item.product.id}
                   display="flex"
                   justifyContent="space-between"
                   alignItems="center"
                 >
                   <Box display="flex" alignItems="center">
                     <Box
+                      component="img"
                       sx={{
                         width: 50,
                         height: 50,
-                        backgroundColor: "#e0e0e0",
+                        objectFit: "cover",
                         borderRadius: 1,
                         mr: 2,
+                        mb: 2,
                       }}
+                      src={item.product.image}
+                      alt={item.product.name}
                     ></Box>
-                    <Typography>{item.name}</Typography>
+                    <Typography>{item.product.name}</Typography>
                   </Box>
                   <Box>
                     <Typography>
-                      {item.price.toLocaleString("vi-VN")} VND
+                      {getNumericPrice(item.product.price).toLocaleString(
+                        "vi-VN"
+                      )}{" "}
+                      VND x {item.quantity || 0}
+                      <IconButton
+                        onClick={() => removeFromCart(item.product.id)}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
                     </Typography>
-                    <IconButton onClick={() => handleRemoveItem(item.id)}>
-                      <RemoveIcon />
-                    </IconButton>
                   </Box>
                 </Box>
               ))}
-
+{/* 
               <Divider sx={{ my: 2 }} />
 
               <Box display="flex" justifyContent="space-between">
@@ -388,15 +386,15 @@ const Payment = () => {
 
               <Box display="flex" justifyContent="space-between">
                 <Typography>Shipping</Typography>
-                <Typography>500.000 VND</Typography>
-              </Box>
+                <Typography>48.000 VND</Typography>
+              </Box> */}
 
               <Divider sx={{ my: 2 }} />
 
               <Box display="flex" justifyContent="space-between">
-                <Typography>Total</Typography>
+                <Typography fontWeight="bold">Tổng số tiền: </Typography>
                 <Typography fontWeight="bold">
-                  {calculateTotal().toLocaleString("vi-VN")} VND{" "}
+                  {formatPrice(calculateTotalPrice())}
                 </Typography>
               </Box>
 

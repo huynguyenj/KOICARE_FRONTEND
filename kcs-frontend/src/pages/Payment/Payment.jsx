@@ -20,8 +20,10 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../Store/Cart"; // Importing Cart Context
 
 const Payment = () => {
+  const { cartItems, calculateTotalPrice, removeFromCart } = useCart(); // Using cart items and functions
   const [paymentMethod, setPaymentMethod] = useState("credit");
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -39,11 +41,11 @@ const Payment = () => {
     cvc: "",
   });
 
-  const [cartItems, setCartItems] = useState([
-    // Example items in the cart
-    { id: 1, name: "Item 1", price: 500000, quantity: 1 },
-    { id: 2, name: "Item 2", price: 500000, quantity: 1 },
-  ]);
+  // const [cartItems, setCartItems] = useState([
+  //   // Example items in the cart
+  //   { id: 1, name: "Item 1", price: 500000, quantity: 1 },
+  //   { id: 2, name: "Item 2", price: 500000, quantity: 1 },
+  // ]);
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -119,9 +121,8 @@ const Payment = () => {
     }
   };
 
-  
-   const navigate = useNavigate();
-  
+  const navigate = useNavigate();
+
   function backtoStore() {
     navigate("/userhome/store");
   }
@@ -227,15 +228,6 @@ const Payment = () => {
                       label="Thành phố"
                       name="city"
                       value={formData.city}
-                      onChange={handleInputChange}
-                      fullWidth
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      label="Quốc tịch"
-                      name="country"
-                      value={formData.country}
                       onChange={handleInputChange}
                       fullWidth
                     />

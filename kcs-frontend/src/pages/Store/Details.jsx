@@ -32,6 +32,18 @@ const products = [
     rating: 4.5,
     reviews: 120,
   },
+  {
+    id: 2,
+    name: "Vệ sinh cho cá",
+    price: "10.000đ",
+    description: "Cám tăng màu cho các loại cá chép koi.",
+    longDescription:
+      "Thức ăn cao cấp này được đặc biệt thiết kế để tăng cường màu sắc và sức khỏe cho cá Koi. Chứa các thành phần dinh dưỡng cân bằng và các chất tăng cường màu sắc tự nhiên, giúp cá Koi của bạn phát triển màu sắc rực rỡ và duy trì sức khỏe tối ưu. Phù hợp cho tất cả các giai đoạn phát triển của cá Koi.",
+    image:
+      "https://images.unsplash.com/photo-1520301255226-bf5f144451c1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80",
+    rating: 2.5,
+    reviews: 50,
+  },
   // Add more products as needed
 ];
 

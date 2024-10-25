@@ -42,12 +42,15 @@ export const CartProvider = ({ children }) => {
     );
   };
 
-  const calculateTotalPrice = () => {
-    return cartItems.reduce(
-      (total, item) => total + item.product.price * item.quantity,
-      0
-    );
-  };
+ const calculateTotalPrice = () => {
+   return cartItems.reduce((total, item) => {
+     // Extract the numeric value from the price string and convert it to a number
+     const price = parseFloat(item.product.price.replace(/[^\d]/g, ""));
+     const quantity = item.quantity;
+     return total + price * quantity;
+   }, 0);
+ };
+
 
   return (
     <CartContext.Provider

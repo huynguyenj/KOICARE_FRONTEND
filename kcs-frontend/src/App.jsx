@@ -36,6 +36,7 @@ import AddBlog from "./pages/News/AddBlog";
 import BlogInfo from "./pages/News/blogInfo";
 import MyBlog from "./pages/News/MyBlog";
 import UpdateBlog from "./pages/News/UpdateBlog";
+import { Payment } from "@mui/icons-material";
 
 
 function App() {
@@ -73,6 +74,8 @@ function App() {
     { path: "blogDetail/:blogId", element: <BlogInfo /> },
     { path: "my-blogs", element: <MyBlog /> },
     { path: "updateBlog/:blogId", element: <UpdateBlog/> },
+    { path: "payment", element: <Payment /> },
+
     {
       path: "admin",
       element: <Admin />,

@@ -122,7 +122,7 @@ function Login() {
                 </Button>
               </div>
               <Form onSubmit={handleSubmit}>
-                <Form.Group controlId="formUsername" className="">
+                <Form.Group controlId="formUsername" className="mb-3">
                   <Form.Control
                     type="text"
                     placeholder="Tên đăng nhập"
@@ -131,7 +131,7 @@ function Login() {
                     required
                   />
                 </Form.Group>
-                <Form.Group controlId="formPassword" className="">
+                <Form.Group controlId="formPassword" className="mb-3">
                   <Form.Control
                     type="password"
                     placeholder="Mật khẩu"

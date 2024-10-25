@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import {
   Typography,
@@ -10,8 +10,14 @@ import {
   Breadcrumbs,
   Grid,
   Rating,
+  IconButton,
+  Container,
 } from "@mui/material";
-import { ShoppingCart, ArrowLeft } from "lucide-react";
+import RemoveIcon from "@mui/icons-material/Remove";
+import AddIcon from "@mui/icons-material/Add";
+// import { ShoppingCart, ArrowLeft } from "lucide-react";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useCart } from "../Store/Cart";
 const products = [
   {
@@ -20,7 +26,7 @@ const products = [
     price: "810.000đ",
     description: "Cám tăng màu cho các loại cá chép koi.",
     longDescription:
-      "Thức ăn cao cấp này được đặc biệt thiết kế để tăng cường màu sắc và sức khỏe cho cá Koi...",
+      "Thức ăn cao cấp này được đặc biệt thiết kế để tăng cường màu sắc và sức khỏe cho cá Koi. Chứa các thành phần dinh dưỡng cân bằng và các chất tăng cường màu sắc tự nhiên, giúp cá Koi của bạn phát triển màu sắc rực rỡ và duy trì sức khỏe tối ưu. Phù hợp cho tất cả các giai đoạn phát triển của cá Koi.",
     image:
       "https://sanvuontrucxinh.com/upload/hinh_bai_viet/tin_tuc_tong_hop/thuc_an_tang_truong_ca_koi.jpg",
     rating: 4.5,
@@ -31,22 +37,28 @@ const products = [
 
 const Detail = () => {
   const { id } = useParams();
-  const [detail, setDetail] = useState();
-  const product = products.find((p) => p.id === parseInt(id));
-  const { addToCart } = useCart(); // Use the Cart context
+  const [quantity, setQuantity] = useState(1);
+  const product = products.find((p) => p.id === parseInt(id || "0"));
+  const { addToCart } = useCart();
 
   if (!product) {
     return <Typography>Product not found</Typography>;
   }
 
-    const handleAddToCart = () => {
-      addToCart(product); // Add product to cart
-    };
+  const handleAddToCart = () => {
+    addToCart(product, quantity); // Pass the selected quantity
+  };
 
+  const handleMinusQuantity = () => {
+    setQuantity((prev) => (prev > 1 ? prev - 1 : 1)); // Decrease quantity but not below 1
+  };
+
+  const handlePlusQuantity = () => {
+    setQuantity((prev) => prev + 1); // Increase quantity
+  };
 
   return (
-    <Box sx={{ p: { xs: 2, md: 2 }, width: 1200, mx: "auto" }}>
-      {/* Breadcrumbs */}
+    <Container maxWidth="lg" sx={{ py: 4 }}>
       <Breadcrumbs aria-label="breadcrumb" sx={{ mb: 2 }}>
         <Link
           to="/userhome/store"
@@ -57,89 +69,87 @@ const Detail = () => {
         <Typography color="text.primary">{product.name}</Typography>
       </Breadcrumbs>
 
-      {/* Card with Product Image and Details */}
       <Card
         sx={{
           display: "flex",
           flexDirection: { xs: "column", md: "row" },
-          boxShadow: "0 4px 16px rgba(0,0,0,0.1)",
+          boxShadow: 3,
           borderRadius: 2,
-          overflow: "hidden",
         }}
       >
         <CardMedia
           component="img"
           sx={{
-            width: { xs: "100%", md: "38%" },
+            width: { xs: "100%", md: "50%" },
             height: "auto",
             objectFit: "cover",
-            // transition: "transform 0.3s ease",
           }}
           image={product.image}
           alt={product.name}
         />
         <CardContent
           sx={{
-            flex: "1 0 auto",
+            flex: 1,
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
-            p: { xs: 2, md: 3 },
+            p: 3,
           }}
         >
-          {/* Product Info */}
           <Box>
             <Typography
-              component="h1"
               variant="h4"
-              sx={{ fontWeight: "bold", color: "#333", mb: 2 }}
+              component="h1"
+              gutterBottom
+              fontWeight="bold"
             >
               {product.name}
             </Typography>
             <Typography
               variant="h5"
               color="primary"
-              sx={{ fontWeight: "bold", mb: 2 }}
+              gutterBottom
+              fontWeight="bold"
             >
               {product.price}
             </Typography>
-
-            {/* Rating and Review Count */}
-            <Grid container alignItems="center" spacing={1} sx={{ mb: 2 }}>
-              <Grid item>
-                <Rating
-                  name="read-only"
-                  value={product.rating}
-                  precision={0.5}
-                  readOnly
-                />
-              </Grid>
-              <Grid item>
-                <Typography variant="body2" color="text.secondary">
-                  ({product.reviews} đánh giá)
-                </Typography>
-              </Grid>
-            </Grid>
-
-            {/* Product Description */}
+            <Box display="flex" alignItems="center" mb={2}>
+              <Rating
+                name="read-only"
+                value={product.rating}
+                precision={0.5}
+                readOnly
+              />
+              <Typography variant="body2" color="text.secondary" sx={{ ml: 1 }}>
+                ({product.reviews} đánh giá)
+              </Typography>
+            </Box>
             <Typography variant="body1" color="text.secondary" paragraph>
               {product.longDescription}
             </Typography>
           </Box>
-
-          {/* Action Buttons */}
-          <Box sx={{ mt: 3 }}>
+          <Box>
+            <Grid container alignItems="center" spacing={2} sx={{ mb: 2 }}>
+              <Grid item>
+                <IconButton onClick={handleMinusQuantity} size="small">
+                  <RemoveIcon />
+                </IconButton>
+              </Grid>
+              <Grid item>
+                <Typography>{quantity}</Typography>
+              </Grid>
+              <Grid item>
+                <IconButton onClick={handlePlusQuantity} size="small">
+                  <AddIcon />
+                </IconButton>
+              </Grid>
+            </Grid>
             <Button
               variant="contained"
-              startIcon={<ShoppingCart />}
-              onClick={handleAddToCart} // Update this line
+              startIcon={<ShoppingCartIcon />}
+              onClick={() => handleAddToCart(product)}
               fullWidth
-              sx={{
-                mb: 2,
-                bgcolor: "#1976d2",
-                "&:hover": { bgcolor: "#115293" },
-                transition: "background-color 0.3s ease",
-              }}
+              sx={{ mb: 2 }}
             >
               Thêm vào giỏ hàng
             </Button>
@@ -147,16 +157,8 @@ const Detail = () => {
               component={Link}
               to="/userhome/store"
               variant="outlined"
-              startIcon={<ArrowLeft />}
+              startIcon={<ArrowBackIcon />}
               fullWidth
-              sx={{
-                borderColor: "#1976d2",
-                color: "#1976d2",
-                "&:hover": {
-                  borderColor: "#115293",
-                  color: "#115293",
-                },
-              }}
             >
               Quay lại cửa hàng
             </Button>
@@ -164,16 +166,15 @@ const Detail = () => {
         </CardContent>
       </Card>
 
-      {/* Reviews Section */}
       <Box sx={{ mt: 4 }}>
-        <Typography variant="h6" sx={{ fontWeight: "bold", mb: 2 }}>
+        <Typography variant="h6" fontWeight="bold" gutterBottom>
           Đánh giá sản phẩm
         </Typography>
         <Typography variant="body2" color="text.secondary">
           Chưa có đánh giá nào. Hãy là người đầu tiên đánh giá sản phẩm này!
         </Typography>
       </Box>
-    </Box>
+    </Container>
   );
 };
 

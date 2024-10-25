@@ -2,6 +2,8 @@ import React from "react";
 import Header from "../../../components/Header/Header";
 import Footer from "../../../components/Footer/Footer";
 import FooterEnd from "../../../components/Footer/FooterEnd"
+import FooterCR from "../../../components/Footer/FooterCR";
+import Footer1 from "../../../components/Footer/Footer1";
 import "./Home.css";
 
 function Home() {
@@ -132,7 +134,7 @@ function Home() {
         </div>
       </div>
       <Footer />
-      <FooterEnd />
+      {/* <FooterEnd /> */}
     </div>
   );
 }

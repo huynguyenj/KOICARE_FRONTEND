@@ -1,4 +1,4 @@
-import { Button, ButtonBase } from "@mui/material";
+import { Button, ButtonBase, CardMedia, CircularProgress } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Footer from "../../components/Footer/Footer1";
@@ -7,54 +7,13 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { deleteFish, getAllFish } from "../../api/pond_fish";
 import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast
+import { Container } from "react-bootstrap";
+import { Typography } from "antd";
 
 function MyFishList() {
   const [heartIconClicked, setHeartIconClicked] = useState(false);
-
-  // const [koiFishList, setKoiFishList] = useState([]);
-
-  const koiFishList = [
-    {
-      fishId: 1,
-      fishImg: "https://images.unsplash.com/photo-1583132648365-b3e4e0f8c8f7",
-      fishName: "Kohaku Koi"
-    },
-    {
-      fishId: 2,
-      fishImg: "https://images.unsplash.com/photo-1583132648534-3f4eb6d4f374",
-      fishName: "Showa Sanshoku"
-    },
-    {
-      fishId: 3,
-      fishImg: "https://images.unsplash.com/photo-1583132648476-f5c7cb875932",
-      fishName: "Taisho Sanshoku"
-    },
-    {
-      fishId: 4,
-      fishImg: "https://images.unsplash.com/photo-1583132648412-5c75d0b9e1c1",
-      fishName: "Asagi Koi"
-    },
-    {
-      fishId: 5,
-      fishImg: "https://images.unsplash.com/photo-1583132648498-d3d13e8e5a0e",
-      fishName: "Shiro Utsuri"
-    },
-    {
-      fishId: 6,
-      fishImg: "https://images.unsplash.com/photo-1583132648387-6c69b55b6cd7",
-      fishName: "Tancho Koi"
-    },
-    {
-      fishId: 7,
-      fishImg: "https://images.unsplash.com/photo-1583132648323-9c5c9f35b912",
-      fishName: "Bekko Koi"
-    },
-    {
-      fishId: 8,
-      fishImg: "https://images.unsplash.com/photo-1583132648345-8ec453d4a084",
-      fishName: "Chagoi Koi"
-    }
-  ];
+  const [koiFishList, setKoiFishList] = useState([]);
+  const [loading, setLoading] = useState(true); // Loading state
 
   const style = {
     list: {
@@ -95,15 +54,19 @@ function MyFishList() {
   //   getFishes();
   // }, [location]);
 
-  // const getFishes = async () => {
-  //   try {
-  //     const res = await getAllFish();
-  //     setKoiFishList(res.result);
-  //   } catch (error) {
-  //     console.log(error);
-  //     toast.error("Lấy dữ liệu thất bại!");
-  //   }
-  // };
+
+  const getFishes = async () => {
+    try {
+      const res = await getAllFish();
+      setKoiFishList(res.result);
+    } catch (error) {
+      console.log(error);
+      toast.error("Lấy dữ liệu thất bại!");
+    } finally {
+      setLoading(false); // Set loading to false after fetching
+    }
+  };
+
 
   // const handleLogout = async (fishId) => {
   //   try {
@@ -121,6 +84,21 @@ function MyFishList() {
   //   }
   // };
 
+  if (loading) {
+    return (
+      <Container maxWidth="md" sx={{ marginTop: 4, textAlign: "center" }}>
+        <CircularProgress />
+        <Typography variant="h6">Đang tải...</Typography>
+      </Container>
+    );
+  }
+  if (!koiFishList) {
+    return (
+      <Container maxWidth="md" sx={{ marginTop: 4, textAlign: "center" }}>
+        <Typography variant="h6">Không tìm thấy dữ liệu</Typography>
+      </Container>
+    );
+  }
   return (
     <div>
       <ToastContainer />
@@ -141,14 +119,11 @@ function MyFishList() {
                       borderRadius: "10px",
                     }}
                   >
-                    <img
-                      src={fish.fishImg}
+                    <CardMedia
+                      component="img"
+                      height="300"
+                      image={fish.fishImg}
                       alt={fish.fishName}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                      }}
                     />
                   </div>
                   <div className="col-2" style={style.button}>

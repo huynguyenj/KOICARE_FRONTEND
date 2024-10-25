@@ -319,6 +319,7 @@ const Payment = () => {
               </CardContent>
             </Card>
           </Box>
+
         </Grid>
 
         {/* Items and Total Section */}

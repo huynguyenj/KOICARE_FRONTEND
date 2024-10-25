@@ -46,14 +46,13 @@ function MyFishList() {
   };
 
 
-  const handleAddFishToPond = async (pondId,fishId) =>{
+  const handleAddFishToPond = async (fishId,pondId) =>{
     try {
       console.log(pondId)
       console.log(fishId)
       await addFishToPond(pondId,fishId)
-      toast.success("Thêm cá vào hồ thành công!")
+      to
     } catch (error) {
-      toast.error("Thêm cá vào hồ thất bại!")
       console.log(error)
     }
   }

@@ -196,7 +196,7 @@ export const updateFishInfo = async (fishId,fishData) => {
             if (!token) {
                   throw new Error('Token not find')
             }
-            const res = await axios.put(REST_API_BASE_URL_FISH +`/update_Fish/${fishId}`,fishData, {
+            const res = await axios.put(REST_API_BASE_URL_FISH + `/update_Fish/${fishId}`,fishData, {
                   headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'multipart/form-data',
@@ -215,9 +215,9 @@ export const addFishToPond = async(pondId,fishId) =>{
             if (!token) {
                   throw new Error('Token not find')
             }
-             await axios.put(REST_API_BASE_URL +`/addFishToPond/pond/${pondId}/fish/${fishId}`, {},{
+            const res = await axios.put(REST_API_BASE_URL_FISH + `/addFishToPond/pond/${pondId}/fish/${fishId}`, {
                   headers: {
-                         Authorization: `Bearer ${token}`
+                        'Authorization': `Bearer ${token}`,
                   }
             })
             

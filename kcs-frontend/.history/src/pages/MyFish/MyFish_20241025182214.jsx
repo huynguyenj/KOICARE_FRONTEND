@@ -5,7 +5,7 @@ import Footer from "../../components/Footer/Footer1";
 import AddIcon from "@mui/icons-material/Add";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import { addFishToPond, deleteFish, getAllFish, getAllPond } from "../../api/pond_fish";
+import { deleteFish, getAllFish, getAllPond } from "../../api/pond_fish";
 import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast
 import { Container } from "react-bootstrap";
 import { Typography, Menu, MenuItem } from "@mui/material";
@@ -46,14 +46,12 @@ function MyFishList() {
   };
 
 
-  const handleAddFishToPond = async (pondId,fishId) =>{
+  const handleAddFishToPond = async (fishId,pondId) =>{
     try {
       console.log(pondId)
       console.log(fishId)
-      await addFishToPond(pondId,fishId)
-      toast.success("Thêm cá vào hồ thành công!")
+      await 
     } catch (error) {
-      toast.error("Thêm cá vào hồ thất bại!")
       console.log(error)
     }
   }

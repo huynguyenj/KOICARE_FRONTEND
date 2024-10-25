@@ -5,7 +5,7 @@ import Footer from "../../components/Footer/Footer1";
 import AddIcon from "@mui/icons-material/Add";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import { addFishToPond, deleteFish, getAllFish, getAllPond } from "../../api/pond_fish";
+import { deleteFish, getAllFish, getAllPond } from "../../api/pond_fish";
 import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast
 import { Container } from "react-bootstrap";
 import { Typography, Menu, MenuItem } from "@mui/material";
@@ -45,18 +45,9 @@ function MyFishList() {
     },
   };
 
-
-  const handleAddFishToPond = async (pondId,fishId) =>{
-    try {
-      console.log(pondId)
-      console.log(fishId)
-      await addFishToPond(pondId,fishId)
-      toast.success("Thêm cá vào hồ thành công!")
-    } catch (error) {
-      toast.error("Thêm cá vào hồ thất bại!")
-      console.log(error)
-    }
-  }
+  const handleClick = () => {
+    setHeartIconClicked(!heartIconClicked);
+  };
 
   const handleClickMenu = (e) => {
     setAnchor(e.currentTarget);
@@ -170,17 +161,28 @@ function MyFishList() {
                         open={Boolean(anchor)}
                         onClose={handleCloseMenu}
                       >
-                        {ponds.map((pond)=>(
-                           <MenuItem key={pond.pondId}
-                           onClick={() => {
-                             handleCloseMenu();
-                             handleAddFishToPond(pond.pondId,fish.fishId);
-                           }}
-                         >
-                           {pond.pondName}
-                         </MenuItem>
-                        ))}
-                    
+                        {ponds.map()}
+                        <MenuItem
+                          onClick={() => {
+                            /* handle choice 1 */ handleCloseMenu();
+                          }}
+                        >
+                          Choice 1
+                        </MenuItem>
+                        <MenuItem
+                          onClick={() => {
+                            /* handle choice 2 */ handleCloseMenu();
+                          }}
+                        >
+                          Choice 2
+                        </MenuItem>
+                        <MenuItem
+                          onClick={() => {
+                            /* handle choice 3 */ handleCloseMenu();
+                          }}
+                        >
+                          Choice 3
+                        </MenuItem>
                       </Menu>
                     </div>
                   </div>

@@ -90,9 +90,8 @@ const FishForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(validateFields()){
+    // if(validateFields()){
       setUpdate(true)
-      const data = new FormData();
       data.append("fishName", formData.fishName);
       data.append("fishImg", formData.fishImg);
       data.append("fishSize", formData.fishSize);

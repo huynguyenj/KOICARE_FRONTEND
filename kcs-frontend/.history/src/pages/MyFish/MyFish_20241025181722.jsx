@@ -5,7 +5,7 @@ import Footer from "../../components/Footer/Footer1";
 import AddIcon from "@mui/icons-material/Add";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import { addFishToPond, deleteFish, getAllFish, getAllPond } from "../../api/pond_fish";
+import { deleteFish, getAllFish, getAllPond } from "../../api/pond_fish";
 import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast
 import { Container } from "react-bootstrap";
 import { Typography, Menu, MenuItem } from "@mui/material";
@@ -45,16 +45,16 @@ function MyFishList() {
     },
   };
 
+  const handleClick = () => {
+    setHeartIconClicked(!heartIconClicked);
+  };
 
-  const handleAddFishToPond = async (pondId,fishId) =>{
+  const handleAddFishToPond = (fishId,pondId) =>{
     try {
       console.log(pondId)
       console.log(fishId)
-      await addFishToPond(pondId,fishId)
-      toast.success("Thêm cá vào hồ thành công!")
     } catch (error) {
-      toast.error("Thêm cá vào hồ thất bại!")
-      console.log(error)
+      console.log("er")
     }
   }
 
@@ -173,8 +173,7 @@ function MyFishList() {
                         {ponds.map((pond)=>(
                            <MenuItem key={pond.pondId}
                            onClick={() => {
-                             handleCloseMenu();
-                             handleAddFishToPond(pond.pondId,fish.fishId);
+                             /* handle choice 1 */ handleCloseMenu();
                            }}
                          >
                            {pond.pondName}

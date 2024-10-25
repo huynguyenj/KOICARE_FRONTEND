@@ -92,18 +92,17 @@ const FishForm = () => {
     e.preventDefault();
     if(validateFields()){
       setUpdate(true)
-      const data = new FormData();
-      data.append("fishName", formData.fishName);
-      data.append("fishImg", formData.fishImg);
-      data.append("fishSize", formData.fishSize);
-      data.append("fishShape", formData.fishShape);
-      data.append("fishAge", formData.fishAge);
-      data.append("fishWeight", formData.fishWeight);
-      data.append("fishGender", formData.fishGender);
-      data.append("fishHealth", formData.fishHealth);
-      data.append("fishType", formData.fishType);
-      data.append("origin", formData.origin);
-      data.append("price", formData.price);
+      data.append("fishName", formData);
+      data.append("fishImg", formData);
+      data.append("fishSize", formData);
+      data.append("fishShape", formData);
+      data.append("fishAge", formData);
+      data.append("fishWeight", formData);
+      data.append("fishGender", formData);
+      data.append("fishHealth", formData);
+      data.append("fishType", formData);
+      data.append("origin", formData);
+      data.append("price", formData);
   
       console.log("Form submitted:", formData);
       try {
@@ -196,6 +195,13 @@ const FishForm = () => {
                       onChange={handleChange}
                       error={!!errors.name}
                       helperText={errors.name}
+                       InputProps={{
+                        sx: { fontSize: 15 }, // Adjust font size inside the TextField
+                        
+                      }}
+                      InputLabelProps={{
+                        sx: { fontSize: 14 }, // Adjust font size of the label
+                      }}
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>

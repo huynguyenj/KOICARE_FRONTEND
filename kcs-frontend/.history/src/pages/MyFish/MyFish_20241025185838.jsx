@@ -46,7 +46,7 @@ function MyFishList() {
   };
 
 
-  const handleAddFishToPond = async (pondId,fishId) =>{
+  const handleAddFishToPond = async (pondId,fish) =>{
     try {
       console.log(pondId)
       console.log(fishId)

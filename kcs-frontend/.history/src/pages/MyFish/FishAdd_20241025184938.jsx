@@ -92,7 +92,7 @@ const FishForm = () => {
     e.preventDefault();
     if(validateFields()){
       setUpdate(true)
-      const data = new FormData();
+      const data = 
       data.append("fishName", formData.fishName);
       data.append("fishImg", formData.fishImg);
       data.append("fishSize", formData.fishSize);

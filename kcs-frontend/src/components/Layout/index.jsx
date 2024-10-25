@@ -42,6 +42,7 @@ function Layout() {
       console.error("Failed to fetch user info:", error);
     }
   };
+  
   const hideNavbar = location.pathname.startsWith("/userhome");
 
   return (

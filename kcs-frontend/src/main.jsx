@@ -6,9 +6,9 @@ import "./index.css";
 import { CartProvider } from "./pages/Store/Cart";
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
+
     <CartProvider>
       <App />
     </CartProvider>
-  </StrictMode>
+
 );

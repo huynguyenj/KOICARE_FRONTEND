@@ -37,6 +37,7 @@ import BlogInfo from "./pages/News/blogInfo";
 import MyBlog from "./pages/News/MyBlog";
 import UpdateBlog from "./pages/News/UpdateBlog";
 
+import Calculation from "./pages/Calculation/Calculation";
 
 function App() {
   const router = createBrowserRouter([
@@ -63,7 +64,7 @@ function App() {
             { path: "/userhome/store/:id", element: <Details /> },
             { path: "", element: <Navigate to="mypond" replace /> },
             { path: "news", element: <News /> },
-            
+            { path: "calculation", element: <Calculation/> }
           ],
         },
       ],

@@ -92,7 +92,7 @@ function FishInfo() {
         size: 50.5,
         shape: "tròn",
         age: 4,
-        weight: 5.2,
+        weight: 500.2,
         gender: "đực",
         type: "Asakasa",
         health: "good",
@@ -389,7 +389,7 @@ function FishInfo() {
                         ) : (
                             <>
                                 <p style={style.p}>Kích thước: {fishData.size}m</p>
-                                <p style={style.p}>Cân nặng: {fishData.weight}kg</p>
+                                <p style={style.p}>Cân nặng: {fishData.weight}g</p>
                                 <p style={style.p}>Vóc dáng: {fishData.shape}</p>
                                 <p style={style.p}>Giới tính: {fishData.gender}</p>
                                 <p style={style.p}>Giống loài: {fishData.type}</p>

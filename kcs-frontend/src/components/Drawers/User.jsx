@@ -183,7 +183,7 @@ export default function PersistentDrawerLeft() {
       text: "Tính toán",
       iconType: "img",
       iconSrc: "https://img.icons8.com/ios-filled/50/calculate.png",
-      path: "/calculations",
+      path: "/userhome/calculation",
     },
     {
     

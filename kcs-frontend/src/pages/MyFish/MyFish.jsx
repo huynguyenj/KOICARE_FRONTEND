@@ -50,9 +50,9 @@ function MyFishList() {
 
   const location = useLocation();
 
-  // useEffect(() => {
-  //   getFishes();
-  // }, [location]);
+  useEffect(() => {
+    getFishes();
+  }, [location]);
 
 
   const getFishes = async () => {
@@ -68,21 +68,21 @@ function MyFishList() {
   };
 
 
-  // const handleLogout = async (fishId) => {
-  //   try {
-  //     const confirmDelete = window.confirm("Bạn có chắc chắn muốn xóa con cá này?");
+  const handleLogout = async (fishId) => {
+    try {
+      const confirmDelete = window.confirm("Bạn có chắc chắn muốn xóa con cá này?");
 
-  //     if (!confirmDelete) {
-  //       return;
-  //     }
-  //     await deleteFish(fishId);
-  //     toast.success("Xóa thành công");
-  //     getFishes();
-  //   } catch (error) {
-  //     console.log(error);
-  //     toast.error("Xóa dữ liệu thất bại!");
-  //   }
-  // };
+      if (!confirmDelete) {
+        return;
+      }
+      await deleteFish(fishId);
+      toast.success("Xóa thành công");
+      getFishes();
+    } catch (error) {
+      console.log(error);
+      toast.error("Xóa dữ liệu thất bại!");
+    }
+  };
 
   if (loading) {
     return (

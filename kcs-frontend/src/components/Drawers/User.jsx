@@ -127,6 +127,8 @@ export default function PersistentDrawerLeft() {
     navigate("/payment");
   }
 
+  
+
   const drawerItems = [
     {
       text: "Thông tin cá nhân",

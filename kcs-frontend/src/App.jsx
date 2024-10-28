@@ -28,7 +28,7 @@ import Orders from "./pages/Orders/Orders";
 import Status_Products from "./pages/Status_Products/Status_Products";
 import ShowProduct from "./pages/Products/ShowProducts/ShowProducts";
 import AddProducts from "./pages/Products/AddProducts/AddProducts";
-import Revenue from "./pages/Revenue/Revenue"
+import Revenue from "./pages/Revenue/Revenue";
 
 import News from "./pages/News/News";
 
@@ -37,7 +37,6 @@ import BlogInfo from "./pages/News/blogInfo";
 import MyBlog from "./pages/News/MyBlog";
 import UpdateBlog from "./pages/News/UpdateBlog";
 import Payment from "./pages/Payment/Payment";
-
 
 function App() {
   const router = createBrowserRouter([
@@ -55,7 +54,7 @@ function App() {
             { path: "userprofile", element: <UserProfile /> },
             { path: "myfish", element: <MyFish /> },
             { path: "myfishlist", element: <FishList /> },
-            { path: "myfishlist/fishinfo/:id", element: <FishInfo/>},
+            { path: "myfishlist/fishinfo/:id", element: <FishInfo /> },
             { path: "mypond", element: <MyPond /> },
             { path: "pondadd", element: <PondAdd /> },
             { path: "pondlist", element: <PondList /> },
@@ -64,7 +63,6 @@ function App() {
             { path: "/userhome/store/:id", element: <Details /> },
             { path: "", element: <Navigate to="mypond" replace /> },
             { path: "news", element: <News /> },
-            
           ],
         },
       ],
@@ -73,7 +71,7 @@ function App() {
     { path: "addBlog", element: <AddBlog /> },
     { path: "blogDetail/:blogId", element: <BlogInfo /> },
     { path: "my-blogs", element: <MyBlog /> },
-    { path: "updateBlog/:blogId", element: <UpdateBlog/> },
+    { path: "updateBlog/:blogId", element: <UpdateBlog /> },
     { path: "payment", element: <Payment /> },
 
     {
@@ -95,7 +93,7 @@ function App() {
         { path: "orders", element: <Orders /> },
         { path: "revenue", element: <Revenue /> },
         { path: "status_Products", element: <Status_Products /> },
-        { path: "", element: <Navigate to="homeForShop" replace /> }
+        { path: "", element: <Navigate to="homeForShop" replace /> },
       ],
     },
   ]);
@@ -103,7 +101,6 @@ function App() {
   return (
     <>
       <RouterProvider router={router} />
-
     </>
   );
 }

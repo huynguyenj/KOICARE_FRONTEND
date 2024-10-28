@@ -356,7 +356,7 @@ const Payment = () => {
                       {getNumericPrice(item.product.price).toLocaleString(
                         "vi-VN"
                       )}{" "}
-                      VND x {item.quantity || 0}
+                      đ x {item.quantity || 0}
                       <IconButton
                         onClick={() => removeFromCart(item.product.id)}
                       >

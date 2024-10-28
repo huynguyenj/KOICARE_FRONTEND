@@ -43,7 +43,7 @@ function Navbar() {
   }
 
   function store() {
-    navigator("/store");
+    navigator("/userhome/store");
   }
 
   // Define inline styles as objects

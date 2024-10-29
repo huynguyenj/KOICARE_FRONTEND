@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import { getWaterParamHistory } from "../../api/pond_fish";
-import { LineChart } from "@mui/x-charts";
+// import { LineChart } from "@mui/x-charts";
 
 function PondWaterParam() {
   const { id } = useParams();

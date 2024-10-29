@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getFishHistory } from '../../api/pond_fish';
-import { LineChart } from '@mui/x-charts/LineChart';
+// import { LineChart } from '@mui/x-charts/LineChart';
 import { Button, Card, CardContent, CircularProgress, Typography, Box } from '@mui/material';
 
 function FishDevelopmentData() {

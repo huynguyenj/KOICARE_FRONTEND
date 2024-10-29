@@ -7,6 +7,7 @@ import { CartProvider } from "./pages/Store/Cart";
 
 createRoot(document.getElementById("root")).render(
 
+
     <CartProvider>
       <App />
     </CartProvider>

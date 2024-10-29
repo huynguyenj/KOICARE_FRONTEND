@@ -37,6 +37,13 @@ import BlogInfo from "./pages/News/blogInfo";
 import MyBlog from "./pages/News/MyBlog";
 import UpdateBlog from "./pages/News/UpdateBlog";
 import Payment from "./pages/Payment/Payment";
+import AddWaterParam from "./pages/Calculate/WaterParam/AddWaterParam";
+import ViewWaterParam from "./pages/Calculate/WaterParam/ViewWaterParam";
+import AddDevelopment from "./pages/MyFish/addDevelopment";
+import FishDevelopmentData from "./pages/MyFish/FishDevelopmentData";
+import CalculationFood from "./pages/Calculate/CalculationFood";
+import CalculateSalt from "./pages/Calculate/CalculateSalt";
+import PaymentSuccess from "./pages/Payment/PaymentSuccess";
 
 function App() {
   const router = createBrowserRouter([

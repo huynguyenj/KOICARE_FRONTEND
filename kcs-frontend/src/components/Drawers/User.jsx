@@ -23,7 +23,7 @@ import ShoppingCart from "@mui/icons-material/ShoppingCart";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import AccountCircle from "@mui/icons-material/AccountCircle"; // Added AccountCircle import
-import { Button, CardMedia, InputBase } from "@mui/material";
+import { Button, CardMedia, InputBase, Tooltip } from "@mui/material";
 import { useNavigate, Outlet } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -124,7 +124,7 @@ export default function PersistentDrawerLeft() {
   };
 
   function payment() {
-    navigate("/payment");
+    navigate("/userhome/payment");
   }
 
   
@@ -148,25 +148,34 @@ export default function PersistentDrawerLeft() {
       iconSrc: "https://img.icons8.com/glyph-neue/50/lake.png",
       path: "/userhome/mypond",
     },
+
     {
       text: "Thông số đo",
       iconType: "img",
       iconSrc: "https://img.icons8.com/ios-filled/50/measure.png",
-      path: "/measurement",
+      path: "/userhome/param",
     },
     {
-      text: "Tính toán",
+      text: "Tính toán lượng thức ăn",
       iconType: "img",
-      iconSrc: "https://img.icons8.com/ios-filled/50/calculate.png",
-      path: "/calculations",
+      iconSrc:
+        "https://img.icons8.com/?size=100&id=89619&format=png&color=000000",
+      path: "/userhome/calculateFood",
     },
     {
-    
+      text: "Tính toán lượng muối",
+      iconType: "img",
+      iconSrc:
+        "https://img.icons8.com/?size=100&id=8391&format=png&color=000000",
+      path: "/userhome/calculateSalt",
+    },
+
+    {
       text: "Blog",
       iconType: "img",
-      iconSrc: "https://img.icons8.com/?size=100&id=58240&format=png&color=000000",
+      iconSrc:
+        "https://img.icons8.com/?size=100&id=58240&format=png&color=000000",
       path: "/news",
-
     },
   ];
 
@@ -261,8 +270,6 @@ export default function PersistentDrawerLeft() {
         <List>
           {[
             { text: "Cửa hàng", icon: faCartShopping, path: "/userhome/store" },
-            { text: "Hẹn giờ", icon: faClock },
-            { text: "Đánh giá", icon: faStar },
           ].map(({ text, icon, path }) => (
             <ListItem key={text} disablePadding>
               <ListItemButton onClick={() => navigate(path)}>
@@ -309,18 +316,35 @@ export default function PersistentDrawerLeft() {
                     mb: 1, // Margin between items
                     borderRadius: 1, // Rounded corners
                     boxShadow: 1, // Subtle shadow for depth
+                  
                   }}
                 >
                   <CardMedia
                     component="img"
                     sx={{ width: 80, height: 80, objectFit: "cover", mr: 2 }}
                     image={item.product.image}
-                    alt={item.product.name}
+                    alt={item.product.productName}
                   />
-                  <ListItemText
-                    primary={item.product.name}
-                    secondary={`Giá: ${item.product.price}`}
-                  />
+
+                  <Tooltip title={item.product.productName} arrow>
+                    <Box>
+                      <Typography
+                        sx={{
+                          maxWidth: 100, // Adjust as needed
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {item.product.productName}
+                      </Typography>
+                      <Typography color="textSecondary" sx={{fontSize:'13px'}}>
+                        Giá: {item.product.price?item.product.price.toLocaleString("vi-VN"):"" }VND
+                      </Typography>
+                    </Box>
+                  </Tooltip>
+
                   <Box sx={{ display: "flex", alignItems: "center" }}>
                     <IconButton
                       onClick={() =>
@@ -338,14 +362,15 @@ export default function PersistentDrawerLeft() {
                     >
                       <AddIcon />
                     </IconButton>
-                  </Box>
-                  <IconButton
+                    <IconButton
                     edge="end"
                     aria-label="delete"
                     onClick={() => handleDeleteItem(item.product)}
                   >
                     <DeleteIcon />
                   </IconButton>
+                  </Box>
+              
                 </ListItem>
               ))}
             </List>

@@ -38,6 +38,7 @@ function Navbar() {
   function newspage() {
     navigator("/news");
   }
+  
   function UserPage() {
     alert("Làm ơn đăng nhập để dùng chức năng");
   }
@@ -114,21 +115,13 @@ function Navbar() {
         >
           Thông tin chung
         </HashLink>
-        <HashLink
-          smooth
-          to="/#blog"
-          className="nav-item ms-4"
-          style={navItemStyle}
-        >
-          Blog
-        </HashLink>
         <a
           href="#"
           onClick={newspage}
           className="nav-item ms-4"
           style={navItemStyle}
         >
-          Tin tức
+          Blog và Tin tức
         </a>
         <a
           className="nav-item ms-4"

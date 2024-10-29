@@ -100,7 +100,11 @@ function App() {
   return (
     <>
       {/* <RouterProvider router={router} /> */}
+<<<<<<< Updated upstream
       <Orders/>
+=======
+      <homeForShop/>
+>>>>>>> Stashed changes
     </>
   );
 }

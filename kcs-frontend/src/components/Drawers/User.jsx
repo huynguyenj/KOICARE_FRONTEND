@@ -16,22 +16,23 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import SearchIcon from "@mui/icons-material/Search";
 import Badge from "@mui/material/Badge";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ShoppingCart from "@mui/icons-material/ShoppingCart";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import AccountCircle from "@mui/icons-material/AccountCircle"; // Added AccountCircle import
-import { Button, CardMedia, InputBase, Tooltip } from "@mui/material";
+import { Button, CardMedia,  Tooltip } from "@mui/material";
 import { useNavigate, Outlet } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCartShopping,
-  faClock,
-  faStar,
+ 
 } from "@fortawesome/free-solid-svg-icons";
 import { useCart } from "../../pages/Store/Cart"; // Adjust the import path
+import { useEffect } from "react";
+import { useState } from "react";
+import { getMyInfo } from "../../api/userService";
 const drawerWidth = 240;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
@@ -79,13 +80,28 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export default function PersistentDrawerLeft() {
+  
   const theme = useTheme();
   const { cartItems, updateQuantity, removeFromCart, calculateTotalPrice } =
     useCart(); // Use the Cart context
   const [open, setOpen] = React.useState(false);
   const [cartOpen, setCartOpen] = React.useState(false);
   const navigate = useNavigate();
+  const [userInfo,setUserInfo] = useState({})
 
+  useEffect(()=>{
+    getInfoUser();
+   },[])
+ 
+   const getInfoUser = async() =>{
+     try {
+       const userInfo = await getMyInfo();
+       setUserInfo(userInfo.result)
+     } catch (error) {
+       console.log(error)
+     }
+    
+   }
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -98,22 +114,21 @@ export default function PersistentDrawerLeft() {
     setCartOpen(open);
   };
 
-  const handleQuantityChange = (product, amount) => {
-    if (amount < 0) {
-      removeFromCart(product.id);
-    } else {
-      addToCart(product);
-    }
-  };
+  // const handleQuantityChange = (product, amount) => {
+  //   if (amount < 0) {
+  //     removeFromCart(product.id);
+  //   } else {
+  //     addToCart(product);
+  //   }
+  // };
 
   const handleDeleteItem = (product) => {
     removeFromCart(product.id);
   };
 
   // Handle profile menu open (define your own logic for opening profile menu)
-  const handleProfileMenuOpen = (event) => {
-    // Implement the logic for opening the profile menu (e.g., a dropdown or a popover)
-    console.log("Profile menu opened");
+  const handleProfileMenuOpen = () => {
+     navigate('/userhome/userprofile')
   };
 
   const formatPrice = (price) => {
@@ -208,6 +223,7 @@ export default function PersistentDrawerLeft() {
                 <ShoppingCart />
               </Badge>
             </IconButton>
+        
             <IconButton
               size="large"
               edge="end"
@@ -217,6 +233,7 @@ export default function PersistentDrawerLeft() {
             >
               <AccountCircle />
             </IconButton>
+            <Typography sx={{mt:1.5, ml:1}}>{userInfo.userName || ""}</Typography> 
           </Box>
         </Toolbar>
       </AppBar>
@@ -356,9 +373,12 @@ export default function PersistentDrawerLeft() {
                     </IconButton>
                     <Typography variant="body1">{item.quantity}</Typography>
                     <IconButton
-                      onClick={() =>
-                        updateQuantity(item.product.id, item.quantity + 1)
-                      }
+                      onClick={() => {
+                        if (item.quantity < item.product.quantity) { // Check if current quantity is less than stock
+                          updateQuantity(item.product.id, item.quantity + 1);
+                        }
+                      }}
+                      disabled={item.quantity >= item.product.quantity} // Disable button if at stock limit
                     >
                       <AddIcon />
                     </IconButton>

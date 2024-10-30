@@ -15,6 +15,8 @@ import {
   Switch,
   InputAdornment,
   Tooltip,
+  Backdrop,
+  CircularProgress,
 } from "@mui/material";
 import { ChevronLeft } from "lucide-react";
 // import RemoveIcon from "@mui/icons-material/Remove";
@@ -27,6 +29,7 @@ import Footer from "../../components/Footer/Footer1";
 import { ToastContainer, toast } from "react-toastify";
 import { order } from "../../api/product";
 import { createPayment } from "../../api/payment";
+import { theme } from "antd";
 
 const Payment = () => {
   const { cartItems, calculateTotalPrice, removeFromCart, clearCart } =
@@ -49,14 +52,7 @@ const Payment = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // const calculateTotal = () => {
-  //   const subtotal = cartItems.reduce(
-  //     (total, item) => total + item.price * item.quantity,
-  //     0
-  //   );
-  //   console.log(subtotal)
-  //   return subtotal;
-  // };
+ 
 
   const getClientIp = async () => {
     try {
@@ -338,7 +334,6 @@ const Payment = () => {
                   fullWidth
                   sx={{ mt: 2 }}
                   onClick={handleCheckout}
-                  disabled={loading}
                 >
                   {paymentMethod != "credit"
                     ? "Thanh toán"

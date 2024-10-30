@@ -26,7 +26,6 @@ import Store from "./pages/Store/Product";
 import Details from "./pages/Store/Details";
 import Orders from "./pages/Orders/Orders";
 import Status_Products from "./pages/Status_Products/Status_Products";
-import ShowProduct from "./pages/Products/ShowProducts/ShowProducts";
 import AddProducts from "./pages/Products/AddProducts/AddProducts";
 import Revenue from "./pages/Revenue/Revenue";
 
@@ -44,6 +43,13 @@ import FishDevelopmentData from "./pages/MyFish/FishDevelopmentData";
 import CalculationFood from "./pages/Calculate/CalculationFood";
 import CalculateSalt from "./pages/Calculate/CalculateSalt";
 import PaymentSuccess from "./pages/Payment/PaymentSuccess";
+import ChangePass from "./pages/UserProfile/ChangePass";
+import ShowProducts from "./pages/Products/ShowProducts/ShowProducts";
+import ShopAdd from "./pages/User/ShopAdd";
+import UpdateShopInfo from "./pages/User/UpdateShopInfo";
+import Footer from "./components/Footer/Footer1";
+import { Box } from "@mui/material";
+import PondWaterParam from "./pages/MyPond/PondWaterParam";
 
 function App() {
   const router = createBrowserRouter([
@@ -66,6 +72,7 @@ function App() {
             { path: "pondadd", element: <PondAdd /> },
             { path: "pondlist", element: <PondList /> },
             { path: "pondlist/pondinfo/:id", element: <PondInfo /> },
+            { path: "pondParam/:id", element: <PondWaterParam/> },
             { path: "store", element: <Store /> },
             { path: "/userhome/store/:id", element: <Details /> },
             { path: "", element: <Navigate to="mypond" replace /> },
@@ -96,7 +103,7 @@ function App() {
       children: [
         { path: "homeForShop", element: <HomeForShop /> },
         { path: "addProducts", element: <AddProducts /> },
-        { path: "showProduct", element: <ShowProduct /> },
+        { path: "showProduct", element: <ShowProducts /> },
         { path: "orders", element: <Orders /> },
         { path: "revenue", element: <Revenue /> },
         { path: "status_Products", element: <Status_Products /> },

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -70,28 +70,25 @@ export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [drawerOpen, setDrawerOpen] = React.useState(false);
-
+  const [userInfo,setUserInfo] = useState({})
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  const [searchTerm, setSearchTerm] = useState("");
   const navigator = useNavigate();
-  // Handle search input change
-  // const handleSearchChange = (event) => {
-  //   const term = event.target.value;
-  //   setSearchTerm(term);
-  //   if (onSearch) {
-  //     onSearch(term); // Pass the search term to parent or handle in this component
-  //   }
-  // };
+ 
 
-  // Optionally, handle search on enter or button press
-  const handleSearchSubmit = (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      navigator(`/search?query=${searchTerm}`); // Example: navigate to a search results page
+  useEffect(()=>{
+   getInfo();
+  },[])
+
+  const getInfo = async() =>{
+    try {
+      const userInfo = await getShopInfo();
+      setUserInfo(userInfo.result)
+    } catch (error) {
+      console.log(error)
     }
-  };
-
+   
+  }
   const handleLogout = async() => {
     await logout();
     navigator('/login'); // Redirect to login page after logging out
@@ -135,6 +132,12 @@ export default function PrimarySearchAppBar() {
       path:"/shop/Revenue"
     },
     {
+      text: "Danh sách sản phẩm",
+      iconType: "img",
+      iconSrc: "https://img.icons8.com/?size=100&id=12428&format=png&color=000000",
+      path:"/shop/showProduct"
+    },
+    {
       text: "Đăng xuất",
       iconType: "img",
       iconSrc: "https://img.icons8.com/ios/50/exit--v1.png",
@@ -164,8 +167,8 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={()=>navigator("/shop/shopAdd/")}>Tạo shop</MenuItem>
+      <MenuItem onClick={()=>navigator('/shop/updateShop')}>Thông tin shop của tôi</MenuItem>
     </Menu>
   );
 
@@ -287,24 +290,14 @@ export default function PrimarySearchAppBar() {
          
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            {/* <IconButton
-              size="large"
-              aria-label="show 4 new mails"
-              color="inherit"
-            >
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton> */}
-            {/* <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton> */}
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ display: { xs: "none", sm: "block" },ml:1,mt:1 }}
+          >
+            {userInfo.shopName}
+          </Typography>
             <IconButton
               size="large"
               edge="end"
@@ -315,6 +308,8 @@ export default function PrimarySearchAppBar() {
               color="inherit"
             >
               <AccountCircle />
+           
+             
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>

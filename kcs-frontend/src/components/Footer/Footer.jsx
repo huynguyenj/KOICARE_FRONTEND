@@ -140,7 +140,7 @@ function Footer() {
             color: "#fff",
           }}
         >
-          <div
+          {/* <div
             className="d-flex justify-content-around align-items-center"
             style={fontStyle}
           >
@@ -166,7 +166,7 @@ function Footer() {
                 </i>
               </a>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

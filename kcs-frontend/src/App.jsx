@@ -26,7 +26,6 @@ import Store from "./pages/Store/Product";
 import Details from "./pages/Store/Details";
 import Orders from "./pages/Orders/Orders";
 import Status_Products from "./pages/Status_Products/Status_Products";
-import ShowProduct from "./pages/Products/ShowProducts/ShowProducts";
 import AddProducts from "./pages/Products/AddProducts/AddProducts";
 import Revenue from "./pages/Revenue/Revenue"
 
@@ -36,8 +35,22 @@ import AddBlog from "./pages/News/AddBlog";
 import BlogInfo from "./pages/News/blogInfo";
 import MyBlog from "./pages/News/MyBlog";
 import UpdateBlog from "./pages/News/UpdateBlog";
+import Payment from "./pages/Payment/Payment";
+import AddWaterParam from "./pages/Calculate/WaterParam/AddWaterParam";
+import ViewWaterParam from "./pages/Calculate/WaterParam/ViewWaterParam";
+import AddDevelopment from "./pages/MyFish/addDevelopment";
+import FishDevelopmentData from "./pages/MyFish/FishDevelopmentData";
+import CalculationFood from "./pages/Calculate/CalculationFood";
+import CalculateSalt from "./pages/Calculate/CalculateSalt";
+import PaymentSuccess from "./pages/Payment/PaymentSuccess";
+import ChangePass from "./pages/UserProfile/ChangePass";
+import ShowProducts from "./pages/Products/ShowProducts/ShowProducts";
+import ShopAdd from "./pages/User/ShopAdd";
+import UpdateShopInfo from "./pages/User/UpdateShopInfo";
+import Footer from "./components/Footer/Footer1";
+import { Box } from "@mui/material";
+import PondWaterParam from "./pages/MyPond/PondWaterParam";
 
-import Calculation from "./pages/Calculation/Calculation";
 
 function App() {
   const router = createBrowserRouter([
@@ -60,11 +73,21 @@ function App() {
             { path: "pondadd", element: <PondAdd /> },
             { path: "pondlist", element: <PondList /> },
             { path: "pondlist/pondinfo/:id", element: <PondInfo /> },
+            { path: "pondParam/:id", element: <PondWaterParam/> },
             { path: "store", element: <Store /> },
             { path: "/userhome/store/:id", element: <Details /> },
             { path: "", element: <Navigate to="mypond" replace /> },
             { path: "news", element: <News /> },
-            { path: "calculation", element: <Calculation/> }
+            { path:"param", element: <AddWaterParam/>},
+            { path:"viewparam/:id", element:<ViewWaterParam/>},
+            { path:"addDevelop/:id", element:<AddDevelopment/>},
+            { path:"fishDevelopment/:id", element:<FishDevelopmentData/>},
+            { path:"calculateFood", element:<CalculationFood/>},
+            {path:"calculateSalt", element:<CalculateSalt/>},
+            { path: "payment", element: <Payment />},
+            { path: "paymentSuccess", element:<PaymentSuccess/>},
+            { path: "changePass", element:<ChangePass/>}
+
           ],
         },
       ],
@@ -74,6 +97,8 @@ function App() {
     { path: "blogDetail/:blogId", element: <BlogInfo /> },
     { path: "my-blogs", element: <MyBlog /> },
     { path: "updateBlog/:blogId", element: <UpdateBlog/> },
+    
+
     {
       path: "admin",
       element: <Admin />,
@@ -89,18 +114,26 @@ function App() {
       children: [
         { path: "homeForShop", element: <HomeForShop /> },
         { path: "addProducts", element: <AddProducts /> },
-        { path: "showProduct", element: <ShowProduct /> },
+        { path: "showProduct", element: <ShowProducts /> },
         { path: "orders", element: <Orders /> },
         { path: "revenue", element: <Revenue /> },
         { path: "status_Products", element: <Status_Products /> },
-        { path: "", element: <Navigate to="homeForShop" replace /> }
+        { path: "", element: <Navigate to="addProducts" replace /> },
+        { path : "shopAdd", element: <ShopAdd/>},
+        { path : "updateShop", element:<UpdateShopInfo/>}
+        
       ],
     },
   ]);
 
   return (
     <>
-      <RouterProvider router={router} />
+         <Box sx={{ minHeight: "135vh", display: "flex", flexDirection: "column" }}>
+         <Box sx={{ flexGrow: 1 }}>
+        <RouterProvider router={router} />
+        </Box>
+      <Footer className="footer" />
+      </Box>
 
     </>
   );

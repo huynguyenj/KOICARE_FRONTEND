@@ -3,10 +3,12 @@ import { Box, Button, Grid, Typography, Card, CardMedia } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import ListIcon from "@mui/icons-material/List";
 import { Link } from "react-router-dom";
+import Footer from "../../components/Footer/Footer1";
 
 const PondSection = () => {
   return (
-    <Box
+    <>
+     <Box
       sx={{
         height: "10px",
         display: "flex",
@@ -14,7 +16,8 @@ const PondSection = () => {
         alignItems: "center",
         padding: 15,
         backgroundColor: "#fff", // Light background color
-        paddingTop: "10px"
+        paddingTop: "10px",
+        marginBottom: "100px"
       }}
     >
       <Grid container spacing={2} alignItems="center">
@@ -169,6 +172,9 @@ const PondSection = () => {
         </Grid>
       </Grid>
     </Box>
+        
+    </>
+   
   );
 };
 

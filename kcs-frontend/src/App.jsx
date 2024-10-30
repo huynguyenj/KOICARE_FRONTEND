@@ -72,11 +72,20 @@ function App() {
             { path: "pondadd", element: <PondAdd /> },
             { path: "pondlist", element: <PondList /> },
             { path: "pondlist/pondinfo/:id", element: <PondInfo /> },
-            { path: "pondParam/:id", element: <PondWaterParam/> },
+            { path: "pondParam/:id", element: <PondWaterParam /> },
             { path: "store", element: <Store /> },
             { path: "/userhome/store/:id", element: <Details /> },
             { path: "", element: <Navigate to="mypond" replace /> },
             { path: "news", element: <News /> },
+            { path: "param", element: <AddWaterParam /> },
+            { path: "viewparam/:id", element: <ViewWaterParam /> },
+            { path: "addDevelop/:id", element: <AddDevelopment /> },
+            { path: "fishDevelopment/:id", element: <FishDevelopmentData /> },
+            { path: "calculateFood", element: <CalculationFood /> },
+            { path: "calculateSalt", element: <CalculateSalt /> },
+            { path: "payment", element: <Payment /> },
+            { path: "paymentSuccess", element: <PaymentSuccess /> },
+            { path: "changePass", element: <ChangePass /> },
           ],
         },
       ],
@@ -86,7 +95,6 @@ function App() {
     { path: "blogDetail/:blogId", element: <BlogInfo /> },
     { path: "my-blogs", element: <MyBlog /> },
     { path: "updateBlog/:blogId", element: <UpdateBlog /> },
-    { path: "payment", element: <Payment /> },
 
     {
       path: "admin",
@@ -107,14 +115,23 @@ function App() {
         { path: "orders", element: <Orders /> },
         { path: "revenue", element: <Revenue /> },
         { path: "status_Products", element: <Status_Products /> },
-        { path: "", element: <Navigate to="homeForShop" replace /> },
+        { path: "", element: <Navigate to="addProducts" replace /> },
+        { path: "shopAdd", element: <ShopAdd /> },
+        { path: "updateShop", element: <UpdateShopInfo /> },
       ],
     },
   ]);
 
   return (
     <>
-      <RouterProvider router={router} />
+      <Box
+        sx={{ minHeight: "135vh", display: "flex", flexDirection: "column" }}
+      >
+        <Box sx={{ flexGrow: 1 }}>
+          <RouterProvider router={router} />
+        </Box>
+        <Footer className="footer" />
+      </Box>
     </>
   );
 }

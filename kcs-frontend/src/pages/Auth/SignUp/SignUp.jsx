@@ -111,14 +111,24 @@ function SignUp() {
   return (
     <div style={styles.page}>
       <ToastContainer
-       position="top-right" 
-       autoClose={2000} 
-       hideProgressBar={false} 
-       closeOnClick 
-       pauseOnHover 
-       draggable 
-       pauseOnFocusLoss/>
-      <img style={styles.bgImage} src="/BG.jpg" alt="Background" />
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+        pauseOnFocusLoss
+      />
+      {/* <img style={styles.bgImage} src="/BG.jpg" alt="Background" /> */}
+      <video
+        style={styles.bgImage}
+        autoPlay
+        loop
+        muted
+        playsInline
+        src="./videoplayback.mp4"
+        className="header-video"
+      ></video>
       <Container style={styles.container}>
         <Row>
           <Col>
@@ -177,19 +187,18 @@ function SignUp() {
                     error={!!errors.phone} // Set error state
                     helperText={errors.phone} // Display error message
                   />
-                     <Form.Group controlId="formRole" className="mt-3">
-                  <Form.Select
-                    value={role}
-                    onChange={(e) => setRole(e.target.value)}
-                    required
-                  >
-              
-                    <option value="USER">Người dùng</option>
-                    <option value="SHOP">Shop</option>
-                   
-                    {/* Add more roles as needed */}
-                  </Form.Select>
-                </Form.Group>
+                  <Form.Group controlId="formRole" className="mt-3">
+                    <Form.Select
+                      value={role}
+                      onChange={(e) => setRole(e.target.value)}
+                      required
+                    >
+                      <option value="USER">Người dùng</option>
+                      <option value="SHOP">Shop</option>
+
+                      {/* Add more roles as needed */}
+                    </Form.Select>
+                  </Form.Group>
                 </Form.Group>
                 <div className="text-end"></div>
                 <Button variant="primary" type="submit" className="w-100">

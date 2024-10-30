@@ -33,7 +33,7 @@ import { useCart } from "../../pages/Store/Cart"; // Adjust the import path
 import { useEffect } from "react";
 import { useState } from "react";
 import { getMyInfo } from "../../api/userService";
-const drawerWidth = 240;
+const drawerWidth = 265;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme, open }) => ({

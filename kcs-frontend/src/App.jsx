@@ -125,12 +125,12 @@ function App() {
   return (
     <>
       <Box
-        sx={{ minHeight: "135vh", display: "flex", flexDirection: "column" }}
+        sx={{ minHeight: "100vh", display: "flex", flexDirection: "column", bottom: 0, position: "sticky"}}
       >
         <Box sx={{ flexGrow: 1 }}>
           <RouterProvider router={router} />
         </Box>
-        <Footer className="footer" />
+        <Footer className="footer" /> 
       </Box>
     </>
   );

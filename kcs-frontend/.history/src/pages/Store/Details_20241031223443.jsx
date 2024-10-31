@@ -112,7 +112,6 @@ const Detail = () => {
       setLoading(true);
       await addRating(id, data);
       toast.success("Đánh giá thành công");
-      getComment();
     } catch (error) {
       toast.error("Đánh giá thất bại");
       console.log(error);
@@ -120,7 +119,7 @@ const Detail = () => {
       setLoading(false);
     }
   };
-
+  
   const indexOfLastComment = currentPage * commentsPerPage;
   const indexOfFirstComment = indexOfLastComment - commentsPerPage;
   const currentComments = commentList.slice(
@@ -201,7 +200,7 @@ const Detail = () => {
                   })
                 : "Loading..."}
             </Typography>
-
+            
             <Typography variant="h7" color="text.secondary" sx={{ ml: 1 }}>
               Loại hàng: {product.category}
             </Typography>
@@ -276,23 +275,16 @@ const Detail = () => {
         </Typography>
         {show ? (
           <>
-            <Box alignContent={"center"} p={2}>
-              <Typography sx={{ mb: 1 }} component="legend">
-                Số sao cho sản phẩm
-                <Rating
-                  name="star"
-                  value={comment.star}
-                  onChange={handleChange}
-                />
-              </Typography>
-            </Box>
-
+            <Typography sx={{mb:2}} component="legend">Số sao cho sản phẩm
+            <Rating name="star" value={comment.star} onChange={handleChange} />
+            </Typography>
+            
             <TextField
               label="Ý kiến về sản phẩm"
               name="content"
               onChange={handleChange}
               variant="outlined"
-              sx={{ mb: 2 }}
+              sx={{mb:2}}
             ></TextField>
             <Box>
               {imagePreview ? (
@@ -330,11 +322,7 @@ const Detail = () => {
               <ArrowBackIcon />
             </Button>
             {loading ? (
-              <CircularProgress
-                color="info"
-                size={"20px"}
-                sx={{ mt: 2 }}
-              ></CircularProgress>
+              <CircularProgress color="info" size={"20px"} sx={{mt:2}}></CircularProgress>
             ) : (
               <Button onClick={() => handleSubmit()}>
                 <SaveIcon />
@@ -343,25 +331,13 @@ const Detail = () => {
           </>
         ) : (
           <>
-            {currentComments.length > 0 ? (
+         {currentComments.length > 0 ? (
               currentComments.map((c, index) => (
                 <Box key={index} sx={{ mb: 2, p: 2, border: "1px solid #ddd" }}>
                   <Typography>{c.userName}</Typography>
-                  <Typography>
-                    {new Date(c.date).toLocaleDateString()}
-                  </Typography>
+                  <Typography>{new Date(c.date).toLocaleDateString()}</Typography>
                   <Rating value={c.star} readOnly></Rating>
-                  <Typography
-                    variant="body2"
-                    sx={{ mb: 2 }}
-                    bgcolor={"#e7eaf6"}
-                    paragraph
-                    dangerouslySetInnerHTML={{
-                      __html: c.content
-                        ? c.content.replace(/\r\n/g, "<br />")
-                        : "Loading...",
-                    }}
-                  ></Typography>
+                  <Typography variant="body2" sx={{mb:2}} bgcolor={"#e7eaf6"}>{c.content}</Typography>
                   {c.image && (
                     <img
                       src={c.image} // adjust based on the image source
@@ -389,16 +365,12 @@ const Detail = () => {
                 Trang trước
               </Button>
               <Typography variant="body2" color="text.secondary" sx={{ mx: 2 }}>
-                Trang {currentPage} /{" "}
-                {Math.ceil(commentList.length / commentsPerPage)}
+                Trang {currentPage} / {Math.ceil(commentList.length / commentsPerPage)}
               </Typography>
               <Button
                 variant="outlined"
                 onClick={nextPage}
-                disabled={
-                  currentPage ===
-                  Math.ceil(commentList.length / commentsPerPage)
-                }
+                disabled={currentPage === Math.ceil(commentList.length / commentsPerPage)}
                 sx={{ mx: 1 }}
               >
                 Trang sau

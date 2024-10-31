@@ -155,7 +155,7 @@ export const deleteOrderFail = async (orderFail) => {
       }
 }     
 
-export const addRating  = async (productId,data) => {
+export const addRating  = async (productInfo) => {
 
       try {
 
@@ -164,7 +164,7 @@ export const addRating  = async (productId,data) => {
                   throw new Error('Token not find')
             }
 
-            const res = await axios.post(REST_API_BASE_URL + `/rating/${productId}`, data, {
+            const res = await axios.post(REST_API_BASE_URL + '/create', productInfo, {
                   headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'multipart/form-data',

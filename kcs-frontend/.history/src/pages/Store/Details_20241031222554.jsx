@@ -112,7 +112,6 @@ const Detail = () => {
       setLoading(true);
       await addRating(id, data);
       toast.success("Đánh giá thành công");
-      getComment();
     } catch (error) {
       toast.error("Đánh giá thất bại");
       console.log(error);
@@ -120,7 +119,7 @@ const Detail = () => {
       setLoading(false);
     }
   };
-
+  
   const indexOfLastComment = currentPage * commentsPerPage;
   const indexOfFirstComment = indexOfLastComment - commentsPerPage;
   const currentComments = commentList.slice(
@@ -201,7 +200,17 @@ const Detail = () => {
                   })
                 : "Loading..."}
             </Typography>
-
+            <Box display="flex" alignItems="center" mb={2}>
+              <Rating
+                name="read-only"
+                value={product.rating}
+                precision={0.5}
+                readOnly
+              />
+              {/* <Typography variant="body2" color="text.secondary" sx={{ ml: 1 }}>
+                ({product.category} đánh giá)
+              </Typography> */}
+            </Box>
             <Typography variant="h7" color="text.secondary" sx={{ ml: 1 }}>
               Loại hàng: {product.category}
             </Typography>
@@ -271,150 +280,100 @@ const Detail = () => {
         />
       </Box>
       <Box sx={{ mt: 4 }}>
-        <Typography variant="h6" fontWeight="bold" gutterBottom>
-          Đánh giá sản phẩm
-        </Typography>
-        {show ? (
-          <>
-            <Box alignContent={"center"} p={2}>
-              <Typography sx={{ mb: 1 }} component="legend">
-                Số sao cho sản phẩm
-                <Rating
-                  name="star"
-                  value={comment.star}
-                  onChange={handleChange}
-                />
+  <Typography variant="h6" fontWeight="bold" gutterBottom>
+    Đánh giá sản phẩm
+  </Typography>
+  {show ? (
+    <>
+      {/* Form elements for adding a new comment */}
+    </>
+  ) : (
+    <>
+      {currentComments.length > 0 ? (
+        currentComments.map((c, index) => (
+          <Box
+            key={index}
+            sx={{
+              mb: 2,
+              p: 2,
+              border: "1px solid #ddd",
+              borderRadius: "8px",
+              boxShadow: 2,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-start",
+              bgcolor: "#f9f9f9"
+            }}
+          >
+            <Box display="flex" justifyContent="space-between" width="100%">
+              <Typography variant="subtitle1" fontWeight="bold">
+                {c.userName}
               </Typography>
-            </Box>
-
-            <TextField
-              label="Ý kiến về sản phẩm"
-              name="content"
-              onChange={handleChange}
-              variant="outlined"
-              sx={{ mb: 2 }}
-            ></TextField>
-            <Box>
-              {imagePreview ? (
-                <>
-                  <img
-                    src={imagePreview}
-                    style={{
-                      width: "6rem",
-                      height: "6rem",
-                      borderRadius: "8px",
-                      marginBottom: "20px",
-                    }}
-                  ></img>
-                </>
-              ) : (
-                <></>
-              )}
-
-              <Button
-                variant="contained"
-                tabIndex={-1}
-                startIcon={<CloudUploadIcon />}
-              >
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageChange}
-                  // style={{ display: "none" }}
-                  id="image-input"
-                />
-              </Button>
-            </Box>
-
-            <Button onClick={() => setShow(false)}>
-              <ArrowBackIcon />
-            </Button>
-            {loading ? (
-              <CircularProgress
-                color="info"
-                size={"20px"}
-                sx={{ mt: 2 }}
-              ></CircularProgress>
-            ) : (
-              <Button onClick={() => handleSubmit()}>
-                <SaveIcon />
-              </Button>
-            )}
-          </>
-        ) : (
-          <>
-            {currentComments.length > 0 ? (
-              currentComments.map((c, index) => (
-                <Box key={index} sx={{ mb: 2, p: 2, border: "1px solid #ddd" }}>
-                  <Typography>{c.userName}</Typography>
-                  <Typography>
-                    {new Date(c.date).toLocaleDateString()}
-                  </Typography>
-                  <Rating value={c.star} readOnly></Rating>
-                  <Typography
-                    variant="body2"
-                    sx={{ mb: 2 }}
-                    bgcolor={"#e7eaf6"}
-                    paragraph
-                    dangerouslySetInnerHTML={{
-                      __html: c.content
-                        ? c.content.replace(/\r\n/g, "<br />")
-                        : "Loading...",
-                    }}
-                  ></Typography>
-                  {c.image && (
-                    <img
-                      src={c.image} // adjust based on the image source
-                      alt="comment"
-                      style={{ width: "100px", borderRadius: "8px" }}
-                    />
-                  )}
-                </Box>
-              ))
-            ) : (
               <Typography variant="body2" color="text.secondary">
-                Chưa có đánh giá nào. Hãy là người đầu tiên đánh giá sản phẩm
-                này!
+                {new Date(c.date).toLocaleDateString()}
               </Typography>
-            )}
-
-            {/* Pagination Controls */}
-            <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
-              <Button
-                variant="outlined"
-                onClick={prevPage}
-                disabled={currentPage === 1}
-                sx={{ mx: 1 }}
-              >
-                Trang trước
-              </Button>
-              <Typography variant="body2" color="text.secondary" sx={{ mx: 2 }}>
-                Trang {currentPage} /{" "}
-                {Math.ceil(commentList.length / commentsPerPage)}
-              </Typography>
-              <Button
-                variant="outlined"
-                onClick={nextPage}
-                disabled={
-                  currentPage ===
-                  Math.ceil(commentList.length / commentsPerPage)
-                }
-                sx={{ mx: 1 }}
-              >
-                Trang sau
-              </Button>
             </Box>
+            <Box display="flex" alignItems="center" mt={1}>
+              <Rating value={c.star} readOnly sx={{ mr: 1 }} />
+            </Box>
+            <Typography variant="body2" color="text.secondary" mt={1}>
+              {c.content}
+            </Typography>
+            {c.image && (
+              <img
+                src={c.image}
+                alt="comment"
+                style={{
+                  width: "80px",
+                  borderRadius: "8px",
+                  marginTop: "10px",
+                  boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"
+                }}
+              />
+            )}
+          </Box>
+        ))
+      ) : (
+        <Typography variant="body2" color="text.secondary">
+          Chưa có đánh giá nào. Hãy là người đầu tiên đánh giá sản phẩm này!
+        </Typography>
+      )}
 
-            <Button
-              variant="contained"
-              sx={{ mt: 2 }}
-              onClick={() => setShow(true)}
-            >
-              Đánh giá
-            </Button>
-          </>
-        )}
+      {/* Pagination Controls */}
+      <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+        <Button
+          variant="outlined"
+          onClick={prevPage}
+          disabled={currentPage === 1}
+          sx={{ mx: 1 }}
+        >
+          Trang trước
+        </Button>
+        <Typography variant="body2" color="text.secondary" sx={{ mx: 2 }}>
+          Trang {currentPage} / {Math.ceil(commentList.length / commentsPerPage)}
+        </Typography>
+        <Button
+          variant="outlined"
+          onClick={nextPage}
+          disabled={
+            currentPage === Math.ceil(commentList.length / commentsPerPage)
+          }
+          sx={{ mx: 1 }}
+        >
+          Trang sau
+        </Button>
       </Box>
+
+      <Button
+        variant="contained"
+        sx={{ mt: 2 }}
+        onClick={() => setShow(true)}
+      >
+        Đánh giá
+      </Button>
+    </>
+  )}
+</Box>
     </Container>
   );
 };

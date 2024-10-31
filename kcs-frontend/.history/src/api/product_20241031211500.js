@@ -155,33 +155,13 @@ export const deleteOrderFail = async (orderFail) => {
       }
 }     
 
-export const addRating  = async (productId,data) => {
-
-      try {
-
-            const token = localStorage.getItem('token')
-            if (!token) {
-                  throw new Error('Token not find')
-            }
-
-            const res = await axios.post(REST_API_BASE_URL + `/rating/${productId}`, data, {
-                  headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'multipart/form-data',
-                  }
-            })
-            return res.data;
-      } catch (error) {
-            console.log("", error)
-            throw error
-      }
-}
-
-export const getAllRating = async (productId) => {
+export const getAllRating = async () => {
       try {
            
-            const res = await axios.get(REST_API_BASE_URL + `/rating/getAll/${productId}`, {
-                
+            const res = await axios.get(REST_API_BASE_URL + '/products', {
+                  headers: {
+                        Authorization: `Bearer ${token}`
+                  }
             })
             return res.data;
       } catch (error) {

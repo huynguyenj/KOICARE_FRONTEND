@@ -38,8 +38,6 @@ const Detail = () => {
     content: "",
     image: null,
   });
-  const [currentPage, setCurrentPage] = useState(1);
-  const commentsPerPage = 5; // Display 5 comments per page
 
   const [imagePreview, setImagePreview] = useState(null);
   useEffect(() => {
@@ -112,31 +110,11 @@ const Detail = () => {
       setLoading(true);
       await addRating(id, data);
       toast.success("Đánh giá thành công");
-      getComment();
     } catch (error) {
       toast.error("Đánh giá thất bại");
       console.log(error);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const indexOfLastComment = currentPage * commentsPerPage;
-  const indexOfFirstComment = indexOfLastComment - commentsPerPage;
-  const currentComments = commentList.slice(
-    indexOfFirstComment,
-    indexOfLastComment
-  );
-
-  const nextPage = () => {
-    if (currentPage < Math.ceil(commentList.length / commentsPerPage)) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
-  const prevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
     }
   };
   return (
@@ -201,7 +179,17 @@ const Detail = () => {
                   })
                 : "Loading..."}
             </Typography>
-
+            <Box display="flex" alignItems="center" mb={2}>
+              <Rating
+                name="read-only"
+                value={product.rating}
+                precision={0.5}
+                readOnly
+              />
+              {/* <Typography variant="body2" color="text.secondary" sx={{ ml: 1 }}>
+                ({product.category} đánh giá)
+              </Typography> */}
+            </Box>
             <Typography variant="h7" color="text.secondary" sx={{ ml: 1 }}>
               Loại hàng: {product.category}
             </Typography>
@@ -276,23 +264,12 @@ const Detail = () => {
         </Typography>
         {show ? (
           <>
-            <Box alignContent={"center"} p={2}>
-              <Typography sx={{ mb: 1 }} component="legend">
-                Số sao cho sản phẩm
-                <Rating
-                  name="star"
-                  value={comment.star}
-                  onChange={handleChange}
-                />
-              </Typography>
-            </Box>
-
+            <Typography component="legend">Số sao cho sản phẩm</Typography>
+            <Rating name="star" value={comment.star} onChange={handleChange} />
             <TextField
               label="Ý kiến về sản phẩm"
               name="content"
               onChange={handleChange}
-              variant="outlined"
-              sx={{ mb: 2 }}
             ></TextField>
             <Box>
               {imagePreview ? (
@@ -330,11 +307,7 @@ const Detail = () => {
               <ArrowBackIcon />
             </Button>
             {loading ? (
-              <CircularProgress
-                color="info"
-                size={"20px"}
-                sx={{ mt: 2 }}
-              ></CircularProgress>
+              <CircularProgress color="inherit"></CircularProgress>
             ) : (
               <Button onClick={() => handleSubmit()}>
                 <SaveIcon />
@@ -343,67 +316,14 @@ const Detail = () => {
           </>
         ) : (
           <>
-            {currentComments.length > 0 ? (
-              currentComments.map((c, index) => (
-                <Box key={index} sx={{ mb: 2, p: 2, border: "1px solid #ddd" }}>
-                  <Typography>{c.userName}</Typography>
-                  <Typography>
-                    {new Date(c.date).toLocaleDateString()}
-                  </Typography>
-                  <Rating value={c.star} readOnly></Rating>
-                  <Typography
-                    variant="body2"
-                    sx={{ mb: 2 }}
-                    bgcolor={"#e7eaf6"}
-                    paragraph
-                    dangerouslySetInnerHTML={{
-                      __html: c.content
-                        ? c.content.replace(/\r\n/g, "<br />")
-                        : "Loading...",
-                    }}
-                  ></Typography>
-                  {c.image && (
-                    <img
-                      src={c.image} // adjust based on the image source
-                      alt="comment"
-                      style={{ width: "100px", borderRadius: "8px" }}
-                    />
-                  )}
-                </Box>
-              ))
+            {commentList ? (
+              {commentList.}
             ) : (
               <Typography variant="body2" color="text.secondary">
                 Chưa có đánh giá nào. Hãy là người đầu tiên đánh giá sản phẩm
                 này!
               </Typography>
             )}
-
-            {/* Pagination Controls */}
-            <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
-              <Button
-                variant="outlined"
-                onClick={prevPage}
-                disabled={currentPage === 1}
-                sx={{ mx: 1 }}
-              >
-                Trang trước
-              </Button>
-              <Typography variant="body2" color="text.secondary" sx={{ mx: 2 }}>
-                Trang {currentPage} /{" "}
-                {Math.ceil(commentList.length / commentsPerPage)}
-              </Typography>
-              <Button
-                variant="outlined"
-                onClick={nextPage}
-                disabled={
-                  currentPage ===
-                  Math.ceil(commentList.length / commentsPerPage)
-                }
-                sx={{ mx: 1 }}
-              >
-                Trang sau
-              </Button>
-            </Box>
 
             <Button
               variant="contained"

@@ -51,26 +51,6 @@ const Revenue = () => {
     return groupedData;
   };
 
-  const groupOrdersByYearAndDay = () => {
-    const groupedData = {};
-
-    orders.forEach(order => {
-      if (order.date) {
-        const orderDate = new Date(order.date);
-        const year = orderDate.getFullYear();
-        const month = orderDate.getMonth() + 1; // Month is zero-indexed, so add 1
-
-        // If the year doesn’t exist in groupedData, initialize it with an array of 12 zeroes (for each month).
-        if (!groupedData[year]) groupedData[year] = Array(12).fill(0);
-
-        // Calculate the revenue for the month and add it to the respective month in the array.
-        groupedData[year][month - 1] += order.price * order.quantity;
-      }
-    });
-
-    return groupedData;
-  };
-
   // Prepare data for each year and month for the chart
   const chartDataByYear = groupOrdersByYearAndMonth();
 

@@ -66,7 +66,7 @@ function FishDevelopmentData() {
                     ) : (
                         <>
                             <LineChart
-                                width="100%"
+                                width={600}
                                 height={400}
                                 dataset={dataset}
                                 xAxis={[{ dataKey: 'date', label: 'Ngày', scaleType: "point" }]}

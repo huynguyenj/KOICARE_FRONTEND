@@ -161,6 +161,7 @@ const Payment = () => {
 
   const validate = () =>{
     const newError = {}
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^\d{10}$/;
     if(!formData.userName || formData.userName.trim() ===""){
       newError.name = "Hãy nhập tên của bạn!"

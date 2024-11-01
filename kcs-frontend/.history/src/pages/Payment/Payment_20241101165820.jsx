@@ -161,11 +161,12 @@ const Payment = () => {
 
   const validate = () =>{
     const newError = {}
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^\d{10}$/;
-    if(!formData.userName || formData.userName.trim() ===""){
+    if(!formData.userName || !formData.userName.trim() ===""){
       newError.name = "Hãy nhập tên của bạn!"
     }
-    if(!formData.phone || !phoneRegex.test(formData.phone)){
+    if(!formData.phone || phoneRegex.test(formData.phone)){
       newError.phone = "Hãy nhập số điện thoại!"
     }
     if(!formData.address || formData.address.trim()===""){

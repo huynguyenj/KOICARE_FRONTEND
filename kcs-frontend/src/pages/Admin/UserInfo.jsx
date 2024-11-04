@@ -24,7 +24,7 @@ import { useLocation } from "react-router-dom";
 function UserInfo() {
   const [users, setUsers] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([]);
-  const [roleToSet, setRoleToSet] = useState(""); // State for the role to set
+ 
   const [sortUser,setSortUser] = useState([]);
   const [query,setQuery] = useState("");
 
@@ -121,33 +121,7 @@ function UserInfo() {
     setSortUser(listUser);
   };
 
-  const handleSetRole = async () => {
-   
-    if(!roleToSet){
-      toast.error("Hãy chọn vai trò để cập nhật");
-      return;
-    }
-    try {
-     
-      await Promise.all(selectedUsers.map((userId) => setRoleUser(userId,roleToSet)));
-      
-      setSelectedUsers([]);
-      await fetchUsers();
-      
-      const userIdsString = selectedUsers.join(", ");
-
-      toast.success(`Role set to ${roleToSet} for user ID: ${userIdsString}`, {
-        position: "top-right",
-        autoClose: 1200,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-      });
-    } catch (error) {
-      toast.error(`Cập nhật vai trò thất bại. Lỗi phía ${error.message}`);
-    }
-  };
+ 
 
   return (
     <Box
@@ -186,24 +160,6 @@ function UserInfo() {
             Cập nhật
           </Button>
          
-          <select
-            className="me-2"
-            value={roleToSet}
-            onChange={(e) => setRoleToSet(e.target.value)}
-            style={{width:"10%",marginLeft:'1rem'}}
-          >
-            <option value="">Select Role</option>
-            <option value="shop">Shop</option>
-            <option value="unshop">Unshop</option>
-          </select>
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={handleSetRole}
-            disabled={selectedUsers.length === 0}
-          >
-            Set Role
-          </Button>
 
           <select
             className="me-2"

@@ -286,12 +286,12 @@ export const addFishToPond = async(pondId,fishId) =>{
             if (!token) {
                   throw new Error('Token not find')
             }
-             await axios.put(REST_API_BASE_URL +`/addFishToPond/pond/${pondId}/fish/${fishId}`, {},{
+            const res =  await axios.put(REST_API_BASE_URL +`/addFishToPond/pond/${pondId}/fish/${fishId}`, {},{
                   headers: {
                          Authorization: `Bearer ${token}`
                   }
             })
-            
+            return res.data
       } catch (error) {
             console.log("", error)
             throw error

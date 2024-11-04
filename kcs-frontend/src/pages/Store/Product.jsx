@@ -268,11 +268,11 @@ const Product = () => {
                     variant="contained"
                     startIcon={<ShoppingCartIcon />}
                     fullWidth
-                    disabled={product.price <= 0}
+                    disabled={product.quantity <= 0}
                     component={Link}
                     to={`/userhome/store/${product.id}`}
                   >
-                    {product.price >= 0 ? "MUA NGAY" : "Hết hàng"}
+                    {product.quantity > 0 ? "MUA NGAY" : "Hết hàng"}
                   </Button>
                 </Box>
               </Card>

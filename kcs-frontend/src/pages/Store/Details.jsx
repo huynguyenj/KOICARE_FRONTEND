@@ -227,9 +227,11 @@ const Detail = () => {
               startIcon={<ShoppingCartIcon />}
               onClick={() => handleAddToCart(product)}
               fullWidth
+              disabled={product.quantity <=0}
               sx={{ mb: 2 }}
             >
-              Thêm vào giỏ hàng
+              {product.quantity > 0 ? "Thêm vào giỏ hàng":"Hết hàng"}
+            
             </Button>
             <Button
               component={Link}

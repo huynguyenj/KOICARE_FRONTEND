@@ -83,27 +83,8 @@ const Payment = () => {
         phone: formData.phone,
         order: orderDetail
       }
-      if(validate() && paymentMethod!="credit"){
-      try {
-        setLoading(true);
-        console.log(form)
-        await order(form)
-        toast.success("Đặt đơn thành công!")
-        clearCart();
-      } catch (error) {
-        console.log(error)
-        
-        if(error.response && error.response.data.message === "Out of stock"){
-          toast.error("Sản phẩm hết hàng. Vui lòng chọn số lượng khác.");
-        }else{
-          toast.error("Thanh toán thất bại")
-        }
-       
-      }finally{
-        setLoading(false)
-      }
-    }   
-    else if(paymentMethod == "credit"){
+     
+     if(paymentMethod == "credit"){
       if(validate()){
       setLoading(true);
       const clientIp = await getClientIp(); // Call the function here
@@ -268,11 +249,7 @@ const Payment = () => {
                     onChange={(e) => setPaymentMethod(e.target.value)}
                     row
                   >
-                    <FormControlLabel
-                      value="cod"
-                      control={<Radio />}
-                      label="Tiền mặt"
-                    />
+                    
                     <FormControlLabel
                       value="credit"
                       control={<Radio />}

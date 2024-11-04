@@ -159,7 +159,10 @@ function FishInfo() {
     }
     if (
       !fishData.gender ||
-      !(fishData.gender.trim().toLowerCase() === "đực" || fishData.gender.trim().toLowerCase() === "cái")
+      !(
+        fishData.gender.trim().toLowerCase() === "đực" ||
+        fishData.gender.trim().toLowerCase() === "cái"
+      )
     ) {
       newErrors.gender = "Giới tính phải là đực hoặc cái";
     }
@@ -448,7 +451,7 @@ function FishInfo() {
                     select
                     label="Giống loài"
                     name="fishType"
-                     size="small"
+                    size="small"
                     value={fishData.type}
                     onChange={handleChange("type")}
                     error={!!errors.type}
@@ -506,6 +509,12 @@ function FishInfo() {
                   <p style={style.p}>Giống loài: {fishData.type}</p>
                   <p style={style.p}>Xuất xứ: {fishData.origin}</p>
                   <p style={style.p}>Tình trạng sức khỏe: {fishData.health}</p>
+                  <p style={style.p}>
+                    Hồ đang ở:{" "}
+                    {fish.pond && fish.pond.length > 0
+                      ? fish.pond.map((p) => p.pondName).join(", ")
+                      : "Chưa có hồ"}
+                  </p>
                 </>
               )}
             </div>

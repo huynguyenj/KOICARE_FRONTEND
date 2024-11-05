@@ -50,9 +50,15 @@ function MyFishList() {
 
   const handleAddFishToPond = async (pondId, fishId) => {
     try {
-      await addFishToPond(pondId, fishId);
+      const res = await addFishToPond(pondId, fishId);
       console.log(fishId);
-      toast.success("Thêm cá vào hồ thành công!");
+      if(res.code == "1010"){
+        toast.success("Thêm cá vào hồ thành công!");
+      }
+    
+      if(res.code =="1017"){
+        toast.error("Số lượng cá vướt mức cho phép của hồ");
+      }
     } catch (error) {
       toast.error("Thêm cá vào hồ thất bại!");
       console.log(error);

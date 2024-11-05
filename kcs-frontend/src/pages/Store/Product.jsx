@@ -27,6 +27,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useParams, Link } from "react-router-dom";
 import { useCart } from "../Store/Cart";
 import { getAllProduct } from "../../api/product";
+import Footer from "../../components/Footer/Footer1";
 
 const Product = () => {
   // const { id } = useParams();
@@ -109,8 +110,13 @@ const Product = () => {
   };
 
   return (
+<<<<<<< HEAD
     <Container maxWidth="lg" sx={{ mt: 1, mb: 4 }}>
       {/* <img style={styles.bgImage} src="/BG.jpg" alt="Background" /> */}
+=======
+    <>
+     <Container maxWidth="lg" sx={{ mt: 1, mb: 4 }}>
+>>>>>>> 7e1e4215c0c36d68bab2332bd99895381564c3f8
       <Typography
         variant="h2"
         component="h1"
@@ -285,11 +291,11 @@ const Product = () => {
                     variant="contained"
                     startIcon={<ShoppingCartIcon />}
                     fullWidth
-                    disabled={product.price <= 0}
+                    disabled={product.quantity <= 0}
                     component={Link}
                     to={`/userhome/store/${product.id}`}
                   >
-                    {product.price >= 0 ? "MUA NGAY" : "Hết hàng"}
+                    {product.quantity > 0 ? "MUA NGAY" : "Hết hàng"}
                   </Button>
                 </Box>
               </Card>
@@ -332,7 +338,10 @@ const Product = () => {
           </Button>
         </DialogActions>
       </Dialog>
+  
     </Container>
+    </>
+   
   );
 };
 

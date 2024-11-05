@@ -72,6 +72,7 @@ const Payment = () => {
     return quantity;
   };
   const handleCheckout = async () => {
+<<<<<<< HEAD
     const orderDetail = cartItems.map((item) => ({
       productId: item.product.id,
       quantity: item.quantity,
@@ -118,6 +119,55 @@ const Payment = () => {
           setLoading(false);
         }
       }
+=======
+      const orderDetail = cartItems.map(item =>({
+        productId: item.product.id,
+        quantity: item.quantity,
+        shopId: item.product.shopId
+      }))
+      console.log(orderDetail)
+      const form = {
+        userName: formData.userName,
+        address: formData.address,
+        phone: formData.phone,
+        order: orderDetail
+      }
+     
+     if(paymentMethod == "credit"){
+      if(validate()){
+      setLoading(true);
+      const clientIp = await getClientIp(); // Call the function here
+      const formPayment = {
+        quantity: calculateQuantityAllProduct(),
+        amount: calculateTotalPrice(),
+        ipAddr: String(clientIp)
+      }
+      try {
+        const resOrder = await order(form)
+        const orderIdList = resOrder.result.map(orders => orders.orderId )
+        const res = await createPayment(formPayment)
+        localStorage.setItem("orderDetail",JSON.stringify(form))
+        localStorage.setItem("orderId",JSON.stringify(orderIdList))
+        const paymentURL = res.result
+        window.location.href= paymentURL
+        
+      } catch (error) {
+        console.log(error)
+        
+        localStorage.removeItem("orderDetail")
+        localStorage.removeItem("orderId")
+
+        if(error.response && error.response.data.message === "Out of stock"){
+          toast.error("Sản phẩm hết hàng. Vui lòng chọn số lượng khác.");
+        }else{
+          toast.error("Thanh toán thất bại")
+        }
+       
+      }finally{
+        setLoading(false)
+      }
+     
+>>>>>>> 7e1e4215c0c36d68bab2332bd99895381564c3f8
     }
   };
 
@@ -138,6 +188,7 @@ const Payment = () => {
     return priceString;
   };
 
+<<<<<<< HEAD
   const validate = () => {
     const newError = {};
     if (!formData.userName || formData.userName.trim() === "") {
@@ -145,6 +196,16 @@ const Payment = () => {
     }
     if (!formData.phone || formData.phone.trim() === "") {
       newError.phone = "Hãy nhập số điện thoại!";
+=======
+  const validate = () =>{
+    const newError = {}
+    const phoneRegex = /^\d{10}$/;
+    if(!formData.userName || formData.userName.trim() ===""){
+      newError.name = "Hãy nhập tên của bạn!"
+    }
+    if(!formData.phone || !phoneRegex.test(formData.phone)){
+      newError.phone = "Hãy nhập số điện thoại!"
+>>>>>>> 7e1e4215c0c36d68bab2332bd99895381564c3f8
     }
     if (!formData.address || formData.address.trim() === "") {
       newError.addr = "Hãy nhập địa chỉ của bạn!";
@@ -246,11 +307,7 @@ const Payment = () => {
                     onChange={(e) => setPaymentMethod(e.target.value)}
                     row
                   >
-                    <FormControlLabel
-                      value="cod"
-                      control={<Radio />}
-                      label="Tiền mặt"
-                    />
+                    
                     <FormControlLabel
                       value="credit"
                       control={<Radio />}

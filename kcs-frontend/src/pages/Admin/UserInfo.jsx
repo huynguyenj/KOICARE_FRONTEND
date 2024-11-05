@@ -24,27 +24,23 @@ import { useLocation } from "react-router-dom";
 function UserInfo() {
   const [users, setUsers] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([]);
-  const [roleToSet, setRoleToSet] = useState(""); // State for the role to set
-  
+ 
+  const [sortUser,setSortUser] = useState([]);
+  const [query,setQuery] = useState("");
+
   const handleSelectUser = (id) => {
     setSelectedUsers((prev) =>
       prev.includes(id) ? prev.filter((userId) => userId !== id) : [...prev, id]
     );
   };
-  const location = useLocation();
-  // const handleSelectAll = (event) => {
-  //   if (event.target.checked) {
-  //     setSelectedUsers(users.map((user) => user.id));
-  //   } else {
-  //     setSelectedUsers([]);
-  //   }
-  // };
-  // Function to fetch users
+ 
   const fetchUsers = async () => {
     try {
       const response = await getAllUser();
       if (response.code === 1010) {
         setUsers(response.result); // Set users from API response
+        setSortUser(response.result)
+        console.log(users)
       } else {
         toast.error("Tải dữ liệu người dùng thất bại.");
       }
@@ -112,33 +108,20 @@ function UserInfo() {
     }
   };
 
-  const handleSetRole = async () => {
-   
-    if(!roleToSet){
-      toast.error("Hãy chọn vai trò để cập nhật");
-      return;
-    }
-    try {
-     
-      await Promise.all(selectedUsers.map((userId) => setRoleUser(userId,roleToSet)));
-      
-      setSelectedUsers([]);
-      await fetchUsers();
-      
-      const userIdsString = selectedUsers.join(", ");
+  const handleSort = (e)=>{
+    const query = e.target.value;
+    setQuery(query)
+    listSort(query)
+  }
 
-      toast.success(`Role set to ${roleToSet} for user ID: ${userIdsString}`, {
-        position: "top-right",
-        autoClose: 1200,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-      });
-    } catch (error) {
-      toast.error(`Cập nhật vai trò thất bại. Lỗi phía ${error.message}`);
-    }
+  const listSort = (query) => {
+    const listUser = users.filter((user) => 
+      user.roles.some((role) => role.userType.toLowerCase() === query.toLowerCase())
+    );
+    setSortUser(listUser);
   };
+
+ 
 
   return (
     <Box
@@ -146,6 +129,7 @@ function UserInfo() {
         flexGrow: 1
       }}
     >
+
       <AppBar position="static" sx={{ backgroundColor: "#f57c00" }}>
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -155,16 +139,18 @@ function UserInfo() {
         </Toolbar>
       </AppBar>
       <Box sx={{ p: 3 }}>
-        <Box sx={{ mb: 2, display: "flex", justifyContent: "space-between" }}>
+        <Box sx={{ mb: 2, display: "flex"}}>
           <Button
             variant="contained"
             color="error"
             startIcon={<DeleteIcon />}
             onClick={handleDeleteSelected}
+            sx={{mr:1}}
             disabled={selectedUsers.length === 0}
           >
             Xoá thành viên
           </Button>
+
           <Button
             variant="contained"
             color="primary"
@@ -173,26 +159,21 @@ function UserInfo() {
           >
             Cập nhật
           </Button>
-        </Box>
-        <Box sx={{ mb: 2 }}>
+         
+
           <select
             className="me-2"
-            value={roleToSet}
-            onChange={(e) => setRoleToSet(e.target.value)}
+            value={query}
+            onChange={handleSort}
+            style={{width:"10%",marginLeft:'1rem'}}
           >
-            <option value="">Select Role</option>
-            <option value="shop">Shop</option>
-            <option value="unshop">Unshop</option>
+            <option value="">Search role</option>
+            <option value="ADMIN">Admin</option>
+            <option value="SHOP">Shop</option>
+            <option value="USER">Người dùng</option>
           </select>
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={handleSetRole}
-            disabled={selectedUsers.length === 0}
-          >
-            Set Role
-          </Button>
         </Box>
+       
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
@@ -208,7 +189,7 @@ function UserInfo() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {users.map((user) => (
+              {sortUser.map((user) => (
                 <TableRow key={user.userId}>
                   <TableCell padding="checkbox">
                     <Checkbox
@@ -235,7 +216,7 @@ function UserInfo() {
                       color={user.status ? "error" : "success"}
                       onClick={() => toggleUserStatus(user.userId)}
                     >
-                      {user.status ? "Unactivate" : "Activate"}
+                      {user.status ? "Unactive" : "Activate"}
                     </Button>
                   </TableCell>
                 </TableRow>

@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 const PondSection = () => {
   return (
     <>
+<<<<<<< HEAD
       <Box
         sx={{
           height: "10px",
@@ -23,6 +24,34 @@ const PondSection = () => {
           <Grid item xs={12} md={3} sx={{ position: "relative" }}>
             <Box sx={{ position: "absolute", top: 20, left: 30 }}>
               <Box
+=======
+     <Box
+      sx={{
+        height: "10px",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: 15,
+        backgroundColor: "#fff", // Light background color
+        paddingTop: "10px"
+        
+      }}
+    >
+      <Grid container spacing={2} alignItems="center">
+        {/* Left side images */}
+        <Grid item xs={12} md={3} sx={{ position: "relative" }}>
+          <Box sx={{ position: "absolute", top: 20, left: 30 }}>
+            <Box
+              sx={{
+                backgroundColor: "#212121",
+                padding: "10px",
+                borderRadius: "8px",
+                marginBottom: 15,
+                transform: "translate(10px, 50px)",
+              }}
+            >
+              <Card
+>>>>>>> 7e1e4215c0c36d68bab2332bd99895381564c3f8
                 sx={{
                   backgroundColor: "#212121",
                   padding: "10px",

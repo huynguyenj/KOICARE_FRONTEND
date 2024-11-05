@@ -124,6 +124,7 @@ function App() {
 
   return (
     <>
+<<<<<<< HEAD
       <Box
         sx={{ minHeight: "100vh", display: "flex", flexDirection: "column", bottom: 0, position: "sticky"}}
       >
@@ -132,6 +133,12 @@ function App() {
         </Box>
         <Footer className="footer" /> 
       </Box>
+=======
+      <RouterProvider router={router} />      
+  
+   
+
+>>>>>>> 7e1e4215c0c36d68bab2332bd99895381564c3f8
     </>
   );
 }

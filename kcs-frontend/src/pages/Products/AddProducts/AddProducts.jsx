@@ -37,13 +37,13 @@ const AddProducts = () => {
       newError.name = "Tên sản phẩm không được để trống!";
     }
     if (!productPrice || productPrice <= 0) {
-      newError.price = "Giá tiền không được để trống, ít hơn 0!";
+      newError.price = "Giá tiền không được để trống hoặc là chữ, ít hơn 0!";
     }
     if (!productType || productType.trim() === "") {
       newError.type = "Loại sản phẩm không được để trống!";
     }
     if (!productQuantity || productQuantity <= 0) {
-      newError.quantity = "Số lượng không được để trống!";
+      newError.quantity = "Số lượng không được để trống hoặc là chữ!";
     }
     if (!productContent || productContent === "") {
       newError.content = "Nội dung sản phẩm không được để trống!";

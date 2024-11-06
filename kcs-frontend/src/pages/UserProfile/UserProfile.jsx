@@ -139,12 +139,7 @@ function UserProfile() {
               </Button>
               <Divider sx={{ margin: "20px 0" }} />
               <List>
-                <ListItem>
-                  <ListItemIcon>
-                    <ShoppingCart />
-                  </ListItemIcon>
-                  <ListItemText primary="Sản phẩm đã mua" />
-                </ListItem>
+                  <ListItemText/>
                 <ListItem>
                   <ListItemIcon>
                     <Lock />

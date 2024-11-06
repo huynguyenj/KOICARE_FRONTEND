@@ -99,7 +99,8 @@ export default function PrimarySearchAppBar() {
   const navigator = useNavigate();
   const drawerItems = [
     { text: "Bảng điều khiển", icon: <Dashboard />, path: "/admin/dashboard" },
-    { text: "Hồ sơ người dùng", icon: <ManageAccountsIcon /> },
+    { text: "Hồ sơ người dùng", icon: <ManageAccountsIcon />, path: "/admin/userInfo" },
+    { text: "Quản lí blog, tin tức", icon: <ManageAccountsIcon />, path:"/admin/blogManage" },
     { text: "Đăng xuất", icon: <Logout />, action:handleLogout },
   ];
 

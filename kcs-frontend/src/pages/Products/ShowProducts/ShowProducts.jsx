@@ -30,7 +30,7 @@ import {
   getAllProductInShop,
   updateProduct,
 } from "../../../api/product";
-
+import { ToastContainer, toast } from "react-toastify"; 
 const ShowProducts = () => {
   const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -117,10 +117,12 @@ const ShowProducts = () => {
       }
       formData.append("description", formData.description);
       await updateProduct(productId, formData);
+      toast.success("Cập nhật thành công!")
       fetchProducts();
       setEditingProductId(null);
     } catch (error) {
       console.log(error);
+      toast.error("Cập nhật thất bại!")
     }
   };
 
@@ -148,6 +150,7 @@ const ShowProducts = () => {
 
   return (
     <>
+    <ToastContainer/>
       <TableContainer
         component={Paper}
         sx={{ p: 2, borderRadius: 2, boxShadow: 3 }}
@@ -181,8 +184,8 @@ const ShowProducts = () => {
             <MenuItem value="">None</MenuItem>
             <MenuItem value="priceAsc">Sắp xếp giá tăng dần</MenuItem>
             <MenuItem value="priceDesc">Sắp xếp giá giảm dần</MenuItem>
-            <MenuItem value="dateAsc">Sắp xếp ngày tăng dần</MenuItem>
-            <MenuItem value="dateDesc">Sắp xếp ngày giảm dần</MenuItem>
+            <MenuItem value="dateAsc">Sắp xếp ngày mới nhất</MenuItem>
+            <MenuItem value="dateDesc">Sắp xếp ngày cũ nhất</MenuItem>
           </Select>
         </FormControl>
         </Paper>

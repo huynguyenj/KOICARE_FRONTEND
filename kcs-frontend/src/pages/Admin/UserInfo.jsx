@@ -13,6 +13,7 @@ import {
   Box,
   AppBar,
   Toolbar,
+  Pagination,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RefreshIcon from "@mui/icons-material/Refresh";
@@ -24,7 +25,9 @@ import { useLocation } from "react-router-dom";
 function UserInfo() {
   const [users, setUsers] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([]);
- 
+  const pageLimit = 6;
+  const [page,setPage] = useState(1);
+
   const [sortUser,setSortUser] = useState([]);
   const [query,setQuery] = useState("");
 
@@ -119,8 +122,13 @@ function UserInfo() {
       user.roles.some((role) => role.userType.toLowerCase() === query.toLowerCase())
     );
     setSortUser(listUser);
+    setPage(1)
   };
 
+  const handleChangePage = (e,value)=>{
+    setPage(value)
+  }
+  const pageSlice = sortUser.slice((page-1)*pageLimit, page*pageLimit);
  
 
   return (
@@ -189,7 +197,7 @@ function UserInfo() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {sortUser.map((user) => (
+              {pageSlice.length > 0 ? (pageSlice.map((user) => (
                 <TableRow key={user.userId}>
                   <TableCell padding="checkbox">
                     <Checkbox
@@ -220,10 +228,19 @@ function UserInfo() {
                     </Button>
                   </TableCell>
                 </TableRow>
-              ))}
+              ))):(<Typography>Không có dữ liệu</Typography>)}
             </TableBody>
           </Table>
         </TableContainer>
+        <Box display='flex' justifyContent='center' mt={2}>
+            <Pagination
+              count={Math.ceil(sortUser.length/pageLimit)}
+              page={page}
+              onChange={handleChangePage}
+              color="primary"
+            >
+            </Pagination>
+        </Box>
       </Box>
       <ToastContainer limit={1} position="top-right" />
     </Box>

@@ -50,6 +50,7 @@ import UpdateShopInfo from "./pages/User/UpdateShopInfo";
 import Footer from "./components/Footer/Footer1";
 import { Box } from "@mui/material";
 import PondWaterParam from "./pages/MyPond/PondWaterParam";
+import ManageBlog from "./pages/Admin/ManageBlog";
 
 
 function App() {
@@ -104,8 +105,9 @@ function App() {
       element: <Admin />,
       children: [
         { path: "userInfo", element: <UserInfo /> },
-        { path: "", element: <Navigate to="userInfo" replace /> },
+        { path: "", element: <Navigate to="dashboard" replace /> },
         { path: "dashboard", element: <Dashboard /> },
+        { path: "blogManage", element:<ManageBlog/>}
       ],
     },
     {

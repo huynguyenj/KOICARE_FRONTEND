@@ -123,7 +123,7 @@ const Orders = () => {
           onChange={handleChangeQuery}
         ></InputBase>
         <Button variant="contained" sx={{ ml: 3 }} onClick={handleOrderChange}>
-          {sort === "newest" ? "Ngày mới nhất" : "Ngày cũ"}
+          {sort === "newest" ? "Ngày cũ nhất" : "Ngày mới nhất"}
         </Button>
         <Button
           color="error"

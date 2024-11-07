@@ -51,6 +51,7 @@ import Footer from "./components/Footer/Footer1";
 import { Box } from "@mui/material";
 import PondWaterParam from "./pages/MyPond/PondWaterParam";
 import ManageBlog from "./pages/Admin/ManageBlog";
+import PaymentHistoryPage from "./pages/UserProfile/paymentHistory";
 
 
 function App() {
@@ -87,7 +88,8 @@ function App() {
             {path:"calculateSalt", element:<CalculateSalt/>},
             { path: "payment", element: <Payment />},
             { path: "paymentSuccess", element:<PaymentSuccess/>},
-            { path: "changePass", element:<ChangePass/>}
+            { path: "changePass", element:<ChangePass/>},
+            { path: "paymentHistory", element:<PaymentHistoryPage/>}
 
           ],
         },

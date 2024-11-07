@@ -106,7 +106,7 @@ function UserInfo() {
         autoClose: 800,
       });
     } catch (error) {
-      toast.error(`Cập nhậtt trạng thái thất bại. Lỗi phía server ${error.message}`);
+      toast.error(`Cập nhật trạng thái thất bại. Lỗi phía server ${error.message}`);
       console.log(error);
     }
   };
@@ -137,7 +137,7 @@ function UserInfo() {
         flexGrow: 1
       }}
     >
-
+    <ToastContainer limit={1} position="top-right" />
       <AppBar position="static" sx={{ backgroundColor: "#f57c00" }}>
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -242,7 +242,7 @@ function UserInfo() {
             </Pagination>
         </Box>
       </Box>
-      <ToastContainer limit={1} position="top-right" />
+    
     </Box>
   );
 }

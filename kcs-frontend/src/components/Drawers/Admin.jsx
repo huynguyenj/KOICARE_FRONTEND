@@ -24,6 +24,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon"; // Import for icons
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import NewspaperIcon from '@mui/icons-material/Newspaper';
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import { useNavigate, Outlet } from "react-router-dom";
 import { getMyInfo, logout } from "../../api/userService";
@@ -100,7 +101,7 @@ export default function PrimarySearchAppBar() {
   const drawerItems = [
     { text: "Bảng điều khiển", icon: <Dashboard />, path: "/admin/dashboard" },
     { text: "Hồ sơ người dùng", icon: <ManageAccountsIcon />, path: "/admin/userInfo" },
-    { text: "Quản lí blog, tin tức", icon: <ManageAccountsIcon />, path:"/admin/blogManage" },
+    { text: "Quản lí blog, tin tức", icon: <NewspaperIcon />, path:"/admin/blogManage" },
     { text: "Đăng xuất", icon: <Logout />, action:handleLogout },
   ];
 

@@ -342,3 +342,4 @@ export const changePassword = async (newPassword) =>{
             throw error
       }    
 }
+

@@ -112,7 +112,7 @@ const Orders = () => {
   };
   return (
     <>
-    <ToastContainer/>
+      <ToastContainer />
       <TableContainer component={Paper} sx={{ mt: 5 }}>
         <SearchIcon sx={{ color: "gray", mr: 1 }}></SearchIcon>
         <InputBase
@@ -170,7 +170,12 @@ const Orders = () => {
                       />
                     </TableCell>
                     <TableCell align="center">{order.quantity}</TableCell>
-                    <TableCell align="center">{order.price}</TableCell>
+                    <TableCell align="center">
+                      {order.price.toLocaleString("vi-VN", {
+                        style: "currency",
+                        currency: "VND",
+                      })}
+                    </TableCell>
                     <TableCell align="center">
                       {
                         <>

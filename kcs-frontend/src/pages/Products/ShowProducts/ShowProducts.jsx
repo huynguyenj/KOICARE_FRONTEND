@@ -273,7 +273,11 @@ const ShowProducts = () => {
                           sx={{ p: 0.5 }}
                         />
                       ) : (
-                        product.price
+                        product.price.toLocaleString("vi-VN",{   
+                          style:'currency',
+                          currency:'VND',
+                      
+                        })
                       )}
                     </TableCell>
                     <TableCell align="center">

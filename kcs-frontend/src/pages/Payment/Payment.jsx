@@ -110,8 +110,9 @@ const Payment = () => {
 
         if(error.response && error.response.data.message === "Out of stock"){
           toast.error("Sản phẩm hết hàng. Vui lòng chọn số lượng khác.");
-        }else{
-          toast.error("Thanh toán thất bại")
+        }
+        if(error.response.data.code == 1005) {
+          toast.error("Vui lòng đăng nhập để thanh toán!")
         }
        
       }finally{

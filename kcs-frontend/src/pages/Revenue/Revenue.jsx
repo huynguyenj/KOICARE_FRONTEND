@@ -3,7 +3,7 @@ import "./Revenue.css";
 import ShopD from "../../components/Drawers/Shop";
 import FooterEnd from "../../components/Footer/FooterEnd";
 import { getAllOrders } from "../../api/shop";
-// import { BarChart } from "@mui/x-charts/BarChart";
+import { BarChart } from "@mui/x-charts/BarChart";
 import { Alert, Typography } from "@mui/material";
 
 const Revenue = () => {

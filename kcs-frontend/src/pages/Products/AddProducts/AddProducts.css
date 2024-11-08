@@ -48,7 +48,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 500px;
+  width: 220px;
   border: 2px dashed #ccc;
   cursor: pointer;
   position: relative;

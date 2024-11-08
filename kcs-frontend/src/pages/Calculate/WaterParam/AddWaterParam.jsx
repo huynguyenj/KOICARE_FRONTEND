@@ -86,7 +86,12 @@ function AddWaterParam() {
             toast.success("Thêm thông số nước thành công")
       } catch (error) {
            console.log(error)
-           toast.error("Thêm thông số nước thất bại!") 
+           if(error.response.data.code == 1007){
+            toast.error("Bạn đã thêm thông số cho hồ nãy rồi, bạn muốn thay đổi hãy cập nhật!")
+           }else{
+            toast.error("Thêm thông số nước thất bại!") 
+           }
+          
       } finally{
             setUpdate(false)
       }

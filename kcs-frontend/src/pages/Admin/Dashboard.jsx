@@ -23,14 +23,7 @@ import {
 import { getAllUser, trackingUser } from "../../api/userService";
 import { toast, ToastContainer } from "react-toastify";
 
-const data = [
-  { name: "Jan", users: 4000 },
-  { name: "Feb", users: 3000 },
-  { name: "Mar", users: 5000 },
-  { name: "Apr", users: 4500 },
-  { name: "May", users: 6000 },
-  { name: "Jun", users: 5500 },
-];
+
 
 const Dashboard = () => {
   
@@ -47,12 +40,8 @@ const Dashboard = () => {
 
     try {
       const res = await getAllUser();
-      if(res.code == 1010){
-        toast.success("Cập nhật người dùng")
-        setSumUsers(res.result.length);
-      }else{
-        toast.error("Cập nhật thất bại")
-      }
+      setSumUsers(res.result.length);
+      
   
     } catch (error) {
       console.error("Failed to fetch users:", error);
@@ -65,7 +54,7 @@ const Dashboard = () => {
     try {
       const res = await trackingUser();
       if(res.code == 1010){
-        toast.success("Cập nhật người dùng")
+       
         setTrackingUsers(res.result.userCount)
        
       }else{
@@ -109,44 +98,7 @@ const Dashboard = () => {
              />
            </Grid>
            <Grid item xs={12}>
-             <Paper
-               sx={{
-                 p: 3,
-                 borderRadius: 4,
-                 boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.12)",
-                 backgroundColor: "#424242",
-                 color: "#fff",
-               }}
-             >
-               <Typography
-                 variant="h6"
-                 sx={{ mb: 2, display: "flex", alignItems: "center" }}
-               >
-                 <TrendingUp sx={{ mr: 1, color: "#4ca1af" }} />
-                 User Growth Trend
-               </Typography>
-               <ResponsiveContainer width="100%" height={300}>
-                 <LineChart data={data}>
-                   <CartesianGrid strokeDasharray="3 3" stroke="#666" />
-                   <XAxis dataKey="name" stroke="#fff" />
-                   <YAxis stroke="#fff" />
-                   <Tooltip
-                     contentStyle={{
-                       backgroundColor: "#424242",
-                       border: "none",
-                     }}
-                     labelStyle={{ color: "#fff" }}
-                   />
-                   <Legend />
-                   <Line
-                     type="monotone"
-                     dataKey="users"
-                     stroke="#4ca1af"
-                     strokeWidth={2}
-                   />
-                 </LineChart>
-               </ResponsiveContainer>
-             </Paper>
+            
            </Grid>
          </Grid>
        </Container>

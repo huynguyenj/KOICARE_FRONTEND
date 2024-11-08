@@ -137,15 +137,18 @@ const AddBlog = () => {
           {imagePreview?( 
              <img
              src={imagePreview}
-             alt="Pond"
+             alt="Blog"
              style={{
                  width: "50%",
                  height: "auto",
                  borderRadius: "8px",
                  marginBottom: "20px",
              }}
-         />):
-           <TextField
+         />):(<></>)
+          
+          
+        }
+         <TextField
           fullWidth
           type="file"
           accept="image/*"
@@ -158,7 +161,7 @@ const AddBlog = () => {
             shrink: true, // Ensure the label doesn't overlap with the date placeholder
           }}
 
-        />}
+        />
          
        
          <Button variant="contained" color="primary" type="submit" sx={{ mt: 2 }} disabled={updating}>

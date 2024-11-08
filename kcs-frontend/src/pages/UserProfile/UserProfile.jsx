@@ -137,13 +137,12 @@ function UserProfile() {
               >
                 Trang chủ
               </Button>
-              <Divider sx={{ margin: "20px 0" }} />
               <List>
                 <ListItem>
                   <ListItemIcon>
                     <ShoppingCart />
                   </ListItemIcon>
-                  <ListItemText primary="Sản phẩm đã mua" />
+                  <ListItemText primary="Sản phẩm đã mua" onClick={()=>navigate('/userhome/paymentHistory')}/>
                 </ListItem>
                 <ListItem>
                   <ListItemIcon>

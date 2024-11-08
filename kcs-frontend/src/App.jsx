@@ -50,6 +50,8 @@ import UpdateShopInfo from "./pages/User/UpdateShopInfo";
 import Footer from "./components/Footer/Footer1";
 import { Box } from "@mui/material";
 import PondWaterParam from "./pages/MyPond/PondWaterParam";
+import ManageBlog from "./pages/Admin/ManageBlog";
+import PaymentHistoryPage from "./pages/UserProfile/paymentHistory";
 
 
 function App() {
@@ -86,7 +88,8 @@ function App() {
             {path:"calculateSalt", element:<CalculateSalt/>},
             { path: "payment", element: <Payment />},
             { path: "paymentSuccess", element:<PaymentSuccess/>},
-            { path: "changePass", element:<ChangePass/>}
+            { path: "changePass", element:<ChangePass/>},
+            { path: "paymentHistory", element:<PaymentHistoryPage/>}
 
           ],
         },
@@ -104,8 +107,9 @@ function App() {
       element: <Admin />,
       children: [
         { path: "userInfo", element: <UserInfo /> },
-        { path: "", element: <Navigate to="userInfo" replace /> },
+        { path: "", element: <Navigate to="dashboard" replace /> },
         { path: "dashboard", element: <Dashboard /> },
+        { path: "blogManage", element:<ManageBlog/>}
       ],
     },
     {
@@ -118,7 +122,7 @@ function App() {
         { path: "orders", element: <Orders /> },
         { path: "revenue", element: <Revenue /> },
         { path: "status_Products", element: <Status_Products /> },
-        { path: "", element: <Navigate to="addProducts" replace /> },
+        { path: "", element: <Navigate to="showProduct" replace /> },
         { path : "shopAdd", element: <ShopAdd/>},
         { path : "updateShop", element:<UpdateShopInfo/>}
         

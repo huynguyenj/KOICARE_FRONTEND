@@ -265,6 +265,25 @@ export const deleteBlog = async (blogId)=>{
       }    
 }
 
+export const deleteBlogAdmin = async (blogId)=>{
+      try {
+            const token = localStorage.getItem('token')
+            if(!token){
+                  throw new Error('Token not find')
+            }
+            const res = await axios.delete(`${REST_API_BASE_URL}/api/user/deleteBlog/${blogId}`,{
+                  headers: {
+                        Authorization: `Bearer ${token}`,
+                       
+                  }
+            })
+            return res.data
+      } catch (error) {
+            console.log(error)
+            throw error
+      }    
+}
+
 export const updateBlog = async (blogId,blogData) =>{
       try {
             const token = localStorage.getItem('token')
@@ -323,3 +342,4 @@ export const changePassword = async (newPassword) =>{
             throw error
       }    
 }
+

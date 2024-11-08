@@ -381,7 +381,9 @@ const Detail = () => {
             )}
 
             {/* Pagination Controls */}
-            <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+            {commentList.length > 0 ? 
+            <>
+                <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
               <Button
                 variant="outlined"
                 onClick={prevPage}
@@ -406,6 +408,8 @@ const Detail = () => {
                 Trang sau
               </Button>
             </Box>
+            </>:""}
+        
 
             <Button
               variant="contained"

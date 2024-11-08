@@ -65,7 +65,7 @@ function MyFishList() {
     }
   };
 
-  const location = useLocation();
+
   const navigator = useNavigate();
   useEffect(() => {
     getFishes();
@@ -167,19 +167,21 @@ function MyFishList() {
                         </Grid>
 
                         <Grid item>
-                        <Tooltip title = {"Thêm cá vào hồ"} arrow>
-                          <Button
+                        <Tooltip title={"Thêm cá vào hồ"} arrow>
+                        <Button
                             color="primary"
                             onClick={handleOpenAddMenu} // Open the add fish to pond menu
                           >
                             <AddIcon />
                           </Button>
+                            </Tooltip>
+                         
                           <Menu
                             anchorEl={addMenuAnchor}
                             open={Boolean(addMenuAnchor)}
                             onClose={handleCloseAddMenu} // Close add fish to pond menu
                           >
-                            {ponds.map((pond) => (
+                            {ponds.length > 0 ? ponds.map((pond) => (
                               <MenuItem
                                 key={pond.pondId}
                                 onClick={() => {
@@ -189,19 +191,22 @@ function MyFishList() {
                               >
                                 {pond.pondName}
                               </MenuItem>
-                            ))}
+                            )):<MenuItem>Chưa có hồ</MenuItem>}
                           </Menu>
-                          </Tooltip>
+                         
                         </Grid>
 
                         <Grid item>
-                        <Tooltip title = {"Chức năng xem và thêm thông tin phát triển của cá"} arrow>
+                       
+                          <Tooltip title={'Thêm và xem thống kê phát triển của cá'} arrow>
                           <Button
                             color="success"
                             onClick={(e) => handleOpenStatsMenu(e, fish.fishId)} // Open stats menu for selected fish
                           >
                             <ShowChartIcon />
                           </Button>
+                          </Tooltip>
+                        
                           <Menu
                             anchorEl={statsMenuAnchor}
                             open={Boolean(statsMenuAnchor)}
@@ -220,7 +225,7 @@ function MyFishList() {
                               Xem thống kê phát triển
                             </MenuItem>
                           </Menu>
-                          </Tooltip>
+                       
                         </Grid>
                         <Grid item mt={1}>
                         <Tooltip title = {"Thông tin chi tiết"} arrow>

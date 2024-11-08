@@ -122,7 +122,7 @@ function App() {
         { path: "orders", element: <Orders /> },
         { path: "revenue", element: <Revenue /> },
         { path: "status_Products", element: <Status_Products /> },
-        { path: "", element: <Navigate to="addProducts" replace /> },
+        { path: "", element: <Navigate to="showProduct" replace /> },
         { path : "shopAdd", element: <ShopAdd/>},
         { path : "updateShop", element:<UpdateShopInfo/>}
         

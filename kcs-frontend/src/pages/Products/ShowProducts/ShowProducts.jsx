@@ -170,7 +170,7 @@ const ShowProducts = () => {
         >
           <InputBase
             startAdornment={<SearchIcon color="primary" sx={{ mr: 1 }} />}
-            placeholder="Search products"
+            placeholder="Tìm sản phẩm"
             sx={{ ml: 1, flex: 1, border: "none" }}
             value={searchQuery}
             onChange={(e) => handleSearch(e.target.value)}
@@ -352,7 +352,7 @@ const ShowProducts = () => {
             ) : (
               <TableRow>
                 <TableCell colSpan={6} align="center">
-                  <Typography variant="h6">No products found</Typography>
+                  <Typography variant="h6">Không có sản phẩm</Typography>
                 </TableCell>
               </TableRow>
             )}

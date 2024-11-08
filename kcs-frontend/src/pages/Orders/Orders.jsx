@@ -116,7 +116,7 @@ const Orders = () => {
       <TableContainer component={Paper} sx={{ mt: 5 }}>
         <SearchIcon sx={{ color: "gray", mr: 1 }}></SearchIcon>
         <InputBase
-          placeholder="search"
+          placeholder="Tìm kiếm "
           inputProps={{ "aria-label": "search" }}
           sx={{ mb: 2 }}
           value={searchQuery}

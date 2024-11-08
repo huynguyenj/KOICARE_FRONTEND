@@ -11,12 +11,12 @@ import {
 } from "@mui/material";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { getShopInfo } from "../../api/shop";
+import { addShop, getShopInfo } from "../../api/shop";
 
 function ShopAdd() {
   const [update, setUpdate] = useState(false);
   const [errors, setErrors] = useState({});
-  const [shopInfo, setShopInfo] = useState({});
+  const [shopInfo, setShopInfo] = useState(null);
   const [formData, setFormData] = useState({
     shopName: "",
     address: "",
@@ -72,7 +72,8 @@ function ShopAdd() {
       setUpdate(true);
       try {
         console.log(formData);
-        // await addShop(formData); // Adjust with your addShop API function
+        await addShop(formData); // Adjust with your addShop API function
+        getInfo();
         toast.success("Cửa hàng đã được thêm thành công!");
       } catch (error) {
         console.log(error);

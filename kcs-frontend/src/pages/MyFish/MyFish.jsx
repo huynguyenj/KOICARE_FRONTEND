@@ -30,14 +30,27 @@ import {
 function MyFishList() {
   const [koiFishList, setKoiFishList] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [addMenuAnchor, setAddMenuAnchor] = useState(null);
+  const [addMenuAnchors, setAddMenuAnchors] = useState({}); 
   const [statsMenuAnchor, setStatsMenuAnchor] = useState(null);
   const [ponds, setPonds] = useState([]);
   const [selectedFishId, setSelectedFishId] = useState(null);
 
   // Separate handle functions
-  const handleOpenAddMenu = (event) => setAddMenuAnchor(event.currentTarget);
-  const handleCloseAddMenu = () => setAddMenuAnchor(null);
+// Open the Add menu for a specific fish
+const handleOpenAddMenu = (event, fishId) => {
+  setAddMenuAnchors((prevAnchors) => ({
+    ...prevAnchors,
+    [fishId]: event.currentTarget,
+  }));
+};
+
+// Close the Add menu for a specific fish
+const handleCloseAddMenu = (fishId) => {
+  setAddMenuAnchors((prevAnchors) => ({
+    ...prevAnchors,
+    [fishId]: null,
+  }));
+};
 
   const handleOpenStatsMenu = (event, fishId) => {
     setStatsMenuAnchor(event.currentTarget);
@@ -170,16 +183,16 @@ function MyFishList() {
                         <Tooltip title={"Thêm cá vào hồ"} arrow>
                         <Button
                             color="primary"
-                            onClick={handleOpenAddMenu} // Open the add fish to pond menu
+                            onClick={(e) => handleOpenAddMenu(e, fish.fishId)} // Open the add fish to pond menu
                           >
                             <AddIcon />
                           </Button>
                             </Tooltip>
                          
                           <Menu
-                            anchorEl={addMenuAnchor}
-                            open={Boolean(addMenuAnchor)}
-                            onClose={handleCloseAddMenu} // Close add fish to pond menu
+                             anchorEl={addMenuAnchors[fish.fishId]} // Specific anchor for each fish
+                             open={Boolean(addMenuAnchors[fish.fishId])}
+                             onClose={() => handleCloseAddMenu(fish.fishId)}// Close add fish to pond menu
                           >
                             {ponds.length > 0 ? ponds.map((pond) => (
                               <MenuItem

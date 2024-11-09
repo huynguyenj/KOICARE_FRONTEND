@@ -131,7 +131,7 @@ function Footer() {
           </div>
         </div>
 
-        {/* <div
+        <div
           className="row mt-5"
           style={{
             backgroundColor: "#212121",
@@ -167,7 +167,7 @@ function Footer() {
               </a>
             </div>
           </div>
-        </div> */}
+        </div>
       </div>
     </>
   );

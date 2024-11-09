@@ -110,13 +110,8 @@ const Product = () => {
   };
 
   return (
-<<<<<<< HEAD
-    <Container maxWidth="lg" sx={{ mt: 1, mb: 4 }}>
-      {/* <img style={styles.bgImage} src="/BG.jpg" alt="Background" /> */}
-=======
     <>
      <Container maxWidth="lg" sx={{ mt: 1, mb: 4 }}>
->>>>>>> 7e1e4215c0c36d68bab2332bd99895381564c3f8
       <Typography
         variant="h2"
         component="h1"

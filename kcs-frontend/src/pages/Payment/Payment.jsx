@@ -52,8 +52,6 @@ const Payment = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
- 
-
   const getClientIp = async () => {
     try {
       const response = await axios.get("https://api.ipify.org?format=json");
@@ -71,8 +69,8 @@ const Payment = () => {
     console.log(quantity);
     return quantity;
   };
+
   const handleCheckout = async () => {
-<<<<<<< HEAD
     const orderDetail = cartItems.map((item) => ({
       productId: item.product.id,
       quantity: item.quantity,
@@ -85,21 +83,10 @@ const Payment = () => {
       phone: formData.phone,
       order: orderDetail,
     };
-    if (validate() && paymentMethod != "credit") {
-      try {
-        setLoading(true);
-        console.log(form);
-        // await order(form)
-        toast.success("Đặt đơn thành công!");
-        clearCart();
-      } catch (error) {
-        console.log(error);
-        toast.error("Đặt đơn thất bại!");
-      } finally {
-        setLoading(false);
-      }
-    } else if (paymentMethod == "credit") {
+
+    if (paymentMethod == "credit") {
       if (validate()) {
+        setLoading(true);
         const clientIp = await getClientIp(); // Call the function here
         const formPayment = {
           quantity: calculateQuantityAllProduct(),
@@ -107,67 +94,31 @@ const Payment = () => {
           ipAddr: String(clientIp),
         };
         try {
+          const resOrder = await order(form);
+          const orderIdList = resOrder.result.map((orders) => orders.orderId);
           const res = await createPayment(formPayment);
           localStorage.setItem("orderDetail", JSON.stringify(form));
+          localStorage.setItem("orderId", JSON.stringify(orderIdList));
           const paymentURL = res.result;
-          console.log(paymentURL);
           window.location.href = paymentURL;
         } catch (error) {
           console.log(error);
-          toast.error("Thanh toán thất bại");
+
+          localStorage.removeItem("orderDetail");
+          localStorage.removeItem("orderId");
+
+          if (
+            error.response &&
+            error.response.data.message === "Out of stock"
+          ) {
+            toast.error("Sản phẩm hết hàng. Vui lòng chọn số lượng khác.");
+          } else {
+            toast.error("Thanh toán thất bại");
+          }
         } finally {
           setLoading(false);
         }
       }
-=======
-      const orderDetail = cartItems.map(item =>({
-        productId: item.product.id,
-        quantity: item.quantity,
-        shopId: item.product.shopId
-      }))
-      console.log(orderDetail)
-      const form = {
-        userName: formData.userName,
-        address: formData.address,
-        phone: formData.phone,
-        order: orderDetail
-      }
-     
-     if(paymentMethod == "credit"){
-      if(validate()){
-      setLoading(true);
-      const clientIp = await getClientIp(); // Call the function here
-      const formPayment = {
-        quantity: calculateQuantityAllProduct(),
-        amount: calculateTotalPrice(),
-        ipAddr: String(clientIp)
-      }
-      try {
-        const resOrder = await order(form)
-        const orderIdList = resOrder.result.map(orders => orders.orderId )
-        const res = await createPayment(formPayment)
-        localStorage.setItem("orderDetail",JSON.stringify(form))
-        localStorage.setItem("orderId",JSON.stringify(orderIdList))
-        const paymentURL = res.result
-        window.location.href= paymentURL
-        
-      } catch (error) {
-        console.log(error)
-        
-        localStorage.removeItem("orderDetail")
-        localStorage.removeItem("orderId")
-
-        if(error.response && error.response.data.message === "Out of stock"){
-          toast.error("Sản phẩm hết hàng. Vui lòng chọn số lượng khác.");
-        }else{
-          toast.error("Thanh toán thất bại")
-        }
-       
-      }finally{
-        setLoading(false)
-      }
-     
->>>>>>> 7e1e4215c0c36d68bab2332bd99895381564c3f8
     }
   };
 
@@ -188,24 +139,14 @@ const Payment = () => {
     return priceString;
   };
 
-<<<<<<< HEAD
   const validate = () => {
     const newError = {};
+    const phoneRegex = /^\d{10}$/;
     if (!formData.userName || formData.userName.trim() === "") {
       newError.name = "Hãy nhập tên của bạn!";
     }
-    if (!formData.phone || formData.phone.trim() === "") {
+    if (!formData.phone || !phoneRegex.test(formData.phone)) {
       newError.phone = "Hãy nhập số điện thoại!";
-=======
-  const validate = () =>{
-    const newError = {}
-    const phoneRegex = /^\d{10}$/;
-    if(!formData.userName || formData.userName.trim() ===""){
-      newError.name = "Hãy nhập tên của bạn!"
-    }
-    if(!formData.phone || !phoneRegex.test(formData.phone)){
-      newError.phone = "Hãy nhập số điện thoại!"
->>>>>>> 7e1e4215c0c36d68bab2332bd99895381564c3f8
     }
     if (!formData.address || formData.address.trim() === "") {
       newError.addr = "Hãy nhập địa chỉ của bạn!";
@@ -307,7 +248,6 @@ const Payment = () => {
                     onChange={(e) => setPaymentMethod(e.target.value)}
                     row
                   >
-                    
                     <FormControlLabel
                       value="credit"
                       control={<Radio />}
@@ -396,6 +336,16 @@ const Payment = () => {
                     ? "Thanh toán"
                     : "Thanh toán online"}
                 </Button>
+
+                <Backdrop
+                  sx={(theme) => ({
+                    color: "#fff",
+                    zIndex: theme.zIndex.drawer + 1,
+                  })}
+                  open={loading}
+                >
+                  <CircularProgress color="inherit" />
+                </Backdrop>
               </CardContent>
             </Card>
           </Grid>

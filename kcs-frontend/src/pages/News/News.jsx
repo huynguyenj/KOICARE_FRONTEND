@@ -13,9 +13,11 @@ import {
   IconButton,
   InputBase,
   Button,
-  CircularProgress
+  CircularProgress,
+  Pagination,
+  Box
 } from "@mui/material";
-import { Search, ChevronLeft } from "lucide-react";
+import { Search, ChevronLeft} from "lucide-react";
 import { getAllBlog } from "../../api/userService";
 import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast
 import Footer from "../../components/Footer/Footer1";
@@ -25,6 +27,8 @@ const News = () => {
   const [searchQuery,setSearchQuery] = useState("");
   const [sortItem,setSortItem] = useState([])
   const [sortOrder, setSortOrder] = useState("newest"); 
+  const limitPerPage = 9;
+  const [page,setPage] = useState(1)
 
   const gotoHomePage = () => {
     navigate("/userhome"); // Use navigate to go back to home
@@ -78,6 +82,8 @@ if (!listBlogs) {
     navigate(`/blogDetail/${blogId}`)
   }
 
+ 
+
 const handleSearchChange = (e) => {
   const query = e.target.value
   setSearchQuery(query);
@@ -106,7 +112,10 @@ const updateDisplayBlog = (query,order) =>{
     updateDisplayBlog(searchQuery,newOrder)
   };
 
-
+  const handleChangePage = (e,value)=>{
+    setPage(value)
+  }
+  const displayPage =sortItem.slice((page-1)*limitPerPage,page*limitPerPage)
  
   return (
     <>
@@ -209,7 +218,7 @@ const updateDisplayBlog = (query,order) =>{
         </div>
         <Grid container spacing={4}>
           {sortItem.length > 0 ?
-            (sortItem.map((item) => (
+            (displayPage.map((item) => (
             <Grid item key={item.id} xs={12} sm={6} md={4}>
               <Card
                 sx={{
@@ -256,8 +265,19 @@ const updateDisplayBlog = (query,order) =>{
               :<Typography variant="h6" color="text.secondary" sx={{textAlign:'center',width:'100%', mt:5}}>Không có blog nào phù hợp</Typography>
           }
         </Grid>
+        <Box sx={{mt:2, display:'flex', justifyContent:'center'}}>
+        <Pagination
+          count={Math.ceil(sortItem.length/limitPerPage)}
+          page={page}
+          onChange={handleChangePage}
+          color="primary"
+        >
+
+        </Pagination>
+        </Box>
+        
       </Container>
-      <Footer/>
+      
     </>
   );
 };

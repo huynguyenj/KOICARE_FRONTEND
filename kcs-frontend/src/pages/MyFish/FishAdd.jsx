@@ -94,7 +94,9 @@ const FishForm = () => {
       setUpdate(true)
       const data = new FormData();
       data.append("fishName", formData.fishName);
-      data.append("fishImg", formData.fishImg);
+      if (formData.fishImg instanceof File) {
+        data.append("fishImg", formData.fishImg);  // Append the file
+    } 
       data.append("fishSize", formData.fishSize);
       data.append("fishShape", formData.fishShape);
       data.append("fishAge", formData.fishAge);

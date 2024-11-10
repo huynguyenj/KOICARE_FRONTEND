@@ -67,6 +67,7 @@ function UserInfo() {
       await Promise.all(selectedUsers.map((userId) => deleteUser(userId)));
       setUsers(users.filter((user) => !selectedUsers.includes(user.userId)));
       setSelectedUsers([]);
+      fetchUsers();
       toast.success(`Đã xóa ${deletedCount} người dùng thành công`, {
         position: "top-right", // Set to top-right
         autoClose: 800,

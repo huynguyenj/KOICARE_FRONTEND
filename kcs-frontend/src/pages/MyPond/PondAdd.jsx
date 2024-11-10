@@ -42,7 +42,8 @@ function PondAdd() {
     }
     if (!formData.volume || formData.volume <= 0) {
         newErrors.volume = 'Thể tích phải lớn hơn 0';
-    }
+    }else  if(formData.size*formData.depth != formData.volume)
+      {newErrors.volume = `Thể tích phải bằng kích thước nhân với độ sâu: ${formData.depth*formData.size}l !`}
     if (!formData.pumpCapacity || formData.pumpCapacity <= 0) {
         newErrors.pumpCapacity = 'Công suất bơm phải lớn hơn 0';
     }
@@ -76,7 +77,10 @@ function PondAdd() {
         const data = new FormData();
         // Append form data to FormData object
         data.append("pondName", formData.pondName);
-        data.append("pondImg", formData.pondImg);
+        if (formData.image instanceof File) {
+          data.append("pondImg", formData.image);  // Append the file
+      } 
+
         data.append("size", formData.size);
         data.append("depth", formData.depth);
         data.append("volume", formData.volume);

@@ -52,6 +52,7 @@ import { Box } from "@mui/material";
 import PondWaterParam from "./pages/MyPond/PondWaterParam";
 import ManageBlog from "./pages/Admin/ManageBlog";
 import PaymentHistoryPage from "./pages/UserProfile/paymentHistory";
+import SignUp from "./pages/Auth/SignUp/SignUp";
 
 
 function App() {
@@ -62,7 +63,7 @@ function App() {
       children: [
         { index: true, element: <Home /> },
         { path: "login", element: <Login /> },
-        { path: "register", element: <Register /> },
+        { path: "register", element: <SignUp /> },
         {
           path: "userhome",
           element: <Drawers />,

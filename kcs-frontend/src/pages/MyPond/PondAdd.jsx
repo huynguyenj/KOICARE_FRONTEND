@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   Avatar,
   Box,
@@ -19,6 +19,7 @@ import "react-toastify/dist/ReactToastify.css"; // Import CSS for the toast
 function PondAdd() {
   const [update, setUpdate] = useState(false);
   const [errors, setErrors] = useState({});
+  const fileInputRef = useRef(null);
   const [formData, setFormData] = useState({
     pondName: "",
     pondImg: null,
@@ -31,28 +32,31 @@ function PondAdd() {
 
   const validateFields = () => {
     const newErrors = {};
-    if (!formData.pondName || formData.pondName.trim() === '') {
-        newErrors.name = 'Tên ao không được để trống';
+    if (!formData.pondName || formData.pondName.trim() === "") {
+      newErrors.name = "Tên ao không được để trống";
     }
     if (!formData.depth || formData.depth <= 0) {
-        newErrors.depth = 'Độ sâu phải lớn hơn 0';
+      newErrors.depth = "Độ sâu phải lớn hơn 0";
     }
     if (!formData.size || formData.size <= 0) {
-        newErrors.size = 'Kích thước phải lớn hơn 0';
+      newErrors.size = "Kích thước phải lớn hơn 0";
     }
     if (!formData.volume || formData.volume <= 0) {
-        newErrors.volume = 'Thể tích phải lớn hơn 0';
-    }else  if(formData.size*formData.depth != formData.volume)
-      {newErrors.volume = `Thể tích phải bằng kích thước nhân với độ sâu: ${formData.depth*formData.size}l !`}
+      newErrors.volume = "Thể tích phải lớn hơn 0";
+    } else if (formData.size * formData.depth != formData.volume) {
+      newErrors.volume = `Thể tích phải bằng kích thước nhân với độ sâu: ${
+        formData.depth * formData.size
+      }l !`;
+    }
     if (!formData.pumpCapacity || formData.pumpCapacity <= 0) {
-        newErrors.pumpCapacity = 'Công suất bơm phải lớn hơn 0';
+      newErrors.pumpCapacity = "Công suất bơm phải lớn hơn 0";
     }
     if (!formData.drainCount || formData.drainCount <= 0) {
-        newErrors.drainCount = 'Số lượng cống thải phải lớn hơn 0';
+      newErrors.drainCount = "Số lượng cống thải phải lớn hơn 0";
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-};
+  };
   const [imagePreview, setImagePreview] = useState(null);
 
   const handleChange = (e) => {
@@ -60,44 +64,52 @@ function PondAdd() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setFormData({ ...formData, pondImg: file }); // Update the image property with the selected file
-    const reader = new FileReader();
-    reader.onload = () => {
-      setImagePreview(reader.result); // Update the image preview state with the file contents
-    };
-    reader.readAsDataURL(file);
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData({
+          ...formData,
+          pondImg: file, // Changed from image to fishImg
+        });
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleImageClick = () => {
+    fileInputRef.current.click();
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(validateFields()){
-        setUpdate(true)
-        const data = new FormData();
-        // Append form data to FormData object
-        data.append("pondName", formData.pondName);
-        if (formData.image instanceof File) {
-          data.append("pondImg", formData.image);  // Append the file
-      } 
+    if (validateFields()) {
+      setUpdate(true);
+      const data = new FormData();
+      // Append form data to FormData object
+      data.append("pondName", formData.pondName);
+      if (formData.pondImg) {
+        data.append("pondImg", formData.pondImg); // Append the file
+      }
 
-        data.append("size", formData.size);
-        data.append("depth", formData.depth);
-        data.append("volume", formData.volume);
-        data.append("drainCount", formData.drainCount);
-        data.append("pumpCapacity", formData.pumpCapacity);
-        console.log("Form submitted:", formData);
-        try {
-          await addPond(data);
-          toast.success("Hồ cá đã được thêm thành công!");
-        } catch (error) {
-          console.log(error);
-          toast.error("Có lỗi xảy ra khi thêm hồ cá.");
-        }finally{
-            setUpdate(false)
-        }
+      data.append("size", formData.size);
+      data.append("depth", formData.depth);
+      data.append("volume", formData.volume);
+      data.append("drainCount", formData.drainCount);
+      data.append("pumpCapacity", formData.pumpCapacity);
+      console.log("Form submitted:", formData);
+      try {
+        await addPond(data);
+        toast.success("Hồ cá đã được thêm thành công!");
+      } catch (error) {
+        console.log(error);
+        toast.error("Có lỗi xảy ra khi thêm hồ cá.");
+      } finally {
+        setUpdate(false);
+      }
     }
-    
   };
 
   const style = {
@@ -163,6 +175,7 @@ function PondAdd() {
               <input
                 type="file"
                 accept="image/*"
+                ref={fileInputRef}
                 onChange={handleImageChange}
                 style={{ display: "none" }}
                 id="image-input"
@@ -172,6 +185,7 @@ function PondAdd() {
                 htmlFor="image-input"
                 variant="contained"
                 color="success"
+                onClick={handleImageClick}
                 sx={{ marginBottom: 2, width: "100%" }}
               >
                 Chọn ảnh hồ cá
@@ -189,7 +203,7 @@ function PondAdd() {
           </Grid>
 
           {/* Right Side - Form */}
-          <Grid  item xs={12} sm={8}>
+          <Grid item xs={12} sm={8}>
             <Card sx={{ padding: 3, boxShadow: 6 }}>
               <form onSubmit={handleSubmit}>
                 <Grid container spacing={2}>
@@ -205,7 +219,6 @@ function PondAdd() {
                       helperText={errors.name}
                       InputProps={{
                         sx: { fontSize: 15 }, // Adjust font size inside the TextField
-                        
                       }}
                       InputLabelProps={{
                         sx: { fontSize: 14 }, // Adjust font size of the label
@@ -224,12 +237,10 @@ function PondAdd() {
                       helperText={errors.size}
                       InputProps={{
                         sx: { fontSize: 14 }, // Adjust font size inside the TextField
-                        
                       }}
                       InputLabelProps={{
                         sx: { fontSize: 14 }, // Adjust font size of the label
                       }}
-                      
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
@@ -318,9 +329,7 @@ function PondAdd() {
               </form>
             </Card>
           </Grid>
-          <Grid>
-            
-          </Grid>
+          <Grid></Grid>
         </Grid>
       </Box>
     </>

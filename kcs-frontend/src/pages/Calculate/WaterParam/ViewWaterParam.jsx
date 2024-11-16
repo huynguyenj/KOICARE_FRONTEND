@@ -14,6 +14,7 @@ import {
   List,
   Box,
   ListItem,
+  Tooltip,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Form, useNavigate, useParams } from "react-router-dom";
@@ -25,6 +26,7 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import { getAllProduct } from "../../../api/product";
 import InfoIcon from "@mui/icons-material/Info";
+import InfoOutlined from "@mui/icons-material/InfoOutlined";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Info } from "@mui/icons-material";
 import { LinkIcon } from "lucide-react";
@@ -443,145 +445,280 @@ function ViewWaterParam() {
                 </>
               ) : (
                 <>
-                  <div style={{ marginLeft: "12px" }}>
+                  <Box
+                    sx={{
+                      margin: "0 auto",
+                      maxWidth: 1200,
+                      padding: 3,
+                      borderRadius: 2,
+                    }}
+                  >
                     <Form onSubmit={handleSubmit}>
-                      <Grid
-                        item
-                        xs={12}
-                        sm={12}
-                        container
-                        spacing={2}
-                        sx={{ mt: 3 }}
-                      >
-                        <TextField
-                          fullWidth
-                          label="Thời gian đo"
-                          type="date"
-                          name="measurementTime"
-                          value={data.measurementTime}
-                          onChange={handleChange}
-                          sx={{ mb: 2 }}
-                          error={!!error.time}
-                          helperText={error.time}
-                          InputLabelProps={{
-                            shrink: true,
-                          }}
-                        ></TextField>
+                      <Grid container spacing={3}>
+                        {/* Measurement Time */}
+                        <Grid item xs={12} md={6}>
+                          <FormControl fullWidth sx={{ mb: 2 }}>
+                            <Grid container alignItems="center" spacing={1}>
+                              <Grid item xs={11}>
+                                <TextField
+                                  fullWidth
+                                  label="Thời gian đo"
+                                  type="date"
+                                  name="measurementTime"
+                                  value={data.measurementTime}
+                                  onChange={handleChange}
+                                  error={!!error.time}
+                                  helperText={error.time}
+                                  InputLabelProps={{ shrink: true }}
+                                />
+                              </Grid>
+                              <Grid item xs={1}>
+                                <Tooltip title="Chọn thời gian đo" arrow>
+                                  <IconButton>
+                                    <InfoOutlined />
+                                  </IconButton>
+                                </Tooltip>
+                              </Grid>
+                            </Grid>
+                          </FormControl>
+                        </Grid>
 
-                        <TextField
-                          fullWidth
-                          label="Nhiệt độ(°C)"
-                          type="number"
-                          name="temperature"
-                          value={data.temperature}
-                          onChange={handleChange}
-                          sx={{ mb: 2 }}
-                          error={!!error.temp}
-                          helperText={error.temp}
-                        ></TextField>
+                        {/* Temperature */}
+                        <Grid item xs={12} md={6}>
+                          <FormControl fullWidth sx={{ mb: 2 }}>
+                            <Grid container alignItems="center" spacing={1}>
+                              <Grid item xs={11}>
+                                <TextField
+                                  fullWidth
+                                  label="Nhiệt độ(°C)"
+                                  type="number"
+                                  name="temperature"
+                                  value={data.temperature}
+                                  onChange={handleChange}
+                                  error={!!error.temp}
+                                  helperText={error.temp}
+                                />
+                              </Grid>
+                              <Grid item xs={1}>
+                                <Tooltip
+                                  title={`Nhiệt độ từ ${standardRanges.temperature.min}°C đến ${standardRanges.temperature.max}°C`}
+                                  arrow
+                                >
+                                  <IconButton>
+                                    <InfoOutlined />
+                                  </IconButton>
+                                </Tooltip>
+                              </Grid>
+                            </Grid>
+                          </FormControl>
+                        </Grid>
 
-                        <FormControl>
-                          <TextField
-                            fullWidth
-                            label="Nồng độ muối"
-                            type="number"
-                            name="salinity"
-                            value={data.salinity}
-                            onChange={handleChange}
-                            sx={{ mb: 2 }}
-                            error={!!error.salt}
-                            helperText={error.salt}
-                          ></TextField>
-                        </FormControl>
+                        {/* Salinity */}
+                        <Grid item xs={12} md={6}>
+                          <FormControl fullWidth sx={{ mb: 2 }}>
+                            <Grid container alignItems="center" spacing={1}>
+                              <Grid item xs={11}>
+                                <TextField
+                                  fullWidth
+                                  label="Nồng độ muối (%)"
+                                  type="number"
+                                  name="salinity"
+                                  value={data.salinity}
+                                  onChange={handleChange}
+                                  error={!!error.salt}
+                                  helperText={error.salt}
+                                />
+                              </Grid>
+                              <Grid item xs={1}>
+                                <Tooltip
+                                  title={`Nồng độ muối từ ${standardRanges.salinity.min}% đến ${standardRanges.salinity.max}%`}
+                                  arrow
+                                >
+                                  <IconButton>
+                                    <InfoOutlined />
+                                  </IconButton>
+                                </Tooltip>
+                              </Grid>
+                            </Grid>
+                          </FormControl>
+                        </Grid>
 
-                        <FormControl>
-                          <TextField
-                            fullWidth
-                            label="Độ pH"
-                            type="number"
-                            name="ph"
-                            value={data.ph}
-                            onChange={handleChange}
-                            sx={{ mb: 2 }}
-                            error={!!error.ph}
-                            helperText={error.ph}
-                          ></TextField>
-                        </FormControl>
+                        {/* pH */}
+                        <Grid item xs={12} md={6}>
+                          <FormControl fullWidth sx={{ mb: 2 }}>
+                            <Grid container alignItems="center" spacing={1}>
+                              <Grid item xs={11}>
+                                <TextField
+                                  fullWidth
+                                  label="Độ pH"
+                                  type="number"
+                                  name="ph"
+                                  value={data.ph}
+                                  onChange={handleChange}
+                                  error={!!error.ph}
+                                  helperText={error.ph}
+                                />
+                              </Grid>
+                              <Grid item xs={1}>
+                                <Tooltip
+                                  title={`Độ pH từ ${standardRanges.ph.min} đến ${standardRanges.ph.max}`}
+                                  arrow
+                                >
+                                  <IconButton>
+                                    <InfoOutlined />
+                                  </IconButton>
+                                </Tooltip>
+                              </Grid>
+                            </Grid>
+                          </FormControl>
+                        </Grid>
 
-                        <FormControl>
-                          <TextField
-                            fullWidth
-                            label="Nồng độ O2"
-                            type="number"
-                            name="o2"
-                            value={data.o2}
-                            onChange={handleChange}
-                            sx={{ mb: 2 }}
-                            error={!!error.o2}
-                            helperText={error.o2}
-                          ></TextField>
-                        </FormControl>
+                        {/* O2 */}
+                        <Grid item xs={12} md={6}>
+                          <FormControl fullWidth sx={{ mb: 2 }}>
+                            <Grid container alignItems="center" spacing={1}>
+                              <Grid item xs={11}>
+                                <TextField
+                                  fullWidth
+                                  label="Nồng độ O2 (mg/l)"
+                                  type="number"
+                                  name="o2"
+                                  value={data.o2}
+                                  onChange={handleChange}
+                                  error={!!error.o2}
+                                  helperText={error.o2}
+                                />
+                              </Grid>
+                              <Grid item xs={1}>
+                                <Tooltip
+                                  title={`Nồng độ O2 từ ${standardRanges.o2.min} mg/l đến ${standardRanges.o2.max} mg/l`}
+                                  arrow
+                                >
+                                  <IconButton>
+                                    <InfoOutlined />
+                                  </IconButton>
+                                </Tooltip>
+                              </Grid>
+                            </Grid>
+                          </FormControl>
+                        </Grid>
 
-                        <FormControl>
-                          <TextField
-                            fullWidth
-                            label="Nồng độ NO2"
-                            type="number"
-                            name="no2"
-                            value={data.no2}
-                            onChange={handleChange}
-                            sx={{ mb: 2 }}
-                            error={!!error.no2}
-                            helperText={error.no2}
-                          ></TextField>
-                        </FormControl>
+                        {/* NO2 */}
+                        <Grid item xs={12} md={6}>
+                          <FormControl fullWidth sx={{ mb: 2 }}>
+                            <Grid container alignItems="center" spacing={1}>
+                              <Grid item xs={11}>
+                                <TextField
+                                  fullWidth
+                                  label="Nồng độ NO2 (mg/l)"
+                                  type="number"
+                                  name="no2"
+                                  value={data.no2}
+                                  onChange={handleChange}
+                                  error={!!error.no2}
+                                  helperText={error.no2}
+                                />
+                              </Grid>
+                              <Grid item xs={1}>
+                                <Tooltip
+                                  title={`Nồng độ NO2 tối đa ${standardRanges.no2.max} mg/l`}
+                                  arrow
+                                >
+                                  <IconButton>
+                                    <InfoOutlined />
+                                  </IconButton>
+                                </Tooltip>
+                              </Grid>
+                            </Grid>
+                          </FormControl>
+                        </Grid>
 
-                        <FormControl>
-                          <TextField
-                            fullWidth
-                            label="Nồng độ NO3"
-                            type="number"
-                            name="no3"
-                            value={data.no3}
-                            onChange={handleChange}
-                            sx={{ mb: 2 }}
-                            error={!!error.no3}
-                            helperText={error.no3}
-                          ></TextField>
-                        </FormControl>
+                        {/* NO3 */}
+                        <Grid item xs={12} md={6}>
+                          <FormControl fullWidth sx={{ mb: 2 }}>
+                            <Grid container alignItems="center" spacing={1}>
+                              <Grid item xs={11}>
+                                <TextField
+                                  fullWidth
+                                  label="Nồng độ NO3 (mg/l)"
+                                  type="number"
+                                  name="no3"
+                                  value={data.no3}
+                                  onChange={handleChange}
+                                  error={!!error.no3}
+                                  helperText={error.no3}
+                                />
+                              </Grid>
+                              <Grid item xs={1}>
+                                <Tooltip
+                                  title={`Nồng độ NO3 tối đa ${standardRanges.no3.max} mg/l`}
+                                  arrow
+                                >
+                                  <IconButton>
+                                    <InfoOutlined />
+                                  </IconButton>
+                                </Tooltip>
+                              </Grid>
+                            </Grid>
+                          </FormControl>
+                        </Grid>
 
-                        <FormControl>
-                          <TextField
-                            fullWidth
-                            label="Nồng độ PO4"
-                            type="number"
-                            name="po4"
-                            value={data.po4}
-                            onChange={handleChange}
-                            sx={{ mb: 2 }}
-                            error={!!error.po4}
-                            helperText={error.po4}
-                          ></TextField>
-                        </FormControl>
+                        {/* PO4 */}
+                        <Grid item xs={12} md={6}>
+                          <FormControl fullWidth sx={{ mb: 2 }}>
+                            <Grid container alignItems="center" spacing={1}>
+                              <Grid item xs={11}>
+                                <TextField
+                                  fullWidth
+                                  label="Nồng độ PO4 (mg/l)"
+                                  type="number"
+                                  name="po4"
+                                  value={data.po4}
+                                  onChange={handleChange}
+                                  error={!!error.po4}
+                                  helperText={error.po4}
+                                />
+                              </Grid>
+                              <Grid item xs={1}>
+                                <Tooltip
+                                  title={`Nồng độ PO4 tối đa ${standardRanges.po4.max} mg/l`}
+                                  arrow
+                                >
+                                  <IconButton>
+                                    <InfoOutlined />
+                                  </IconButton>
+                                </Tooltip>
+                              </Grid>
+                            </Grid>
+                          </FormControl>
+                        </Grid>
+
+                        {/* Buttons */}
+                        <Grid item xs={12} sx={{ textAlign: "center" }}>
+                          <Button
+                            variant="contained"
+                            color="success"
+                            type="submit"
+                            disabled={loading}
+                            sx={{ mr: 2 }}
+                          >
+                            {loading ? (
+                              <CircularProgress color="inherit" />
+                            ) : (
+                              "Xác nhận"
+                            )}
+                          </Button>
+                          <Button
+                            variant="contained"
+                            color="secondary"
+                            onClick={() => setUpdate(false)}
+                          >
+                            Quay lại trang thông số
+                          </Button>
+                        </Grid>
                       </Grid>
-                      <Button
-                        variant="contained"
-                        color="success"
-                        type="submit"
-                        disabled={loading}
-                      >
-                        {loading ? <CircularProgress color="inherit" /> : "Lưu"}
-                      </Button>
-
-                      <Button
-                        variant="contained"
-                        color="secondary"
-                        onClick={() => setUpdate(false)}
-                      >
-                        Quay lại trang thông số
-                      </Button>
                     </Form>
-                  </div>
+                  </Box>
                 </>
               )}
             </>

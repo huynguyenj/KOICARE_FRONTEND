@@ -513,8 +513,8 @@ function FishInfo() {
                     }}
                   >
                     <option value="">Tình trạng sức khỏe</option>
-                    <option value="tốt">tốt</option>
-                    <option value="xấu">xấu</option>
+                    <option value="Tốt">Tốt</option>
+                    <option value="Xấu">Xấu</option>
                   </TextField>
                 </>
               ) : (

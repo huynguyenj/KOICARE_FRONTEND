@@ -322,8 +322,8 @@ const FishForm = () => {
                       }}
                     >
                       <option value="" disabled>Tình trạng sức khỏe</option>
-                      <option value="Tốt">tốt</option>
-                      <option value="Xấu">xấu</option>
+                      <option value="Tốt">Tốt</option>
+                      <option value="Xấu">Xấu</option>
                     </TextField>
                   </Grid>
                   <Grid item xs={12} sm={6}>

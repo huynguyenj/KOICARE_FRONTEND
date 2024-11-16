@@ -218,6 +218,7 @@ function ViewWaterParam() {
   const displayParamStatus = (label, value, unit) => {
     const paramKey = paramKeys[label]; // Match param with keys in `standardRanges`
     const isOutOfRange = isNonStandard(paramKey, value); // Use correct param key
+    const range = standardRanges[paramKey]; // Use correct param key to get range
     return (
       <Typography>
         {label}:{" "}
@@ -226,9 +227,19 @@ function ViewWaterParam() {
           {unit}
         </span>
         {isOutOfRange ? (
-          <span style={{ color: "red", marginLeft: "8px" }}>
-            ({label} này không đạt tiêu chuẩn)
-          </span>
+          <>
+            <span style={{ color: "red", marginLeft: "8px" }}>
+              ({label} này không đạt tiêu chuẩn)
+            </span>
+            <span style={{ color: "blue", marginLeft: "8px" }}>
+              {" "}
+              - Tiêu chuẩn:{" "}
+              {range.min !== undefined
+                ? `tối thiểu ${range.min}${unit}`
+                : ""}{" "}
+              {range.max !== undefined ? `tối đa ${range.max}${unit}` : ""}
+            </span>
+          </>
         ) : (
           <span style={{ color: "green", marginLeft: "8px" }}>
             ({label} này đạt tiêu chuẩn)

@@ -13,6 +13,7 @@ import {
   Box,
   AppBar,
   Toolbar,
+  Pagination,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RefreshIcon from "@mui/icons-material/Refresh";
@@ -24,7 +25,9 @@ import { useLocation } from "react-router-dom";
 function UserInfo() {
   const [users, setUsers] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([]);
- 
+  const pageLimit = 6;
+  const [page,setPage] = useState(1);
+
   const [sortUser,setSortUser] = useState([]);
   const [query,setQuery] = useState("");
 
@@ -64,6 +67,7 @@ function UserInfo() {
       await Promise.all(selectedUsers.map((userId) => deleteUser(userId)));
       setUsers(users.filter((user) => !selectedUsers.includes(user.userId)));
       setSelectedUsers([]);
+      fetchUsers();
       toast.success(`Đã xóa ${deletedCount} người dùng thành công`, {
         position: "top-right", // Set to top-right
         autoClose: 800,
@@ -103,7 +107,7 @@ function UserInfo() {
         autoClose: 800,
       });
     } catch (error) {
-      toast.error(`Cập nhậtt trạng thái thất bại. Lỗi phía server ${error.message}`);
+      toast.error(`Cập nhật trạng thái thất bại. Lỗi phía server ${error.message}`);
       console.log(error);
     }
   };
@@ -119,8 +123,13 @@ function UserInfo() {
       user.roles.some((role) => role.userType.toLowerCase() === query.toLowerCase())
     );
     setSortUser(listUser);
+    setPage(1)
   };
 
+  const handleChangePage = (e,value)=>{
+    setPage(value)
+  }
+  const pageSlice = sortUser.slice((page-1)*pageLimit, page*pageLimit);
  
 
   return (
@@ -129,7 +138,7 @@ function UserInfo() {
         flexGrow: 1
       }}
     >
-
+    <ToastContainer limit={1} position="top-right" />
       <AppBar position="static" sx={{ backgroundColor: "#f57c00" }}>
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -189,7 +198,7 @@ function UserInfo() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {sortUser.map((user) => (
+              {pageSlice.length > 0 ? (pageSlice.map((user) => (
                 <TableRow key={user.userId}>
                   <TableCell padding="checkbox">
                     <Checkbox
@@ -220,12 +229,21 @@ function UserInfo() {
                     </Button>
                   </TableCell>
                 </TableRow>
-              ))}
+              ))):(<Typography>Không có dữ liệu</Typography>)}
             </TableBody>
           </Table>
         </TableContainer>
+        <Box display='flex' justifyContent='center' mt={2}>
+            <Pagination
+              count={Math.ceil(sortUser.length/pageLimit)}
+              page={page}
+              onChange={handleChangePage}
+              color="primary"
+            >
+            </Pagination>
+        </Box>
       </Box>
-      <ToastContainer limit={1} position="top-right" />
+    
     </Box>
   );
 }

@@ -29,11 +29,7 @@ export const getAllProduct = async () => {
             if (!token) {
                   throw new Error('Token not find')
             }
-            const res = await axios.get(REST_API_BASE_URL + '/all', {
-                  headers: {
-                        Authorization: `Bearer ${token}`
-                  }
-            })
+            const res = await axios.get(REST_API_BASE_URL + '/all')
             return res.data;
       } catch (error) {
             console.log("", error)
@@ -125,11 +121,7 @@ export const getAProduct = async (productId) => {
             if (!token) {
                   throw new Error('Token not find')
             }
-            const res = await axios.get(REST_API_BASE_URL + `/search/${productId}`, {
-                  headers: {
-                        Authorization: `Bearer ${token}`
-                  }
-            })
+            const res = await axios.get(REST_API_BASE_URL + `/search/${productId}`)
             return res.data;
       } catch (error) {
             console.log("", error)

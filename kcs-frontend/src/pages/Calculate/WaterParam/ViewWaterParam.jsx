@@ -38,6 +38,7 @@ function ViewWaterParam() {
   const [productsList, setProductList] = useState([]);
   const [show, setShow] = useState(false);
   const [recomendProduct, setRecomendProduct] = useState({});
+
   useEffect(() => {
     getProducts();
   }, []);
@@ -65,7 +66,7 @@ function ViewWaterParam() {
 
   useEffect(() => {
     getWaterParam();
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     if (waterParam.measurementTime) {
@@ -184,6 +185,70 @@ function ViewWaterParam() {
     RESOLVE_NO2: "Sản phẩm điều chỉnh nồng độ NO2",
   };
 
+  const standardRanges = {
+    temperature: { min: 5, max: 26 }, // Updated temperature range for koi ponds
+    salinity: { min: 0, max: 0.2 }, // Updated salinity range
+    ph: { min: 6.9, max: 8 }, // Updated pH range
+    o2: { min: 5, max: 8 }, // Minimum oxygen level in mg/L
+    no2: { max: 0 }, // Maximum NO2 level in mg/L
+    no3: { max: 40 }, // Maximum NO3 level in mg/L
+    po4: { max: 1 }, // Maximum PO4 level in mg/L
+  };
+
+ const isNonStandard = (param, value) => {
+   const range = standardRanges[param];
+   if (!range) return false;
+
+   // Check if the value is out of the valid range
+   if (range.min !== undefined && value < range.min) return true;
+   if (range.max !== undefined && value > range.max) return true;
+   return false;
+ };
+  // Add a mapping between the display labels and standardRanges keys
+  const paramKeys = {
+    "Nhiệt độ": "temperature",
+    "Độ mặn": "salinity",
+    "Độ pH": "ph",
+    "Nồng độ O2": "o2",
+    "Nồng độ NO2": "no2",
+    "Nồng độ NO3": "no3",
+    "Nồng độ PO4": "po4",
+  };
+
+  const displayParamStatus = (label, value, unit) => {
+    const paramKey = paramKeys[label]; // Match param with keys in `standardRanges`
+    const isOutOfRange = isNonStandard(paramKey, value); // Use correct param key
+    const range = standardRanges[paramKey]; // Use correct param key to get range
+    return (
+      <Typography>
+        {label}:{" "}
+        <span style={{ color: "black" }}>
+          {value}
+          {unit}
+        </span>
+        {isOutOfRange ? (
+          <>
+            <span style={{ color: "red", marginLeft: "8px" }}>
+              ({label} này không đạt tiêu chuẩn)
+            </span>
+            <span style={{ color: "blue", marginLeft: "8px" }}>
+              {" "}
+              - Tiêu chuẩn:{" "}
+              {range.min !== undefined
+                ? `tối thiểu ${range.min}${unit}`
+                : ""}{" "}
+              {range.max !== undefined ? `tối đa ${range.max}${unit}` : ""}
+            </span>
+          </>
+        ) : (
+          <span style={{ color: "green", marginLeft: "8px" }}>
+            ({label} này đạt tiêu chuẩn)
+          </span>
+        )}
+      </Typography>
+    );
+  };
+
   const naviagtor = useNavigate();
   const changeToPondPage = () => {
     naviagtor("/userhome/pondlist");
@@ -231,38 +296,19 @@ function ViewWaterParam() {
                   </Typography>
 
                   <Divider sx={{ mb: 2 }} />
-
-                  <Typography>
-                    Nhiệt độ:{" "}
-                    <span style={{ color: "#ff7043" }}>
-                      {waterParam.temperature}°C
-                    </span>
-                  </Typography>
+                  {displayParamStatus("Nhiệt độ", waterParam.temperature, "°C")}
                   <Divider sx={{ my: 1 }} />
-                  <Typography>
-                    Độ mặn:{" "}
-                    <span style={{ color: "#29b6f6" }}>
-                      {waterParam.salinity}%
-                    </span>
-                  </Typography>
+                  {displayParamStatus("Độ mặn", waterParam.salinity, "%")}
                   <Divider sx={{ my: 1 }} />
-                  <Typography>
-                    Độ pH:{" "}
-                    <span style={{ color: "#66bb6a" }}>{waterParam.ph}</span>
-                  </Typography>
+                  {displayParamStatus("Độ pH", waterParam.ph, "")}
                   <Divider sx={{ my: 1 }} />
-                  <Typography>
-                    Nồng độ O2:{" "}
-                    <span style={{ color: "#ef5350" }}>
-                      {waterParam.o2}mg/l
-                    </span>
-                  </Typography>
+                  {displayParamStatus("Nồng độ O2", waterParam.o2, "mg/l")}
                   <Divider sx={{ my: 1 }} />
-                  <Typography>Nồng độ NO2: {waterParam.no2}mg/l</Typography>
+                  {displayParamStatus("Nồng độ NO2", waterParam.no2, "mg/l")}
                   <Divider sx={{ my: 1 }} />
-                  <Typography>Nồng độ NO3: {waterParam.no3}mg/l</Typography>
+                  {displayParamStatus("Nồng độ NO3", waterParam.no3, "mg/l")}
                   <Divider sx={{ my: 1 }} />
-                  <Typography>Nồng độ PO4: {waterParam.po4}mg/l</Typography>
+                  {displayParamStatus("Nồng độ PO4", waterParam.po4, "mg/l")}
 
                   <Button
                     onClick={handleCheckParam}
@@ -356,7 +402,11 @@ function ViewWaterParam() {
                                           </Typography>
                                           <IconButton
                                             color="primary"
-                                            onClick={() => naviagtor(`/userhome/store/${product.id}`)}
+                                            onClick={() =>
+                                              naviagtor(
+                                                `/userhome/store/${product.id}`
+                                              )
+                                            }
                                           >
                                             <LinkIcon />
                                           </IconButton>

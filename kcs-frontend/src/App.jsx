@@ -50,6 +50,9 @@ import UpdateShopInfo from "./pages/User/UpdateShopInfo";
 import Footer from "./components/Footer/Footer1";
 import { Box } from "@mui/material";
 import PondWaterParam from "./pages/MyPond/PondWaterParam";
+import ManageBlog from "./pages/Admin/ManageBlog";
+import PaymentHistoryPage from "./pages/UserProfile/paymentHistory";
+import SignUp from "./pages/Auth/SignUp/SignUp";
 
 function App() {
   const router = createBrowserRouter([
@@ -59,7 +62,7 @@ function App() {
       children: [
         { index: true, element: <Home /> },
         { path: "login", element: <Login /> },
-        { path: "register", element: <Register /> },
+        { path: "register", element: <SignUp /> },
         {
           path: "userhome",
           element: <Drawers />,
@@ -86,6 +89,17 @@ function App() {
             { path: "payment", element: <Payment /> },
             { path: "paymentSuccess", element: <PaymentSuccess /> },
             { path: "changePass", element: <ChangePass /> },
+            { path:"param", element: <AddWaterParam/>},
+            { path:"viewparam/:id", element:<ViewWaterParam/>},
+            { path:"addDevelop/:id", element:<AddDevelopment/>},
+            { path:"fishDevelopment/:id", element:<FishDevelopmentData/>},
+            { path:"calculateFood", element:<CalculationFood/>},
+            {path:"calculateSalt", element:<CalculateSalt/>},
+            { path: "payment", element: <Payment />},
+            { path: "paymentSuccess", element:<PaymentSuccess/>},
+            { path: "changePass", element:<ChangePass/>},
+            { path: "paymentHistory", element:<PaymentHistoryPage/>}
+
           ],
         },
       ],
@@ -101,8 +115,9 @@ function App() {
       element: <Admin />,
       children: [
         { path: "userInfo", element: <UserInfo /> },
-        { path: "", element: <Navigate to="userInfo" replace /> },
+        { path: "", element: <Navigate to="dashboard" replace /> },
         { path: "dashboard", element: <Dashboard /> },
+        { path: "blogManage", element:<ManageBlog/>}
       ],
     },
     {
@@ -115,12 +130,16 @@ function App() {
         { path: "orders", element: <Orders /> },
         { path: "revenue", element: <Revenue /> },
         { path: "status_Products", element: <Status_Products /> },
+<<<<<<< HEAD
         { path: "", element: <Navigate to="addProducts" replace /> },
         { path: "shopAdd", element: <ShopAdd /> },
-        { path: "updateShop", element: <UpdateShopInfo /> },
+=======
+        { path: "", element: <Navigate to="showProduct" replace /> },
+        { path : "shopAdd", element: <ShopAdd/>},
+        
+>>>>>>> 3c3fc7b9ce5a5ac32dae028964e1ba1fc42e7720
       ],
     },
-  ]);
 
   return (
     <>

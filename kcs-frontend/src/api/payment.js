@@ -60,3 +60,22 @@ export const verifyPayment = async (params) => {
       }
 }
 
+
+export const getMyPaymentHistory = async ()=>{
+      try {
+            const token = localStorage.getItem('token')
+            if(!token){
+                  throw new Error('Token not find')
+            }
+            const res = await axios.get(`${REST_API_BASE_URL}/getPaymentHistory`,{
+                  headers: {
+                        Authorization: `Bearer ${token}`,
+                       
+                  }
+            })
+            return res.data
+      } catch (error) {
+            console.log(error)
+            throw error
+      }    
+}

@@ -54,7 +54,7 @@ const Dashboard = () => {
     try {
       const res = await trackingUser();
       if(res.code == 1010){
-        toast.success("Cập nhật người dùng")
+       
         setTrackingUsers(res.result.userCount)
        
       }else{

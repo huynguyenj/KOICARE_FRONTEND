@@ -84,6 +84,7 @@ const Payment = () => {
       order: orderDetail,
     };
 
+<<<<<<< HEAD
     if (paymentMethod == "credit") {
       if (validate()) {
         setLoading(true);
@@ -117,6 +118,13 @@ const Payment = () => {
           }
         } finally {
           setLoading(false);
+=======
+        if(error.response && error.response.data.message === "Out of stock"){
+          toast.error("Sản phẩm hết hàng. Vui lòng chọn số lượng khác.");
+        }
+        if(error.response.data.code == 1005) {
+          toast.error("Vui lòng đăng nhập để thanh toán!")
+>>>>>>> 3c3fc7b9ce5a5ac32dae028964e1ba1fc42e7720
         }
       }
     }

@@ -30,7 +30,7 @@ import {
   getAllProductInShop,
   updateProduct,
 } from "../../../api/product";
-
+import { ToastContainer, toast } from "react-toastify"; 
 const ShowProducts = () => {
   const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -117,10 +117,12 @@ const ShowProducts = () => {
       }
       formData.append("description", formData.description);
       await updateProduct(productId, formData);
+      toast.success("Cập nhật thành công!")
       fetchProducts();
       setEditingProductId(null);
     } catch (error) {
       console.log(error);
+      toast.error("Cập nhật thất bại!")
     }
   };
 
@@ -148,6 +150,7 @@ const ShowProducts = () => {
 
   return (
     <>
+    <ToastContainer/>
       <TableContainer
         component={Paper}
         sx={{ p: 2, borderRadius: 2, boxShadow: 3 }}
@@ -167,7 +170,7 @@ const ShowProducts = () => {
         >
           <InputBase
             startAdornment={<SearchIcon color="primary" sx={{ mr: 1 }} />}
-            placeholder="Search products"
+            placeholder="Tìm sản phẩm"
             sx={{ ml: 1, flex: 1, border: "none" }}
             value={searchQuery}
             onChange={(e) => handleSearch(e.target.value)}
@@ -181,8 +184,8 @@ const ShowProducts = () => {
             <MenuItem value="">None</MenuItem>
             <MenuItem value="priceAsc">Sắp xếp giá tăng dần</MenuItem>
             <MenuItem value="priceDesc">Sắp xếp giá giảm dần</MenuItem>
-            <MenuItem value="dateAsc">Sắp xếp ngày tăng dần</MenuItem>
-            <MenuItem value="dateDesc">Sắp xếp ngày giảm dần</MenuItem>
+            <MenuItem value="dateAsc">Sắp xếp ngày mới nhất</MenuItem>
+            <MenuItem value="dateDesc">Sắp xếp ngày cũ nhất</MenuItem>
           </Select>
         </FormControl>
         </Paper>
@@ -270,7 +273,11 @@ const ShowProducts = () => {
                           sx={{ p: 0.5 }}
                         />
                       ) : (
-                        product.price
+                        product.price.toLocaleString("vi-VN",{   
+                          style:'currency',
+                          currency:'VND',
+                      
+                        })
                       )}
                     </TableCell>
                     <TableCell align="center">
@@ -345,7 +352,7 @@ const ShowProducts = () => {
             ) : (
               <TableRow>
                 <TableCell colSpan={6} align="center">
-                  <Typography variant="h6">No products found</Typography>
+                  <Typography variant="h6">Không có sản phẩm</Typography>
                 </TableCell>
               </TableRow>
             )}

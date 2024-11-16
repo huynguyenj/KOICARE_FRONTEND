@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 function AddDevelopment() {
   const { id } = useParams();
-  const [fish, setFish] = useState(null);
+  const [fish, setFish] = useState({});
   const [formData, setFormData] = useState({
     size: "",
     age: "",
@@ -18,6 +18,15 @@ function AddDevelopment() {
   useEffect(() => {
     getFish();
   }, []);
+
+  useEffect(()=>{
+    
+    setFormData({
+      size:fish.fishSize,
+      age:fish.fishAge,
+      weight:fish.fishWeight,
+    })
+  },[fish])
   const navigator = useNavigate();
   const getFish = async () => {
     try {
@@ -41,6 +50,10 @@ function AddDevelopment() {
     e.preventDefault();
     try {
       console.log(formData);
+      if(formData.age < fish.fishAge){
+        toast.error("Độ tuổi của cá của bạn nhỏ hơn lúc ban đầu!")
+        return;
+      }
       await addFishHistory(id,formData)
       toast.success("Thêm lịch sử phát triển thành công!");
     } catch (error) {

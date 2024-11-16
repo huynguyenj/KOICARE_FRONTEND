@@ -251,8 +251,8 @@ function PondInfo() {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                padding: 5,
-                backgroundColor: '#DCDCDC'
+                padding: 35,
+              
             }}>
                 <Grid container spacing={2}>
                     <div item xs={12} sm={4} style={style.container1}>

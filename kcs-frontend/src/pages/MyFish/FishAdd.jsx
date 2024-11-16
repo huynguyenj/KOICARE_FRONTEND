@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   Avatar,
   Box,
@@ -12,15 +12,16 @@ import {
 } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { Link } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast
+import { ToastContainer, toast } from "react-toastify";
 import { addFish } from "../../api/pond_fish";
 
 const FishForm = () => {
   const [update, setUpdate] = useState(false);
   const [errors, setErrors] = useState({});
+  const fileInputRef = useRef(null);
   const [formData, setFormData] = useState({
     fishName: "",
-    fishImg: null, // Add an image property to store the uploaded image
+    fishImg: null,
     fishSize: "",
     fishShape: "",
     fishAge: "",
@@ -32,7 +33,7 @@ const FishForm = () => {
     price: "",
   });
 
-  const [imagePreview, setImagePreview] = useState(null); // Add a state to store the image preview
+  const [imagePreview, setImagePreview] = useState(null);
 
   const validateFields = () => {
     const newErrors = {};
@@ -78,47 +79,54 @@ const FishForm = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setFormData({ ...formData, fishImg: file }); // Update the image property with the selected file
-    const reader = new FileReader();
-    reader.onload = () => {
-      setImagePreview(reader.result); // Update the image preview state with the file contents
-    };
-    reader.readAsDataURL(file);
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData({
+          ...formData,
+          fishImg: file, // Changed from image to fishImg
+        });
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleImageClick = () => {
+    fileInputRef.current.click();
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(validateFields()){
-      setUpdate(true)
-      const data = new FormData();
-      data.append("fishName", formData.fishName);
-      data.append("fishImg", formData.fishImg);
-      data.append("fishSize", formData.fishSize);
-      data.append("fishShape", formData.fishShape);
-      data.append("fishAge", formData.fishAge);
-      data.append("fishWeight", formData.fishWeight);
-      data.append("fishGender", formData.fishGender);
-      data.append("fishHealth", formData.fishHealth);
-      data.append("fishType", formData.fishType);
-      data.append("origin", formData.origin);
-      data.append("price", formData.price);
-  
-      console.log("Form submitted:", formData);
+    if(validateFields()) {
+      setUpdate(true);
       try {
-        await addFish(formData);
+        const data = new FormData();
+        data.append("fishName", formData.fishName);
+        if (formData.fishImg) {
+          data.append("fishImg", formData.fishImg);
+        }
+        data.append("fishSize", formData.fishSize);
+        data.append("fishShape", formData.fishShape);
+        data.append("fishAge", formData.fishAge);
+        data.append("fishWeight", formData.fishWeight);
+        data.append("fishGender", formData.fishGender);
+        data.append("fishHealth", formData.fishHealth);
+        data.append("fishType", formData.fishType);
+        data.append("origin", formData.origin);
+        data.append("price", formData.price);
+
+        await addFish(data);
         toast.success("Cá đã được thêm thành công!");
       } catch (error) {
-        console.log(error);
+        console.error(error);
         toast.error("Có lỗi xảy ra khi thêm cá.");
-      }finally{
-        setUpdate(false)
+      } finally {
+        setUpdate(false);
       }
     }
-    const data = new FormData();
-    // Append form data to FormData object
-   
   };
 
   return (
@@ -134,7 +142,6 @@ const FishForm = () => {
         }}
       >
         <Grid container spacing={5}>
-          {/* Left Side - Image and Buttons */}
           <Grid item xs={12} sm={4}>
             <Card sx={{ padding: 3, textAlign: "center", boxShadow: 6 }}>
               <Typography variant="h6">Thêm cá của tôi</Typography>
@@ -156,6 +163,7 @@ const FishForm = () => {
               <input
                 type="file"
                 accept="image/*"
+                ref={fileInputRef}
                 onChange={handleImageChange}
                 style={{ display: "none" }}
                 id="image-input"
@@ -166,6 +174,7 @@ const FishForm = () => {
                 htmlFor="image-input"
                 variant="contained"
                 color="success"
+                onClick={handleImageClick}
                 sx={{ marginBottom: 2, width: "100%" }}
               >
                 Chọn ảnh cá
@@ -182,7 +191,6 @@ const FishForm = () => {
             </Card>
           </Grid>
 
-          {/* Right Side - Form */}
           <Grid item xs={12} sm={8}>
             <Card sx={{ padding: 3, boxShadow: 6 }}>
               <form onSubmit={handleSubmit}>
@@ -246,7 +254,8 @@ const FishForm = () => {
                   <Grid item xs={12} sm={6}>
                     <TextField
                       fullWidth
-                      label="Kích thước"
+                      label="Kích thước (cm)"
+                      type="number"
                       name="fishSize"
                       value={formData.fishSize}
                       onChange={handleChange}
@@ -257,7 +266,8 @@ const FishForm = () => {
                   <Grid item xs={12} sm={6}>
                     <TextField
                       fullWidth
-                      label="Trọng lượng(kg)"
+                      label="Trọng lượng (kg)"
+                      type="number"
                       name="fishWeight"
                       value={formData.fishWeight}
                       onChange={handleChange}
@@ -268,18 +278,26 @@ const FishForm = () => {
                   <Grid item xs={12} sm={6}>
                     <TextField
                       fullWidth
-                      label="Giới tính"
+                      select
                       name="fishGender"
                       value={formData.fishGender}
                       onChange={handleChange}
                       error={!!errors.gender}
                       helperText={errors.gender}
-                    />
+                      SelectProps={{
+                        native: true,
+                      }}
+                    >
+                      <option value="">Chọn giới tính</option>
+                      <option value="đực">đực</option>
+                      <option value="cái">cái</option>
+                    </TextField>
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
                       fullWidth
                       label="Tuổi"
+                      type="number"
                       name="fishAge"
                       value={formData.fishAge}
                       onChange={handleChange}
@@ -290,13 +308,20 @@ const FishForm = () => {
                   <Grid item xs={12} sm={6}>
                     <TextField
                       fullWidth
-                      label="Tình trạng sức khỏe"
                       name="fishHealth"
                       value={formData.fishHealth}
                       onChange={handleChange}
                       error={!!errors.health}
                       helperText={errors.health}
-                    />
+                      select
+                      SelectProps={{
+                        native: true,
+                      }}
+                    >
+                      <option value="">Tình trạng sức khỏe</option>
+                      <option value="tốt">tốt</option>
+                      <option value="xấu">xấu</option>
+                    </TextField>
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
@@ -312,7 +337,8 @@ const FishForm = () => {
                   <Grid item xs={12} sm={6}>
                     <TextField
                       fullWidth
-                      label="Giá trị của cá(VND)  "
+                      label="Giá trị của cá (VNĐ)"
+                      type="number"
                       name="price"
                       value={formData.price}
                       onChange={handleChange}

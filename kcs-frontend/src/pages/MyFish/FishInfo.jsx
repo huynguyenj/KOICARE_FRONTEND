@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useRef } from "react";
 import { useParams, Link, useLocation, Form } from "react-router-dom";
 import {
@@ -69,7 +68,7 @@ const style = {
   },
   textField: {
     marginBottom: "10px",
-    backgroundColor: "#ffffff",
+    backgroundColor: "white",
     borderRadius: "4px",
     height: "40px",
   },
@@ -160,7 +159,10 @@ function FishInfo() {
     }
     if (
       !fishData.gender ||
-      !(fishData.gender.trim().toLowerCase() === "đực" || fishData.gender.trim().toLowerCase() === "cái")
+      !(
+        fishData.gender.trim().toLowerCase() === "đực" ||
+        fishData.gender.trim().toLowerCase() === "cái"
+      )
     ) {
       newErrors.gender = "Giới tính phải là đực hoặc cái";
     }
@@ -270,7 +272,7 @@ function FishInfo() {
           justifyContent: "center",
           alignItems: "center",
           padding: 5,
-          backgroundColor: "#DCDCDC",
+          backgroundColor: "white",
         }}
       >
         <Grid container spacing={2}>
@@ -294,9 +296,9 @@ function FishInfo() {
             {imagePreview ? (
               <img
                 src={imagePreview}
-                alt="Pond"
+                alt="Fish"
                 style={{
-                  width: "50%",
+                  width: "100%",
                   height: "auto",
                   borderRadius: "8px",
                   marginBottom: "20px",
@@ -332,7 +334,8 @@ function FishInfo() {
                   helperText={errors.age}
                 />
                 <TextField
-                  label="Giá trị"
+                  label="Giá trị của cá (VNĐ)"
+                  type="number"
                   fullWidth
                   value={fishData.price}
                   onChange={handleChange("price")}
@@ -369,7 +372,7 @@ function FishInfo() {
                     style={style.button}
                     disabled={update}
                   >
-                    {update ? <CircularProgress color="inherit" /> : "Đăng tin"}
+                    {update ? <CircularProgress color="inherit" /> : "Lưu"}
                   </Button>
                   <Button
                     variant="contained"
@@ -403,7 +406,7 @@ function FishInfo() {
               {isEditing ? (
                 <>
                   <TextField
-                    label="Kích thước (m)"
+                    label="Kích thước (cm)"
                     type="number"
                     value={fishData.size}
                     onChange={handleChange("size")}
@@ -436,6 +439,7 @@ function FishInfo() {
                   />
                   <TextField
                     label="Giới tính"
+                    select
                     value={fishData.gender}
                     onChange={handleChange("gender")}
                     fullWidth
@@ -443,13 +447,20 @@ function FishInfo() {
                     style={style.textField}
                     error={!!errors.gender}
                     helperText={errors.gender}
-                  />
+                    SelectProps={{
+                      native: true,
+                    }}
+                  >
+                    <option value="">Chọn giới tính</option>
+                    <option value="đực">đực</option>
+                    <option value="cái">cái</option>
+                  </TextField>
                   <TextField
                     fullWidth
                     select
                     label="Giống loài"
                     name="fishType"
-                     size="small"
+                    size="small"
                     value={fishData.type}
                     onChange={handleChange("type")}
                     error={!!errors.type}
@@ -496,7 +507,15 @@ function FishInfo() {
                     style={style.textField}
                     error={!!errors.health}
                     helperText={errors.health}
-                  />
+                    select
+                    SelectProps={{
+                      native: true,
+                    }}
+                  >
+                    <option value="">Tình trạng sức khỏe</option>
+                    <option value="tốt">tốt</option>
+                    <option value="xấu">xấu</option>
+                  </TextField>
                 </>
               ) : (
                 <>
@@ -507,6 +526,12 @@ function FishInfo() {
                   <p style={style.p}>Giống loài: {fishData.type}</p>
                   <p style={style.p}>Xuất xứ: {fishData.origin}</p>
                   <p style={style.p}>Tình trạng sức khỏe: {fishData.health}</p>
+                  <p style={style.p}>
+                    Hồ đang ở:{" "}
+                    {fish.pond && fish.pond.length > 0
+                      ? fish.pond.map((p) => p.pondName).join(", ")
+                      : "Chưa có hồ"}
+                  </p>
                 </>
               )}
             </div>

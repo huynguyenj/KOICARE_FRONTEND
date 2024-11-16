@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -24,9 +24,10 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon"; // Import for icons
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import NewspaperIcon from '@mui/icons-material/Newspaper';
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import { useNavigate, Outlet } from "react-router-dom";
-import { logout } from "../../api/userService";
+import { getMyInfo, logout } from "../../api/userService";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -71,7 +72,7 @@ export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [drawerOpen, setDrawerOpen] = React.useState(false);
-
+  const [userInfo,setUserInfo] = useState({})
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -99,8 +100,8 @@ export default function PrimarySearchAppBar() {
   const navigator = useNavigate();
   const drawerItems = [
     { text: "Bảng điều khiển", icon: <Dashboard />, path: "/admin/dashboard" },
-    { text: "Hồ sơ người dùng", icon: <ManageAccountsIcon /> },
-    { text: "Thông báo", icon: <NotificationsActiveIcon /> },
+    { text: "Hồ sơ người dùng", icon: <ManageAccountsIcon />, path: "/admin/userInfo" },
+    { text: "Quản lí blog, tin tức", icon: <NewspaperIcon />, path:"/admin/blogManage" },
     { text: "Đăng xuất", icon: <Logout />, action:handleLogout },
   ];
 
@@ -115,68 +116,21 @@ export default function PrimarySearchAppBar() {
     setDrawerOpen(open);
   };
 
-  const menuId = "primary-search-account-menu";
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-    </Menu>
-  );
+  useEffect(()=>{
+    getUserInfo()
+  },[])
+  
+  const getUserInfo = async () =>{
+    try {
+      const res = await getMyInfo();
+      setUserInfo(res.result)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+ 
 
-  const mobileMenuId = "primary-search-account-menu-mobile";
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-    </Menu>
-  );
-
+  
   // Drawer content
   const drawerContent = (
     <Box
@@ -229,63 +183,28 @@ export default function PrimarySearchAppBar() {
           >
             Admin System
           </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
+         
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton
-              size="large"
-              aria-label="show 4 new mails"
-              color="inherit"
-            >
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+           
             <IconButton
               size="large"
               edge="end"
               aria-label="account of current user"
-              aria-controls={menuId}
+           
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
               <AccountCircle />
             </IconButton>
+            <Typography sx={{mt:1.5,ml:1}}>{userInfo.userName}</Typography>
           </Box>
-          <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </Box>
+        
         </Toolbar>
       </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
+    
+    
 
       {/* Drawer component */}
       <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>

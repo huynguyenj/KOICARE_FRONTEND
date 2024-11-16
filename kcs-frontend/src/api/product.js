@@ -29,11 +29,7 @@ export const getAllProduct = async () => {
             if (!token) {
                   throw new Error('Token not find')
             }
-            const res = await axios.get(REST_API_BASE_URL + '/all', {
-                  headers: {
-                        Authorization: `Bearer ${token}`
-                  }
-            })
+            const res = await axios.get(REST_API_BASE_URL + '/all')
             return res.data;
       } catch (error) {
             console.log("", error)
@@ -125,11 +121,7 @@ export const getAProduct = async (productId) => {
             if (!token) {
                   throw new Error('Token not find')
             }
-            const res = await axios.get(REST_API_BASE_URL + `/search/${productId}`, {
-                  headers: {
-                        Authorization: `Bearer ${token}`
-                  }
-            })
+            const res = await axios.get(REST_API_BASE_URL + `/search/${productId}`)
             return res.data;
       } catch (error) {
             console.log("", error)
@@ -154,3 +146,38 @@ export const deleteOrderFail = async (orderFail) => {
             throw error
       }
 }     
+
+export const addRating  = async (productId,data) => {
+
+      try {
+
+            const token = localStorage.getItem('token')
+            if (!token) {
+                  throw new Error('Token not find')
+            }
+
+            const res = await axios.post(REST_API_BASE_URL + `/rating/${productId}`, data, {
+                  headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'multipart/form-data',
+                  }
+            })
+            return res.data;
+      } catch (error) {
+            console.log("", error)
+            throw error
+      }
+}
+
+export const getAllRating = async (productId) => {
+      try {
+           
+            const res = await axios.get(REST_API_BASE_URL + `/rating/getAll/${productId}`, {
+                
+            })
+            return res.data;
+      } catch (error) {
+            console.log("", error)
+            throw error
+      }
+}

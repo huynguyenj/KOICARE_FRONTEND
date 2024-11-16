@@ -226,7 +226,7 @@ export default function PrimarySearchAppBar() {
   const drawerContent = (
     <Box
       sx={{
-        width: 250,
+        width: 260,
         minHeight: "100vh",
         py: 1,
         color: "black",

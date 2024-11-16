@@ -97,7 +97,7 @@ function NavbarUser({ user, onLogout }) {
           className="logo ms-5"
           src="/Logo.png"
           alt=""
-          style={{ maxWidth: "150px" }}
+          style={{ maxWidth: "150px"}}
         />
       </HashLink>
       <div className="navbar-right d-flex ms-auto align-items-center">

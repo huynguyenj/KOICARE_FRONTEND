@@ -16,8 +16,8 @@ const PondSection = () => {
         alignItems: "center",
         padding: 15,
         backgroundColor: "#fff", // Light background color
-        paddingTop: "10px",
-        marginBottom: "100px"
+        paddingTop: "10px"
+        
       }}
     >
       <Grid container spacing={2} alignItems="center">

@@ -2,7 +2,7 @@ import { Button, Form, Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { register } from "../../../api/userService";
-import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast
+import { ToastContainer, toast } from "react-toastify"; 
 
 function SignUp() {
   const [userName, setUserName] = useState("");
@@ -12,13 +12,30 @@ function SignUp() {
   const [status, setStatus] = useState(true);
   const [role, setRole] = useState("USER");
   const navigate = useNavigate();
+  const [errors, setErrors] = useState({});
 
   function changePage() {
     navigate("/login");
   }
 
- const [errors, setErrors] = useState({ email: "", phone: "" });
+  const validate = () => {
+    const newError = {};
+    const phoneRegex = /^\d{10}$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    if (!userName || userName.trim() === "") {
+      newError.userName = "Tên không được để trống!";
+    }
+    if (!phone || !phoneRegex.test(phone)) {
+      newError.phone = "Số điện thoại sai định dạng hãy thử lại!";
+    }
+    if (!email || !emailRegex.test(email)) {
+      newError.email = "Email sai định dạng hãy thử lại!";
+    }
 
+    setErrors(newError);
+    return Object.keys(newError).length === 0;
+  };
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -32,38 +49,20 @@ function SignUp() {
       role: role
     };
 
-    await registerUser(userInfo);
+    if (validate()) {
+      await registerUser(userInfo);
+    }
   }
 
   async function registerUser(userInfo) {
     try {
-
-      setErrors({ email: "", phone: "",userName:"" }); // Reset errors
-
-      // Validate email
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(userInfo.email)) {
-          setErrors((prev) => ({ ...prev, email: "Vui lòng nhập đúng định dạng gmail có @." }));
-          return;
-      }
-  
-      // Validate phone number
-      const phoneRegex = /^\d{10}$/;
-      if (!phoneRegex.test(userInfo.phone)) {
-          setErrors((prev) => ({ ...prev, phone: "Vui lòng nhập 10 chữ số." }));
-          return;
-      }
-
-      if(!userInfo.useName || userInfo.userName.trim() == ""){
-        setErrors((prev)=> ({...prev, useName:"Vui lòng không để trống tên người dùng!"}))
-      }
-      const response = await register(userInfo,role);
+      const response = await register(userInfo, role);
       console.log(response.data.result);
-      toast.success("Đăng ký thành công!")
+      toast.success("Đăng ký thành công!");
       navigate("/login");
     } catch (error) {
       console.error("Registration failed:", error);
-      toast.error("Đăng ký thất bại! Hãy thử lại.")
+      toast.error("Đăng ký thất bại! Hãy thử lại.");
     }
   }
 
@@ -117,7 +116,8 @@ function SignUp() {
        closeOnClick 
        pauseOnHover 
        draggable 
-       pauseOnFocusLoss/>
+       pauseOnFocusLoss
+      />
       <img style={styles.bgImage} src="/BG.jpg" alt="Background" />
       <Container style={styles.container}>
         <Row>
@@ -135,18 +135,21 @@ function SignUp() {
                   Đăng Nhập
                 </Button>
               </div>
-              <Form onSubmit={handleSubmit}>
+              <Form noValidate onSubmit={handleSubmit}>
                 <Form.Group controlId="formUsername" className="">
                   <Form.Control
                     type="text"
                     placeholder="Tên đăng nhập"
                     value={userName}
                     onChange={(e) => setUserName(e.target.value)}
-                    required
-                    error={!!errors.useName} // Set error state
-                    helperText={errors.useName} // Display error message
                   />
+                  {errors.userName && (
+                    <Form.Text className="text-danger">
+                      {errors.userName}
+                    </Form.Text>
+                  )}
                 </Form.Group>
+                
                 <Form.Group controlId="formPassword" className="">
                   <Form.Control
                     type="password"
@@ -156,43 +159,47 @@ function SignUp() {
                     required
                   />
                 </Form.Group>
+                
                 <Form.Group controlId="formEmail" className="">
                   <Form.Control
                     type="email"
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    required
-                    error={!!errors.email} // Set error state
-                    helperText={errors.email} // Display error message
                   />
+                  {errors.email && (
+                    <Form.Text className="text-danger">
+                      {errors.email}
+                    </Form.Text>
+                  )}
                 </Form.Group>
+                
                 <Form.Group controlId="formPhone" className="">
                   <Form.Control
                     type="number"
                     placeholder="Số điện thoại"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    required
-                    error={!!errors.phone} // Set error state
-                    helperText={errors.phone} // Display error message
                   />
-                     <Form.Group controlId="formRole" className="mt-3">
+                  {errors.phone && (
+                    <Form.Text className="text-danger">
+                      {errors.phone}
+                    </Form.Text>
+                  )}
+                </Form.Group>
+                
+                <Form.Group controlId="formRole" className="">
                   <Form.Select
                     value={role}
                     onChange={(e) => setRole(e.target.value)}
                     required
                   >
-              
                     <option value="USER">Người dùng</option>
                     <option value="SHOP">Shop</option>
-                   
-                    {/* Add more roles as needed */}
                   </Form.Select>
                 </Form.Group>
-                </Form.Group>
-                <div className="text-end"></div>
-                <Button variant="primary" type="submit" className="w-100">
+                
+                <Button variant="primary" type="submit" className="w-100 mt-3">
                   Đăng ký
                 </Button>
               </Form>

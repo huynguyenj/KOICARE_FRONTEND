@@ -83,27 +83,8 @@ const Payment = () => {
         phone: formData.phone,
         order: orderDetail
       }
-      if(validate() && paymentMethod!="credit"){
-      try {
-        setLoading(true);
-        console.log(form)
-        await order(form)
-        toast.success("Đặt đơn thành công!")
-        clearCart();
-      } catch (error) {
-        console.log(error)
-        
-        if(error.response && error.response.data.message === "Out of stock"){
-          toast.error("Sản phẩm hết hàng. Vui lòng chọn số lượng khác.");
-        }else{
-          toast.error("Thanh toán thất bại")
-        }
-       
-      }finally{
-        setLoading(false)
-      }
-    }   
-    else if(paymentMethod == "credit"){
+     
+     if(paymentMethod == "credit"){
       if(validate()){
       setLoading(true);
       const clientIp = await getClientIp(); // Call the function here
@@ -129,8 +110,9 @@ const Payment = () => {
 
         if(error.response && error.response.data.message === "Out of stock"){
           toast.error("Sản phẩm hết hàng. Vui lòng chọn số lượng khác.");
-        }else{
-          toast.error("Thanh toán thất bại")
+        }
+        if(error.response.data.code == 1005) {
+          toast.error("Vui lòng đăng nhập để thanh toán!")
         }
        
       }finally{
@@ -161,10 +143,11 @@ const Payment = () => {
 
   const validate = () =>{
     const newError = {}
+    const phoneRegex = /^\d{10}$/;
     if(!formData.userName || formData.userName.trim() ===""){
       newError.name = "Hãy nhập tên của bạn!"
     }
-    if(!formData.phone || formData.phone.trim()===""){
+    if(!formData.phone || !phoneRegex.test(formData.phone)){
       newError.phone = "Hãy nhập số điện thoại!"
     }
     if(!formData.address || formData.address.trim()===""){
@@ -267,11 +250,7 @@ const Payment = () => {
                     onChange={(e) => setPaymentMethod(e.target.value)}
                     row
                   >
-                    <FormControlLabel
-                      value="cod"
-                      control={<Radio />}
-                      label="Tiền mặt"
-                    />
+                    
                     <FormControlLabel
                       value="credit"
                       control={<Radio />}

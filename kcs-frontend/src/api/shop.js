@@ -89,3 +89,41 @@ export const updateShop  = async (shopId,shopInfo) => {
       }
 }
 
+export const deleteOrder = async (orderId) =>{
+      try {
+            const token = localStorage.getItem('token')
+            if (!token) {
+                  throw new Error('Token not find')
+            }
+            await axios.delete(`http://localhost:8081/order-detail/delete/${orderId}`,{
+                  headers: {
+                        'Authorization': `Bearer ${token}`,
+                  
+                  } 
+            })
+      } catch (error) {
+          console.log(error)
+          throw(error)  
+      }
+     
+
+}
+
+export const addShop = async(data)=>{
+      try {
+            const token = localStorage.getItem('token')
+            if (!token) {
+                  throw new Error('Token not find')
+            }
+            await axios.post(REST_API_BASE_URL+'/createShop', data,{
+                  headers: {
+                        'Authorization': `Bearer ${token}`,
+                  
+                  } 
+            })
+      } catch (error) {
+            console.log(error)
+            throw error
+      }
+}
+

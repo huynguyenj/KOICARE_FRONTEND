@@ -198,17 +198,10 @@ export const postBlog = async(blogData)=>{
 
 export const getAllBlog = async()=>{
       try {
-            const token = localStorage.getItem('token')
-            if(!token){
-                  throw new Error('Token not find')
-            }
+        
+
             const res = await axios.get(`${REST_API_BASE_URL}/api/user/getAllBlogs`)
-            //       ,{
-            //       headers: {
-            //             Authorization: `Bearer ${token}`,
-                       
-            //       }
-            // })
+        
             return res.data
       }catch(error){
             console.log(error)
@@ -219,10 +212,7 @@ export const getAllBlog = async()=>{
 
 export const getBlogInfo = async (blogId) =>{
       try {
-            const token = localStorage.getItem('token')
-            if(!token){
-                  throw new Error('Token not find')
-            }
+           
             const res = await axios.get(`${REST_API_BASE_URL}/api/user/getBlog/${blogId}`
                   // ,{
                   // headers: {
@@ -263,6 +253,25 @@ export const deleteBlog = async (blogId)=>{
                   throw new Error('Token not find')
             }
             const res = await axios.delete(`${REST_API_BASE_URL}/api/user/deleteMyBlog/${blogId}`,{
+                  headers: {
+                        Authorization: `Bearer ${token}`,
+                       
+                  }
+            })
+            return res.data
+      } catch (error) {
+            console.log(error)
+            throw error
+      }    
+}
+
+export const deleteBlogAdmin = async (blogId)=>{
+      try {
+            const token = localStorage.getItem('token')
+            if(!token){
+                  throw new Error('Token not find')
+            }
+            const res = await axios.delete(`${REST_API_BASE_URL}/api/user/deleteBlog/${blogId}`,{
                   headers: {
                         Authorization: `Bearer ${token}`,
                        
@@ -333,3 +342,4 @@ export const changePassword = async (newPassword) =>{
             throw error
       }    
 }
+

@@ -9,13 +9,14 @@ import {
 function Footer() {
   const footerStyle = {
     backgroundColor: "#212121",
-    padding: "20px 0",
+    padding: "20px ",
     color: "#fff",
-    width: "100%",
-    position: "relative",
     textAlign: "center",
     fontSize: "14px",
     fontFamily: "JetBrains Mono",
+    width: "100%",
+    position:'absolute',
+    bottom:'0'
   };
 
   const socialIconsStyle = {

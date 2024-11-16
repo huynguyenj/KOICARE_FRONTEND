@@ -4,6 +4,7 @@ import FooterEnd from "../../../components/Footer/FooterEnd";
 import ShopD from "../../../components/Drawers/Shop";
 import { addProduct } from "../../../api/product";
 import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast
+import { CircularProgress } from "@mui/material";
 
 const AddProducts = () => {
   const [productName, setProductName] = useState("");
@@ -36,13 +37,13 @@ const AddProducts = () => {
       newError.name = "Tên sản phẩm không được để trống!";
     }
     if (!productPrice || productPrice <= 0) {
-      newError.price = "Giá tiền không được để trống, ít hơn 0!";
+      newError.price = "Giá tiền không được để trống hoặc là chữ, ít hơn 0!";
     }
     if (!productType || productType.trim() === "") {
       newError.type = "Loại sản phẩm không được để trống!";
     }
     if (!productQuantity || productQuantity <= 0) {
-      newError.quantity = "Số lượng không được để trống!";
+      newError.quantity = "Số lượng không được để trống hoặc là chữ!";
     }
     if (!productContent || productContent === "") {
       newError.content = "Nội dung sản phẩm không được để trống!";
@@ -143,8 +144,16 @@ const AddProducts = () => {
           >
             <option value="">Chọn loại mặt hàng</option>{" "}
             {/* Tùy chọn mặc định */}
-            <option value="FOOD">FOOD</option>
-            <option value="EQUIPMENT">EQUIPMENT</option>
+            <option value="FOOD">Thức ăn</option>
+            <option value="EQUIPMENT">Dụng cụ</option>
+            <option value="RESOLVE_NO2">Sản phẩm giải quyết NO2</option>
+            <option value="RESOLVE_NO3">Sản phẩm giải quyết NO3</option>
+            <option value="RESOLVE_PO4">Sản phẩm giải quyết PO4</option>
+            <option value="RESOLVE_O2">Sản phẩm giải quyết O2</option>
+            <option value="RESOLVE_SALINITY">Sản phẩm giải quyết lượng muối</option>
+            <option value="RESOLVE_PH">Sản phẩm giải quyết độ pH</option>
+            <option value="RESOLVE_TEMPERATURE">Sản phẩm giải quyết nhiệt độ</option>
+           
             {/* Thêm các tùy chọn khác nếu cần */}
           </select>
           {error.type ? <p className="alert alert-danger">{error.type}</p>:null }
@@ -157,15 +166,14 @@ const AddProducts = () => {
           {error.content ? <p className="alert alert-danger">{error.content}</p>:null }
 
           <div className="actions">
-            <button type="submit">Thêm sản phẩm</button>
+            {loading ? <CircularProgress color="inherit" size={20}/>: <button type="submit">Thêm sản phẩm</button>}
+           
             {successMessage && (
               <div className="success-message">{successMessage}</div>
             )}
           </div>
         </form>
       </div>
-
-      <FooterEnd />
     </>
   );
 };

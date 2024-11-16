@@ -114,11 +114,11 @@ const Orders = () => {
     <>
       <ToastContainer />
       <TableContainer component={Paper} sx={{ mt: 5 }}>
-        <SearchIcon sx={{ color: "gray", mr: 1 }}></SearchIcon>
+        <SearchIcon sx={{ color: "gray", ml: 5, mr: 1 }}></SearchIcon>
         <InputBase
           placeholder="Tìm kiếm "
           inputProps={{ "aria-label": "search" }}
-          sx={{ mb: 2 }}
+          sx={{ mb: 2, ml: 1, px: 2, py: 1 }}
           value={searchQuery}
           onChange={handleChangeQuery}
         ></InputBase>

@@ -251,7 +251,7 @@ function PondInfo() {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                padding: 5,
+                padding: 35,
               
             }}>
                 <Grid container spacing={2}>

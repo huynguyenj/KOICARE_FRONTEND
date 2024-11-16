@@ -272,7 +272,6 @@ function FishInfo() {
           justifyContent: "center",
           alignItems: "center",
           padding: 5,
-          backgroundColor: "#DCDCDC",
         }}
       >
         <Grid container spacing={2}>

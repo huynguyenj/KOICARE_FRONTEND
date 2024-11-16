@@ -89,17 +89,7 @@ function App() {
             { path: "payment", element: <Payment /> },
             { path: "paymentSuccess", element: <PaymentSuccess /> },
             { path: "changePass", element: <ChangePass /> },
-            { path:"param", element: <AddWaterParam/>},
-            { path:"viewparam/:id", element:<ViewWaterParam/>},
-            { path:"addDevelop/:id", element:<AddDevelopment/>},
-            { path:"fishDevelopment/:id", element:<FishDevelopmentData/>},
-            { path:"calculateFood", element:<CalculationFood/>},
-            {path:"calculateSalt", element:<CalculateSalt/>},
-            { path: "payment", element: <Payment />},
-            { path: "paymentSuccess", element:<PaymentSuccess/>},
-            { path: "changePass", element:<ChangePass/>},
-            { path: "paymentHistory", element:<PaymentHistoryPage/>}
-
+            { path: "paymentHistory", element: <PaymentHistoryPage /> },
           ],
         },
       ],
@@ -117,7 +107,7 @@ function App() {
         { path: "userInfo", element: <UserInfo /> },
         { path: "", element: <Navigate to="dashboard" replace /> },
         { path: "dashboard", element: <Dashboard /> },
-        { path: "blogManage", element:<ManageBlog/>}
+        { path: "blogManage", element: <ManageBlog /> },
       ],
     },
     {
@@ -130,23 +120,16 @@ function App() {
         { path: "orders", element: <Orders /> },
         { path: "revenue", element: <Revenue /> },
         { path: "status_Products", element: <Status_Products /> },
-<<<<<<< HEAD
-        { path: "", element: <Navigate to="addProducts" replace /> },
-        { path: "shopAdd", element: <ShopAdd /> },
-=======
         { path: "", element: <Navigate to="showProduct" replace /> },
-        { path : "shopAdd", element: <ShopAdd/>},
-        
->>>>>>> 3c3fc7b9ce5a5ac32dae028964e1ba1fc42e7720
+        { path: "shopAdd", element: <ShopAdd /> },
+        { path: "updateShop", element: <UpdateShopInfo /> },
       ],
     },
+  ]);
 
   return (
     <>
-      <RouterProvider router={router} />      
-  
-   
-
+      <RouterProvider router={router} />
     </>
   );
 }

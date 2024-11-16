@@ -110,26 +110,6 @@ function SignUp() {
   return (
     <div style={styles.page}>
       <ToastContainer
-<<<<<<< HEAD
-        position="top-right"
-        autoClose={2000}
-        hideProgressBar={false}
-        closeOnClick
-        pauseOnHover
-        draggable
-        pauseOnFocusLoss
-      />
-      {/* <img style={styles.bgImage} src="/BG.jpg" alt="Background" /> */}
-      <video
-        style={styles.bgImage}
-        autoPlay
-        loop
-        muted
-        playsInline
-        src="./videoplayback.mp4"
-        className="header-video"
-      ></video>
-=======
        position="top-right" 
        autoClose={2000} 
        hideProgressBar={false} 
@@ -139,7 +119,6 @@ function SignUp() {
        pauseOnFocusLoss
       />
       <img style={styles.bgImage} src="/BG.jpg" alt="Background" />
->>>>>>> 3c3fc7b9ce5a5ac32dae028964e1ba1fc42e7720
       <Container style={styles.container}>
         <Row>
           <Col>
@@ -202,23 +181,6 @@ function SignUp() {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                   />
-<<<<<<< HEAD
-                  <Form.Group controlId="formRole" className="mt-3">
-                    <Form.Select
-                      value={role}
-                      onChange={(e) => setRole(e.target.value)}
-                      required
-                    >
-                      <option value="USER">Người dùng</option>
-                      <option value="SHOP">Shop</option>
-
-                      {/* Add more roles as needed */}
-                    </Form.Select>
-                  </Form.Group>
-                </Form.Group>
-                <div className="text-end"></div>
-                <Button variant="primary" type="submit" className="w-100">
-=======
                   {errors.phone && (
                     <Form.Text className="text-danger">
                       {errors.phone}
@@ -238,7 +200,6 @@ function SignUp() {
                 </Form.Group>
                 
                 <Button variant="primary" type="submit" className="w-100 mt-3">
->>>>>>> 3c3fc7b9ce5a5ac32dae028964e1ba1fc42e7720
                   Đăng ký
                 </Button>
               </Form>

@@ -149,7 +149,7 @@ const Detail = () => {
         >
           Cửa hàng
         </Link>
-        <Typography color="text.primary">{product.name}</Typography>
+        <Typography color="text.primary">{product.productName}</Typography>
       </Breadcrumbs>
 
       <Card

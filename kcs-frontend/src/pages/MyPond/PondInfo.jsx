@@ -18,7 +18,7 @@ import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
 const style = {
   card: {
-    maxWidth: 600,
+    maxWidth: 800,
     margin: "20px auto",
     padding: "20px",
     backgroundColor: "#fff",
@@ -30,7 +30,6 @@ const style = {
     height: "auto",
     objectFit: "cover",
     borderRadius: "8px",
-    marginBottom: "15px",
   },
   textField: {
     marginBottom: "15px",
@@ -201,36 +200,132 @@ function PondInfo() {
       <ToastContainer />
       <Card style={style.card}>
         <CardContent>
-          <Typography variant="h5" component="div" gutterBottom>
-            {isEditing ? "Chỉnh sửa hồ cá" : pondData.name}
-          </Typography>
-          {isEditing ? (
-            <TextField
-              label="Tên hồ cá"
-              fullWidth
-              value={pondData.name}
-              onChange={handleChange("name")}
-              style={style.textField}
-              error={!!errors.name}
-              helperText={errors.name}
-            />
-          ) : (
-            <Typography variant="body1" color="textSecondary" component="p">
-              {pondData.name}
-            </Typography>
-          )}
+          <Grid container spacing={3}>
+            {/* Left: Pond Image */}
+            <Grid item xs={12} sm={6}>
+              {imagePreview ? (
+                <img
+                  src={imagePreview}
+                  alt="Pond Preview"
+                  style={style.imagePreview}
+                />
+              ) : (
+                <img
+                  src={pondData.image}
+                  alt="Pond"
+                  style={style.imagePreview}
+                />
+              )}
+              {isEditing && (
+                <div style={{ marginTop: "10px" }}>
+                  <IconButton
+                    color="primary"
+                    aria-label="upload picture"
+                    component="span"
+                    onClick={handleImageClick}
+                  >
+                    <PhotoCamera />
+                  </IconButton>
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    onChange={handleImageChange}
+                    accept="image/*"
+                    style={style.hiddenInput}
+                  />
+                </div>
+              )}
+            </Grid>
 
-          {imagePreview ? (
-            <img
-              src={imagePreview}
-              alt="Pond Preview"
-              style={style.imagePreview}
-            />
-          ) : (
-            <img src={pondData.image} alt="Pond" style={style.imagePreview} />
-          )}
+            {/* Right: Pond Information */}
+            <Grid item xs={12} sm={6}>
+              <Typography variant="h5" component="div" gutterBottom>
+                {isEditing ? "Chỉnh sửa hồ cá" : pondData.name}
+              </Typography>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <TextField
+                    label="Tên hồ cá"
+                    fullWidth
+                    value={pondData.name}
+                    onChange={handleChange("name")}
+                    style={style.textField}
+                    error={!!errors.name}
+                    helperText={errors.name}
+                    disabled={!isEditing}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    label="Độ sâu (m)"
+                    type="number"
+                    fullWidth
+                    value={pondData.depth}
+                    onChange={handleChange("depth")}
+                    style={style.textField}
+                    error={!!errors.depth}
+                    helperText={errors.depth}
+                    disabled={!isEditing}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    label="Kích thước (m2)"
+                    type="number"
+                    fullWidth
+                    value={pondData.size}
+                    onChange={handleChange("size")}
+                    style={style.textField}
+                    error={!!errors.size}
+                    helperText={errors.size}
+                    disabled={!isEditing}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    label="Thể tích (m3)"
+                    type="number"
+                    fullWidth
+                    value={pondData.volume}
+                    onChange={handleChange("volume")}
+                    style={style.textField}
+                    error={!!errors.volume}
+                    helperText={errors.volume}
+                    disabled={!isEditing}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    label="Công suất bơm (m3/h)"
+                    type="number"
+                    fullWidth
+                    value={pondData.pumpCapacity}
+                    onChange={handleChange("pumpCapacity")}
+                    style={style.textField}
+                    error={!!errors.pumpCapacity}
+                    helperText={errors.pumpCapacity}
+                    disabled={!isEditing}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    label="Số lượng cống thải"
+                    type="number"
+                    fullWidth
+                    value={pondData.drainCount}
+                    onChange={handleChange("drainCount")}
+                    style={style.textField}
+                    error={!!errors.drainCount}
+                    helperText={errors.drainCount}
+                    disabled={!isEditing}
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
 
-          <div style={style.buttonContainer}>
+          {/* Actions */}
+          <Box style={style.buttonContainer}>
             {isEditing ? (
               <>
                 <Button
@@ -245,27 +340,13 @@ function PondInfo() {
                   )}
                 </Button>
                 <Button
+                sx={{marginRight: 60}}
                   variant="outlined"
                   color="secondary"
                   onClick={handleCancel}
                 >
                   Hủy
                 </Button>
-                <IconButton
-                  color="primary"
-                  aria-label="upload picture"
-                  component="span"
-                  onClick={handleImageClick}
-                >
-                  <PhotoCamera />
-                </IconButton>
-                <input
-                  type="file"
-                  ref={fileInputRef}
-                  onChange={handleImageChange}
-                  accept="image/*"
-                  style={style.hiddenInput}
-                />
               </>
             ) : (
               <Button
@@ -276,81 +357,15 @@ function PondInfo() {
                 Chỉnh sửa
               </Button>
             )}
-          </div>
-
-          {Object.keys(errors).length > 0 && (
-            <Alert severity="error" style={style.error}>
-              Vui lòng điền đầy đủ thông tin
-            </Alert>
-          )}
-
-          <Grid container spacing={2} sx={{marginTop: "20px"}}>
-            <Grid item xs={6}>
-              <TextField
-                label="Độ sâu (m)"
-                type="number"
-                fullWidth
-                value={pondData.depth}
-                onChange={handleChange("depth")}
-                style={style.textField}
-                error={!!errors.depth}
-                helperText={errors.depth}
-                disabled={!isEditing}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                label="Kích thước (m2)"
-                type="number"
-                fullWidth
-                value={pondData.size}
-                onChange={handleChange("size")}
-                style={style.textField}
-                error={!!errors.size}
-                helperText={errors.size}
-                disabled={!isEditing}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                label="Thể tích (m3)"
-                type="number"
-                fullWidth
-                value={pondData.volume}
-                onChange={handleChange("volume")}
-                style={style.textField}
-                error={!!errors.volume}
-                helperText={errors.volume}
-                disabled={!isEditing}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                label="Công suất bơm (m3/h)"
-                type="number"
-                fullWidth
-                value={pondData.pumpCapacity}
-                onChange={handleChange("pumpCapacity")}
-                style={style.textField}
-                error={!!errors.pumpCapacity}
-                helperText={errors.pumpCapacity}
-                disabled={!isEditing}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Số lượng cống thải"
-                type="number"
-                fullWidth
-                value={pondData.drainCount}
-                onChange={handleChange("drainCount")}
-                style={style.textField}
-                error={!!errors.drainCount}
-                helperText={errors.drainCount}
-                disabled={!isEditing}
-              />
-            </Grid>
-          </Grid>
+            <Button
+              variant="outlined"
+              color="primary"
+              component={Link}
+              to="/userhome/pondlist"
+            >
+              Quay lại
+            </Button>
+          </Box>
         </CardContent>
       </Card>
     </div>

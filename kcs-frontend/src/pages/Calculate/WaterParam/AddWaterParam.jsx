@@ -111,7 +111,7 @@ function AddWaterParam() {
   };
 
   const standardRanges = {
-    temperature: { min: 5, max: 26 }, // Updated temperature range for koi ponds
+    temperature: { min: 20, max: 25 }, // Updated temperature range for koi ponds
     salinity: { min: 0, max: 0.7 }, // Updated salinity range
     ph: { min: 6.9, max: 8 }, // Updated pH range
     o2: { min: 5, max: 8 }, // Minimum oxygen level in mg/L

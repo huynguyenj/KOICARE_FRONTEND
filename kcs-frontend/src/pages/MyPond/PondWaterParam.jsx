@@ -25,6 +25,16 @@ function PondWaterParam() {
   const [paramHistory, setParamHistory] = useState([]);
   const navigator = useNavigate();
 
+  const standardRanges = {
+    temperature: { min: 5, max: 26 },
+    salinity: { min: 0, max: 0.7 },
+    ph: { min: 6.9, max: 8 },
+    o2: { min: 5, max: 8 },
+    no2: { max: 0 },
+    no3: { max: 40 },
+    po4: { max: 1 },
+  };
+
   useEffect(() => {
     getHistoryParam();
   }, []);
@@ -62,6 +72,45 @@ function PondWaterParam() {
     setParamHistory(formData);
   };
 
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div
+          className="custom-tooltip"
+          style={{
+            backgroundColor: "#fff",
+            padding: 10,
+            border: "1px solid #ccc",
+          }}
+        >
+          <p className="label">{`Ngày: ${label}`}</p>
+          {payload.map((data, index) => {
+            const key = data.dataKey;
+            const value = data.value;
+            const range = standardRanges[key];
+            let notice = "";
+
+            if (range) {
+              if (
+                (range.min !== undefined && value < range.min) ||
+                (range.max !== undefined && value > range.max)
+              ) {
+                notice = " (Ngoài ngưỡng)";
+              }
+            }
+
+            return (
+              <p key={index} style={{ color: data.color, margin: 0 }}>
+                {`${data.name}: ${value} mg/l${notice}`}
+              </p>
+            );
+          })}
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <div>
       <Box sx={{ padding: 2, backgroundColor: "#fff", height: "auto" }}>
@@ -94,7 +143,7 @@ function PondWaterParam() {
                           position: "insideLeft",
                         }}
                       />
-                      <Tooltip formatter={(value) => `${value} mg/l`} />
+                      <Tooltip content={<CustomTooltip />} />
                       <Legend verticalAlign="top" />
                       <Line
                         type="monotone"

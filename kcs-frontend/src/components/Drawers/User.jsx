@@ -142,6 +142,8 @@ export default function PersistentDrawerLeft() {
     navigate("/userhome/payment");
   }
 
+  
+
   const drawerItems = [
     {
       text: "Thông tin cá nhân",
@@ -221,7 +223,7 @@ export default function PersistentDrawerLeft() {
                 <ShoppingCart />
               </Badge>
             </IconButton>
-        
+
             <IconButton
               size="large"
               edge="end"
@@ -231,7 +233,9 @@ export default function PersistentDrawerLeft() {
             >
               <AccountCircle />
             </IconButton>
-            <Typography sx={{mt:1.5, ml:1}}>{userInfo.userName || ""}</Typography> 
+            <Typography sx={{ mt: 1.5, ml: 1 }}>
+              {userInfo.userName || ""}
+            </Typography>
           </Box>
         </Toolbar>
       </AppBar>
@@ -321,80 +325,119 @@ export default function PersistentDrawerLeft() {
         <Box sx={{ p: 2 }}>
           <Typography variant="h6">Giỏ hàng của bạn</Typography>
           <Divider sx={{ my: 2 }} />
+
           {cartItems.length > 0 ? (
-            <List sx={{ bgcolor: "background.paper", borderRadius: 2 }}>
-              {cartItems.map((item) => (
-                <ListItem
-                  key={item.product.id}
-                  sx={{
-                    bgcolor: "#e0e0e0 ", // Light grey background
-                    mb: 1, // Margin between items
-                    borderRadius: 1, // Rounded corners
-                    boxShadow: 1, // Subtle shadow for depth
-                  
-                  }}
+            // Group items by shopName
+            Object.entries(
+              cartItems.reduce((acc, item) => {
+                const shopName = item.product.shopName;
+                if (!acc[shopName]) acc[shopName] = [];
+                acc[shopName].push(item);
+                return acc;
+              }, {})
+            ).map(([shopName, products]) => (
+              <Box key={shopName}>
+                {/* Display the shopName */}
+                <Typography
+                  variant="subtitle1"
+                  sx={{ fontWeight: "bold", mt: 2, mb: 1 }}
                 >
-                  <CardMedia
-                    component="img"
-                    sx={{ width: 80, height: 80, objectFit: "cover", mr: 2 }}
-                    image={item.product.image}
-                    alt={item.product.productName}
-                  />
-
-                  <Tooltip title={item.product.productName} arrow>
-                    <Box>
-                      <Typography
-                        sx={{
-                          maxWidth: 100, // Adjust as needed
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          fontWeight: "bold",
-                        }}
-                      >
-                        {item.product.productName}
-                      </Typography>
-                      <Typography color="textSecondary" sx={{fontSize:'13px'}}>
-                        Giá: {item.product.price?item.product.price.toLocaleString("vi-VN"):"" }VND
-                      </Typography>
-                    </Box>
-                  </Tooltip>
-
-                  <Box sx={{ display: "flex", alignItems: "center" }}>
-                    <IconButton
-                      onClick={() =>
-                        updateQuantity(item.product.id, item.quantity - 1)
-                      }
-                      disabled={item.quantity <= 1}
-                    >
-                      <RemoveIcon />
-                    </IconButton>
-                    <Typography variant="body1">{item.quantity}</Typography>
-                    <IconButton
-                      onClick={() => {
-                        if (item.quantity < item.product.quantity) { // Check if current quantity is less than stock
-                          updateQuantity(item.product.id, item.quantity + 1);
-                        }
+                  {shopName} ({products.length} sản phẩm)
+                </Typography>
+                <List sx={{ bgcolor: "background.paper", borderRadius: 2 }}>
+                  {products.map((item) => (
+                    <ListItem
+                      key={item.product.id}
+                      sx={{
+                        bgcolor: "#e0e0e0", // Light grey background
+                        mb: 1, // Margin between items
+                        borderRadius: 1, // Rounded corners
+                        boxShadow: 1, // Subtle shadow for depth
                       }}
-                      disabled={item.quantity >= item.product.quantity} // Disable button if at stock limit
                     >
-                      <AddIcon />
-                    </IconButton>
-                    <IconButton
-                    edge="end"
-                    aria-label="delete"
-                    onClick={() => handleDeleteItem(item.product)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                  </Box>
-              
-                </ListItem>
-              ))}
-            </List>
+                      <Box sx={{ flexDirection: "column", flexGrow: 1 }}>
+                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                          <CardMedia
+                            component="img"
+                            sx={{
+                              width: 80,
+                              height: 80,
+                              objectFit: "cover",
+                              mr: 2,
+                            }}
+                            image={item.product.image}
+                            alt={item.product.productName}
+                          />
+
+                          <Tooltip title={item.product.productName} arrow>
+                            <Box>
+                              <Typography
+                                sx={{
+                                  maxWidth: 100, // Adjust as needed
+                                  whiteSpace: "nowrap",
+                                  overflow: "hidden",
+                                  textOverflow: "ellipsis",
+                                  fontWeight: "bold",
+                                }}
+                              >
+                                {item.product.productName}
+                              </Typography>
+                              <Typography
+                                color="textSecondary"
+                                sx={{ fontSize: "13px" }}
+                              >
+                                Giá:{" "}
+                                {item.product.price
+                                  ? item.product.price.toLocaleString("vi-VN")
+                                  : ""}
+                                VND
+                              </Typography>
+                            </Box>
+                          </Tooltip>
+                        </Box>
+                      </Box>
+
+                      <Box sx={{ display: "flex", alignItems: "center" }}>
+                        <IconButton
+                          onClick={() =>
+                            updateQuantity(item.product.id, item.quantity - 1)
+                          }
+                          disabled={item.quantity <= 1}
+                        >
+                          <RemoveIcon />
+                        </IconButton>
+                        <Typography variant="body1">{item.quantity}</Typography>
+                        <IconButton
+                          onClick={() => {
+                            if (item.quantity < item.product.quantity) {
+                              // Check if current quantity is less than stock
+                              updateQuantity(
+                                item.product.id,
+                                item.quantity + 1
+                              );
+                            }
+                          }}
+                          disabled={item.quantity >= item.product.quantity} // Disable button if at stock limit
+                        >
+                          <AddIcon />
+                        </IconButton>
+                        <IconButton
+                          edge="end"
+                          aria-label="delete"
+                          onClick={() => handleDeleteItem(item.product)}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </Box>
+                    </ListItem>
+                  ))}
+                </List>
+              </Box>
+            ))
           ) : (
             <Typography>Giỏ hàng của bạn đang trống</Typography>
           )}
+
           <Box sx={{ mt: 2 }}>
             <Typography variant="h6" align="right">
               Tổng cộng: {formatPrice(calculateTotalPrice())}

@@ -95,15 +95,26 @@ function Login() {
 
   return (
     <div style={styles.page}>
-      <ToastContainer 
-          position="top-right" 
-           autoClose={2000} 
-           hideProgressBar={false} 
-           closeOnClick 
-           pauseOnHover 
-           draggable 
-           pauseOnFocusLoss/>
-      <img style={styles.bgImage} src="/BG.jpg" alt="Background" />
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+        pauseOnFocusLoss
+      />
+      {/* <img style={styles.bgImage} src="/BG.jpg" alt="Background" /> */}
+      <img
+        style={styles.bgImage}
+        // autoPlay
+        // loop
+        // muted
+        // playsInline
+        src="/BG.jpg"
+        alt="Background"
+        // className="header-video"
+      ></img>
       <Container className="login-container" style={styles.container}>
         <Row>
           <Col>
@@ -162,7 +173,6 @@ function Login() {
           </Col>
         </Row>
       </Container>
-      <FooterEnd/>
     </div>
   );
 }

@@ -9,16 +9,7 @@
       overflow: hidden;
 }
 
-.grid-container img {
-      max-width: 100%;
-      /* Make the image fill the entire container width */
-      height: auto;
-      /* Make the image fill the entire container height */
-      object-fit: contain;
-      /* Ensures the image covers the container while maintaining aspect ratio */
-      z-index: -1;
-      /* Ensure the image stays behind the navbar */
-}
+
 
 
 .button-overlay {

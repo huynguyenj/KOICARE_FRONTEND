@@ -27,7 +27,7 @@ import Details from "./pages/Store/Details";
 import Orders from "./pages/Orders/Orders";
 import Status_Products from "./pages/Status_Products/Status_Products";
 import AddProducts from "./pages/Products/AddProducts/AddProducts";
-import Revenue from "./pages/Revenue/Revenue"
+import Revenue from "./pages/Revenue/Revenue";
 
 import News from "./pages/News/News";
 
@@ -54,7 +54,6 @@ import ManageBlog from "./pages/Admin/ManageBlog";
 import PaymentHistoryPage from "./pages/UserProfile/paymentHistory";
 import SignUp from "./pages/Auth/SignUp/SignUp";
 
-
 function App() {
   const router = createBrowserRouter([
     {
@@ -71,27 +70,26 @@ function App() {
             { path: "userprofile", element: <UserProfile /> },
             { path: "myfish", element: <MyFish /> },
             { path: "myfishlist", element: <FishList /> },
-            { path: "myfishlist/fishinfo/:id", element: <FishInfo/>},
+            { path: "myfishlist/fishinfo/:id", element: <FishInfo /> },
             { path: "mypond", element: <MyPond /> },
             { path: "pondadd", element: <PondAdd /> },
             { path: "pondlist", element: <PondList /> },
             { path: "pondlist/pondinfo/:id", element: <PondInfo /> },
-            { path: "pondParam/:id", element: <PondWaterParam/> },
+            { path: "pondParam/:id", element: <PondWaterParam /> },
             { path: "store", element: <Store /> },
             { path: "/userhome/store/:id", element: <Details /> },
             { path: "", element: <Navigate to="mypond" replace /> },
             { path: "news", element: <News /> },
-            { path:"param", element: <AddWaterParam/>},
-            { path:"viewparam/:id", element:<ViewWaterParam/>},
-            { path:"addDevelop/:id", element:<AddDevelopment/>},
-            { path:"fishDevelopment/:id", element:<FishDevelopmentData/>},
-            { path:"calculateFood", element:<CalculationFood/>},
-            {path:"calculateSalt", element:<CalculateSalt/>},
-            { path: "payment", element: <Payment />},
-            { path: "paymentSuccess", element:<PaymentSuccess/>},
-            { path: "changePass", element:<ChangePass/>},
-            { path: "paymentHistory", element:<PaymentHistoryPage/>}
-
+            { path: "param", element: <AddWaterParam /> },
+            { path: "viewparam/:id", element: <ViewWaterParam /> },
+            { path: "addDevelop/:id", element: <AddDevelopment /> },
+            { path: "fishDevelopment/:id", element: <FishDevelopmentData /> },
+            { path: "calculateFood", element: <CalculationFood /> },
+            { path: "calculateSalt", element: <CalculateSalt /> },
+            { path: "payment", element: <Payment /> },
+            { path: "paymentSuccess", element: <PaymentSuccess /> },
+            { path: "changePass", element: <ChangePass /> },
+            { path: "paymentHistory", element: <PaymentHistoryPage /> },
           ],
         },
       ],
@@ -100,8 +98,7 @@ function App() {
     { path: "addBlog", element: <AddBlog /> },
     { path: "blogDetail/:blogId", element: <BlogInfo /> },
     { path: "my-blogs", element: <MyBlog /> },
-    { path: "updateBlog/:blogId", element: <UpdateBlog/> },
-    
+    { path: "updateBlog/:blogId", element: <UpdateBlog /> },
 
     {
       path: "admin",
@@ -110,7 +107,7 @@ function App() {
         { path: "userInfo", element: <UserInfo /> },
         { path: "", element: <Navigate to="dashboard" replace /> },
         { path: "dashboard", element: <Dashboard /> },
-        { path: "blogManage", element:<ManageBlog/>}
+        { path: "blogManage", element: <ManageBlog /> },
       ],
     },
     {
@@ -124,16 +121,15 @@ function App() {
         { path: "revenue", element: <Revenue /> },
         { path: "status_Products", element: <Status_Products /> },
         { path: "", element: <Navigate to="showProduct" replace /> },
-        { path : "shopAdd", element: <ShopAdd/>},
-        { path : "updateShop", element:<UpdateShopInfo/>}
-        
+        { path: "shopAdd", element: <ShopAdd /> },
+        { path: "updateShop", element: <UpdateShopInfo /> },
       ],
     },
   ]);
 
   return (
     <>
-      <RouterProvider router={router} />      
+      <RouterProvider router={router} />
     </>
   );
 }

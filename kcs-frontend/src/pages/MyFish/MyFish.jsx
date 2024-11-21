@@ -155,7 +155,7 @@ const handleCloseAddMenu = (fishId) => {
                   <Box>
                     <CardMedia
                       component="img"
-                      height="250"
+                      height="350"
                       image={fish.fishImg}
                       alt={fish.fishName}
                       sx={{ borderRadius: "4px 4px 0 0" }}

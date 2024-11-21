@@ -105,15 +105,16 @@ function Login() {
         pauseOnFocusLoss
       />
       {/* <img style={styles.bgImage} src="/BG.jpg" alt="Background" /> */}
-      <video
+      <img
         style={styles.bgImage}
-        autoPlay
-        loop
-        muted
-        playsInline
-        src="./videoplayback.mp4"
-        className="header-video"
-      ></video>
+        // autoPlay
+        // loop
+        // muted
+        // playsInline
+        src="/BG.jpg"
+        alt="Background"
+        // className="header-video"
+      ></img>
       <Container className="login-container" style={styles.container}>
         <Row>
           <Col>
@@ -173,7 +174,6 @@ function Login() {
         </Row>
       </Container>
     </div>
-
   );
 }
 

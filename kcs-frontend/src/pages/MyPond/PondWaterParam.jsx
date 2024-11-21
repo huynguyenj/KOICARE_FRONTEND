@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getAllHistory } from "../../api/payment";
+import { getWaterParamHistory } from "../../api/pond_fish";
 import {
   Alert,
   Box,
@@ -9,16 +9,36 @@ import {
   CardContent,
   Typography,
 } from "@mui/material";
-import { getWaterParamHistory } from "../../api/pond_fish";
-import { LineChart } from "@mui/x-charts";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 function PondWaterParam() {
   const { id } = useParams();
   const [paramHistory, setParamHistory] = useState([]);
   const navigator = useNavigate();
+
+  const standardRanges = {
+    temperature: { min: 5, max: 26 },
+    salinity: { min: 0, max: 0.7 },
+    ph: { min: 6.9, max: 8 },
+    o2: { min: 5, max: 8 },
+    no2: { max: 0 },
+    no3: { max: 40 },
+    po4: { max: 1 },
+  };
+
   useEffect(() => {
     getHistoryParam();
   }, []);
+
   const getHistoryParam = async () => {
     try {
       const res = await getWaterParamHistory(id);
@@ -52,66 +72,123 @@ function PondWaterParam() {
     setParamHistory(formData);
   };
 
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div
+          className="custom-tooltip"
+          style={{
+            backgroundColor: "#fff",
+            padding: 10,
+            border: "1px solid #ccc",
+          }}
+        >
+          <p className="label">{`Ngày: ${label}`}</p>
+          {payload.map((data, index) => {
+            const key = data.dataKey;
+            const value = data.value;
+            const range = standardRanges[key];
+            let notice = "";
+
+            if (range) {
+              if (
+                (range.min !== undefined && value < range.min) ||
+                (range.max !== undefined && value > range.max)
+              ) {
+                notice = " (Ngoài ngưỡng)";
+              }
+            }
+
+            return (
+              <p key={index} style={{ color: data.color, margin: 0 }}>
+                {`${data.name}: ${value} mg/l${notice}`}
+              </p>
+            );
+          })}
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <div>
-      <Box sx={{ padding: 2, backgroundColor: "#9fd3c7", height: "auto" }}>
+      <Box sx={{ padding: 2, backgroundColor: "#fff", height: "auto" }}>
         <Card
           variant="outlined"
-          sx={{ maxWidth: 800, margin: "auto", padding: 1 }}
+          sx={{ maxWidth: 800, margin: "auto", padding: 2 }}
         >
           <CardContent>
             <Typography variant="h4" gutterBottom align="center">
               Thống kê thông số của hồ
             </Typography>
-            {paramHistory ? (
+            {paramHistory.length > 0 ? (
               <>
-              <Box sx={{alignItems:'center', alignContent:'center'}}>
-              <LineChart
-                  width={600}
-                  height={400}
-                  dataset={paramHistory}
-                  xAxis={[
-                    { dataKey: "date", label: "Ngày", scaleType: "point" },
-                  ]}
-                  series={[
-                    {
-                      dataKey: "no2",
-                      color: "#1976d2",
-                      label: "NO2",
-                      valueFormatter: (v) => (v == null ? "" : `${v} mg/l`),
-                    },
-                    {
-                      dataKey: "o2",
-                      color: "#212121",
-                      label: "Oxi",
-                      valueFormatter: (v) => (v == null ? "" : `${v} mg/l`),
-                    },
-                    // {dataKey:'ph', color:'#9fd3c7', label:'Nồng độ PH'},
-                    {
-                      dataKey: "no3",
-                      color: "#82ca9d",
-                      label: "NO3",
-                      valueFormatter: (v) => (v == null ? "" : `${v} mg/l`),
-                    },
-                    {
-                      dataKey: "po4",
-                      color: "#142d4c",
-                      label: "PO4",
-                      valueFormatter: (v) => (v == null ? "" : `${v} mg/l`),
-                    },
-                    {
-                      dataKey: "salinity",
-                      color: "red",
-                      label: "Độ mặn",
-                      valueFormatter: (v) => (v == null ? "" : `${v} mg/l`),
-                    },
-                    // {dataKey:'temperature', color:'#f96d00', label:'Nhiệt độ hồ'}
-                  ]}
-                  sx={{ "& .MuiLegend-root": { marginTop: "20px" }}}
-                  // tooltip={{ formatter: (value) => `${value} mg/l` }} // Tooltips
-                />
-              </Box>
-               
+                <Box sx={{ display: "flex", justifyContent: "center" }}>
+                  <ResponsiveContainer width="100%" height={400}>
+                    <LineChart data={paramHistory}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis
+                        dataKey="date"
+                        label={{
+                          value: "Ngày",
+                          position: "insideBottomRight",
+                          offset: -5,
+                        }}
+                      />
+                      <YAxis
+                        label={{
+                          value: "Giá trị (mg/l)",
+                          angle: -90,
+                          position: "insideLeft",
+                        }}
+                      />
+                      <Tooltip content={<CustomTooltip />} />
+                      <Legend verticalAlign="top" />
+                      <Line
+                        type="monotone"
+                        dataKey="no2"
+                        stroke="#1976d2"
+                        name="NO2"
+                        dot={false}
+                        strokeWidth={2}
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="o2"
+                        stroke="#388e3c"
+                        name="Oxi"
+                        dot={false}
+                        strokeWidth={2}
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="no3"
+                        stroke="#82ca9d"
+                        name="NO3"
+                        dot={false}
+                        strokeWidth={2}
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="po4"
+                        stroke="#ff5722"
+                        name="PO4"
+                        dot={false}
+                        strokeWidth={2}
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="salinity"
+                        stroke="#ff7043"
+                        name="Độ mặn"
+                        dot={false}
+                        strokeWidth={2}
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </Box>
+
                 <Box sx={{ textAlign: "center", marginTop: 3 }}>
                   <Button
                     variant="contained"

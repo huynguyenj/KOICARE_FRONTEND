@@ -76,7 +76,11 @@ const Product = () => {
   const filteredProducts = Array.isArray(productsList)
     ? productsList
         .filter((product) =>
-          product.productName != null ? product.productName.toLowerCase().includes(searchTerm.toLowerCase()):''
+          product.productName != null
+            ? product.productName
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase())
+            : ""
         )
         .filter((product) => !inStockOnly || product.quantity > 0)
         .filter(
@@ -92,6 +96,18 @@ const Product = () => {
     (page - 1) * productsPerPage,
     page * productsPerPage
   );
+
+  const styles = {
+    bgImage: {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      objectFit: "cover",
+      zIndex: -1,
+    },
+  };
 
   return (
     <>
@@ -260,7 +276,9 @@ const Product = () => {
                       readOnly
                       size="small"
                     /> */}
-                    <Typography>Số lượng sản phẩm: {product.quantity}</Typography>
+                    <Typography>
+                      Số lượng sản phẩm: {product.quantity}
+                    </Typography>
                   </CardContent>
                 </CardActionArea>
                 <Box sx={{ p: 2 }}>

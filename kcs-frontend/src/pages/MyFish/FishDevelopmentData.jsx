@@ -1,7 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getFishHistory } from "../../api/pond_fish";
-import { LineChart } from "@mui/x-charts/LineChart";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 import {
   Button,
   Card,
@@ -87,43 +96,59 @@ function FishDevelopmentData() {
             </Typography>
           ) : (
             <>
-              <LineChart
-                width={600}
-                height={400}
-                dataset={dataset}
-                xAxis={[{ dataKey: "date", label: "Ngày", scaleType: "point" }]}
-                yAxis={[
-                  {
-                    id: "weight",
-                    dataKey: "weight",
-                    label: "Cân nặng (kg)",
-                    min: 0,
-                    max: 20,
-                  }, // Min and Max for weight
-                  {
-                    id: "size",
-                    dataKey: "size",
-                    label: "Kích thước (cm)",
-                    min: 0,
-                    max: 100,
-                  }, // Min and Max for size
-                ]}
-                series={[
-                  {
-                    dataKey: "weight",
-                    color: "#8884d8",
-                    label: "Cân nặng (kg)",
-                    yAxisKey: "weight",
-                  },
-                  {
-                    dataKey: "size",
-                    color: "#82ca9d",
-                    label: "Kích thước (cm)",
-                    yAxisKey: "size",
-                  },
-                ]}
-                tooltip={{ formatter: (value) => `${value} kg/cm` }}
-              />
+              <Box sx={{ display: "flex", justifyContent: "center" }}>
+                <ResponsiveContainer width="100%" height={400}>
+                  <LineChart data={dataset}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis
+                      dataKey="date"
+                      label={{
+                        value: "Ngày",
+                        position: "insideBottomRight",
+                        offset: -5,
+                      }}
+                    />
+                    <YAxis
+                      yAxisId="left"
+                      label={{
+                        value: "Cân nặng (kg)",
+                        angle: -90,
+                        position: "insideLeft",
+                      }}
+                    />
+                    <YAxis
+                      yAxisId="right"
+                      orientation="right"
+                      label={{
+                        value: "Kích thước (cm)",
+                        angle: -90,
+                        position: "insideRight",
+                      }}
+                    />
+                    <Tooltip />
+                    <Legend verticalAlign="top" />
+                    <Line
+                      yAxisId="left"
+                      type="monotone"
+                      dataKey="weight"
+                      stroke="#8884d8"
+                      name="Cân nặng (kg)"
+                      strokeWidth={2}
+                      dot={false}
+                    />
+                    <Line
+                      yAxisId="right"
+                      type="monotone"
+                      dataKey="size"
+                      stroke="#82ca9d"
+                      name="Kích thước (cm)"
+                      strokeWidth={2}
+                      dot={false}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </Box>
+
               <Box sx={{ textAlign: "center", marginTop: 3 }}>
                 <Button
                   variant="contained"

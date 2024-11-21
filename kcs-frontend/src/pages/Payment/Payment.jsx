@@ -32,19 +32,18 @@ import { createPayment } from "../../api/payment";
 import { theme } from "antd";
 
 const Payment = () => {
-  const { cartItems, calculateTotalPrice, removeFromCart, clearCart } = useCart();
+  const { cartItems, calculateTotalPrice, removeFromCart, clearCart } =
+    useCart();
   const [paymentMethod, setPaymentMethod] = useState("credit");
   const [loading, setLoading] = useState(false);
-  const [error,setError] = useState({});
+  const [error, setError] = useState({});
   const [formData, setFormData] = useState({
-    quantity:"",
-    price:"",
+    quantity: "",
+    price: "",
     userName: "",
     address: "",
     phone: "",
-  
   });
-  
 
   useEffect(() => {
     console.log(cartItems);
@@ -53,75 +52,75 @@ const Payment = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
- 
-
   const getClientIp = async () => {
     try {
-        const response = await axios.get('https://api.ipify.org?format=json');
-        return response.data.ip; // returns the client's public IP address
+      const response = await axios.get("https://api.ipify.org?format=json");
+      return response.data.ip; // returns the client's public IP address
     } catch (error) {
-        console.error('Error fetching IP address:', error);
-        return null;
+      console.error("Error fetching IP address:", error);
+      return null;
     }
-};
-  const calculateQuantityAllProduct = () =>{
-    const quantity = cartItems.reduce((total, item)=> total+item.quantity,0);
-    console.log(quantity)
+  };
+  const calculateQuantityAllProduct = () => {
+    const quantity = cartItems.reduce(
+      (total, item) => total + item.quantity,
+      0
+    );
+    console.log(quantity);
     return quantity;
-  }
+  };
 
   const handleCheckout = async () => {
-      const orderDetail = cartItems.map(item =>({
-        productId: item.product.id,
-        quantity: item.quantity,
-        shopId: item.product.shopId
-      }))
-      console.log(orderDetail)
-      const form = {
-        userName: formData.userName,
-        address: formData.address,
-        phone: formData.phone,
-        order: orderDetail
-      }
-     
-     if(paymentMethod == "credit"){
-      if(validate()){
-      setLoading(true);
-      const clientIp = await getClientIp(); // Call the function here
-      const formPayment = {
-        quantity: calculateQuantityAllProduct(),
-        amount: calculateTotalPrice(),
-        ipAddr: String(clientIp)
-      }
-      try {
-        const resOrder = await order(form)
-        const orderIdList = resOrder.result.map(orders => orders.orderId )
-        const res = await createPayment(formPayment)
-        localStorage.setItem("orderDetail",JSON.stringify(form))
-        localStorage.setItem("orderId",JSON.stringify(orderIdList))
-        const paymentURL = res.result
-        window.location.href= paymentURL
-        
-      } catch (error) {
-        console.log(error)
-        
-        localStorage.removeItem("orderDetail")
-        localStorage.removeItem("orderId")
+    const orderDetail = cartItems.map((item) => ({
+      productId: item.product.id,
+      quantity: item.quantity,
+      shopId: item.product.shopId,
+    }));
+    console.log(orderDetail);
+    const form = {
+      userName: formData.userName,
+      address: formData.address,
+      phone: formData.phone,
+      order: orderDetail,
+    };
 
-        if(error.response && error.response.data.message === "Out of stock"){
-          toast.error("Sản phẩm hết hàng. Vui lòng chọn số lượng khác.");
+    if (paymentMethod == "credit") {
+      if (validate()) {
+        setLoading(true);
+        const clientIp = await getClientIp(); // Call the function here
+        const formPayment = {
+          quantity: calculateQuantityAllProduct(),
+          amount: calculateTotalPrice(),
+          ipAddr: String(clientIp),
+        };
+        try {
+          const resOrder = await order(form);
+          const orderIdList = resOrder.result.map((orders) => orders.orderId);
+          const res = await createPayment(formPayment);
+          localStorage.setItem("orderDetail", JSON.stringify(form));
+          localStorage.setItem("orderId", JSON.stringify(orderIdList));
+          const paymentURL = res.result;
+          window.location.href = paymentURL;
+        } catch (error) {
+          console.log(error);
+
+          localStorage.removeItem("orderDetail");
+          localStorage.removeItem("orderId");
+
+          if (
+            error.response &&
+            error.response.data.message === "Out of stock"
+          ) {
+            toast.error("Sản phẩm hết hàng. Vui lòng chọn số lượng khác.");
+          }
+          if (error.response.data.code == 1005) {
+            toast.error("Vui lòng đăng nhập để thanh toán!");
+          }
+        } finally {
+          setLoading(false);
         }
-        if(error.response.data.code == 1005) {
-          toast.error("Vui lòng đăng nhập để thanh toán!")
-        }
-       
-      }finally{
-        setLoading(false)
       }
-     
     }
-  }
-  
   };
 
   const navigate = useNavigate();
@@ -141,33 +140,33 @@ const Payment = () => {
     return priceString;
   };
 
-  const validate = () =>{
-    const newError = {}
+  const validate = () => {
+    const newError = {};
     const phoneRegex = /^\d{10}$/;
-    if(!formData.userName || formData.userName.trim() ===""){
-      newError.name = "Hãy nhập tên của bạn!"
+    if (!formData.userName || formData.userName.trim() === "") {
+      newError.name = "Hãy nhập tên của bạn!";
     }
-    if(!formData.phone || !phoneRegex.test(formData.phone)){
-      newError.phone = "Hãy nhập số điện thoại!"
+    if (!formData.phone || !phoneRegex.test(formData.phone)) {
+      newError.phone = "Hãy nhập số điện thoại!";
     }
-    if(!formData.address || formData.address.trim()===""){
-      newError.addr = "Hãy nhập địa chỉ của bạn!"
+    if (!formData.address || formData.address.trim() === "") {
+      newError.addr = "Hãy nhập địa chỉ của bạn!";
     }
-    setError(newError)
-    return Object.keys(newError).length ===0
-  }
+    setError(newError);
+    return Object.keys(newError).length === 0;
+  };
 
   return (
     <>
-    <ToastContainer
-            position="top-right"
-            autoClose={2000}
-            hideProgressBar={false}
-            closeOnClick
-            pauseOnHover
-            draggable
-            pauseOnFocusLoss
-    />
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+        pauseOnFocusLoss
+      />
       <Box p={4}>
         <Grid container spacing={4}>
           <Grid item xs={12} md={8}>
@@ -206,7 +205,7 @@ const Payment = () => {
                       value={formData.userName}
                       onChange={handleInputChange}
                       error={!!error.name}
-                      helperText = {error.name}
+                      helperText={error.name}
                       fullWidth
                       required
                     />
@@ -224,17 +223,17 @@ const Payment = () => {
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
-                      <TextField
-                        label="Địa chỉ"
-                        name="address"
-                        value={formData.address}
-                        onChange={handleInputChange}
-                        fullWidth
-                        required
-                        error={!!error.addr}
-                        helperText={error.addr}
-                      />
-                    </Grid>
+                    <TextField
+                      label="Địa chỉ"
+                      name="address"
+                      value={formData.address}
+                      onChange={handleInputChange}
+                      fullWidth
+                      required
+                      error={!!error.addr}
+                      helperText={error.addr}
+                    />
+                  </Grid>
                 </Grid>
               </CardContent>
             </Card>
@@ -250,14 +249,12 @@ const Payment = () => {
                     onChange={(e) => setPaymentMethod(e.target.value)}
                     row
                   >
-                    
                     <FormControlLabel
                       value="credit"
                       control={<Radio />}
                       label="Thanh toán online"
                     />
                   </RadioGroup>
-
                 </CardContent>
               </Card>
             </Box>
@@ -291,19 +288,18 @@ const Payment = () => {
                         src={item.product.image}
                         alt={item.product.name}
                       ></Box>
-                      <Tooltip  title={item.product.productName} arrow>
-                      <Typography
-                        sx={{
-                          maxWidth: 150, // Adjust this value as needed
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                        }}
-                      >
-                        {item.product.productName}
-                      </Typography>
+                      <Tooltip title={item.product.productName} arrow>
+                        <Typography
+                          sx={{
+                            maxWidth: 150, // Adjust this value as needed
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                        >
+                          {item.product.productName}
+                        </Typography>
                       </Tooltip>
-                      
                     </Box>
                     <Box>
                       <Typography>
@@ -337,16 +333,20 @@ const Payment = () => {
                   sx={{ mt: 2 }}
                   onClick={handleCheckout}
                 >
-                    {paymentMethod!="credit" ? "Thanh toán" : "Thanh toán online"}
-                    </Button>
+                  {paymentMethod != "credit"
+                    ? "Thanh toán"
+                    : "Thanh toán online"}
+                </Button>
 
-                  <Backdrop
-                    sx={(theme)=>({color:"#fff",zIndex: theme.zIndex.drawer+1})}
-                    open={loading}
-                  >   
-                   <CircularProgress color="inherit" />
-                  </Backdrop>
-                
+                <Backdrop
+                  sx={(theme) => ({
+                    color: "#fff",
+                    zIndex: theme.zIndex.drawer + 1,
+                  })}
+                  open={loading}
+                >
+                  <CircularProgress color="inherit" />
+                </Backdrop>
               </CardContent>
             </Card>
           </Grid>

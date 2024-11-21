@@ -23,6 +23,8 @@ import { SearchIcon } from "lucide-react";
 import FooterEnd from "../../components/Footer/FooterEnd";
 import { toast, ToastContainer } from "react-toastify";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -85,6 +87,14 @@ const Orders = () => {
       prev.includes(orderId)
         ? prev.filter((id) => id != orderId)
         : [...prev, orderId]
+    );
+  };
+
+  const handleStatusChange = (orderId, newStatus) => {
+    setDisplayOrder((prevOrders) =>
+      prevOrders.map((order) =>
+        order.orderId === orderId ? { ...order, status: newStatus } : order
+      )
     );
   };
 
@@ -155,6 +165,7 @@ const Orders = () => {
               <TableCell align="center">Địa chỉ</TableCell>
               <TableCell align="center">Số điện thoại</TableCell>
               <TableCell align="center">Ngày đặt hàng</TableCell>
+              <TableCell align="center">Trạng thái</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -197,6 +208,22 @@ const Orders = () => {
                     <TableCell align="center">{order.phone}</TableCell>
                     <TableCell align="center">
                       {new Date(order.date).toLocaleDateString()}
+                    </TableCell>
+                    <TableCell align="center">
+                      <Select
+                        value={order.status || "đang giao hàng"} // Giá trị mặc định
+                        onChange={(e) =>
+                          handleStatusChange(order.orderId, e.target.value)
+                        }
+                        displayEmpty
+                        variant="outlined"
+                        inputProps={{ "aria-label": "Select status" }}
+                      >
+                        <MenuItem value="đang giao hàng">
+                          Đang giao hàng
+                        </MenuItem>
+                        <MenuItem value="đã giao hàng">Đã giao hàng</MenuItem>
+                      </Select>
                     </TableCell>
                   </TableRow>
                 ))

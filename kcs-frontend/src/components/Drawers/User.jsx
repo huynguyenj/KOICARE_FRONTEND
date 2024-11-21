@@ -349,7 +349,7 @@ export default function PersistentDrawerLeft() {
                     <ListItem
                       key={item.product.id}
                       sx={{
-                        bgcolor: "#e0e0e0", // Light grey background
+                        bgcolor: "#fff", // Light grey background
                         mb: 1, // Margin between items
                         borderRadius: 1, // Rounded corners
                         boxShadow: 1, // Subtle shadow for depth

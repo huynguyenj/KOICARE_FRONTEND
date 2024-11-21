@@ -95,7 +95,7 @@ function PondWaterParam() {
                 (range.min !== undefined && value < range.min) ||
                 (range.max !== undefined && value > range.max)
               ) {
-                notice = " (Ngoài ngưỡng)";
+                notice = " (Không đạt tiêu chuẩn)";
               }
             }
 

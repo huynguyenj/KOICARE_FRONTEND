@@ -71,7 +71,6 @@ function FishDevelopmentData() {
         justifyContent: "center",
         alignItems: "center",
         minHeight: "100vh",
-        backgroundColor: "#f9f9f9",
       }}
     >
       <Card

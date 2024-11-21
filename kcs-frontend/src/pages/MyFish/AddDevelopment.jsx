@@ -70,7 +70,7 @@ function AddDevelopment() {
       <ToastContainer />
       <Grid item xs={12}>
         <Typography variant="h4" align="center">
-          Add Development History for {fish ? fish.fishName : "Fish"}
+          Thêm lịch sử phát triển cho cá {fish ? fish.fishName : "Fish"}
         </Typography>
       </Grid>
       <Grid item xs={6}>
@@ -80,7 +80,7 @@ function AddDevelopment() {
               <Grid item xs={12}>
                 <TextField
                   fullWidth
-                  label="Size"
+                  label="Kích thước"
                   name="size"
                   value={formData.size}
                   onChange={handleChange}
@@ -90,7 +90,7 @@ function AddDevelopment() {
               <Grid item xs={12}>
                 <TextField
                   fullWidth
-                  label="Age"
+                  label="Tuổi"
                   name="age"
                   value={formData.age}
                   onChange={handleChange}
@@ -100,7 +100,7 @@ function AddDevelopment() {
               <Grid item xs={12}>
                 <TextField
                   fullWidth
-                  label="Weight"
+                  label="Cân nặng"
                   name="weight"
                   value={formData.weight}
                   onChange={handleChange}
@@ -110,7 +110,7 @@ function AddDevelopment() {
               <Grid item xs={12}>
                 <TextField
                   fullWidth
-                  label="Date"
+                  label="Thời gian"
                   name="date"
                   type="date"
                   value={formData.date}

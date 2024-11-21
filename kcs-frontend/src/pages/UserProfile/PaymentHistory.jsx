@@ -16,12 +16,12 @@ import {
   Pagination,
   Button,
   Select,
-  MenuItem
+  MenuItem,
 } from "@mui/material";
-import { getMyPaymentHistory } from "../../api/payment";
+import { BarChart } from "@mui/x-charts";
 import PaymentIcon from "@mui/icons-material/Payment";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import { BarChart } from "@mui/x-charts";
+import { getMyPayment } from "../../api/userService";
 
 const PaymentHistoryPage = () => {
   const [paymentHistory, setPaymentHistory] = useState([]);
@@ -35,8 +35,17 @@ const PaymentHistoryPage = () => {
   useEffect(() => {
     const fetchPaymentHistory = async () => {
       try {
-        const response = await getMyPaymentHistory();
-        setPaymentHistory(response.result);
+        const response = await getMyPayment();
+        const transformedData = response.result.map((payment) => ({
+          date: payment.date,
+          quantity: payment.quantity,
+          amount: payment.price * payment.quantity,
+          userName: payment.userName,
+          productName: payment.productName,
+          address: payment.address,
+          status: payment.status,
+        }));
+        setPaymentHistory(transformedData);
         setLoading(false);
       } catch (error) {
         setError("Failed to fetch payment history");
@@ -55,19 +64,13 @@ const PaymentHistoryPage = () => {
   // Group payments by year and month
   const groupPaymentsByYearAndMonth = () => {
     const data = {};
-
     paymentHistory.forEach((payment) => {
       const date = new Date(payment.date);
       const year = date.getFullYear();
       const month = date.toLocaleString("vn-VN", { month: "short" });
-
-      //Using nest object:  data = { year1:{}, year2:{},...}
-      //check year is match to year currently payment
-      if (!data[year]) {data[year] = {}};// return true if year does not exist, if false return data[year]={};
-      // set data
-      data[year][month] = (data[year][month] || 0) + payment.amount; // if payment in the month already exist, it will add more amount, if not it default value will be 0
+      if (!data[year]) data[year] = {};
+      data[year][month] = (data[year][month] || 0) + payment.amount;
     });
-
     return data;
   };
 
@@ -75,17 +78,18 @@ const PaymentHistoryPage = () => {
   const availableYears = Object.keys(groupedData);
 
   useEffect(() => {
-    // Set default to the latest available year if no year is selected
     if (availableYears.length && !selectedYear) {
       setSelectedYear(Math.max(...availableYears));
     }
   }, [availableYears]);
 
   const chartData = selectedYear
-    ? Object.entries(groupedData[selectedYear] || {}).map(([month, amount]) => ({
-        month,
-        amount
-      }))
+    ? Object.entries(groupedData[selectedYear] || {}).map(
+        ([month, amount]) => ({
+          month,
+          amount,
+        })
+      )
     : [];
 
   const sliceDataEachPage = paymentHistory.slice(
@@ -97,7 +101,8 @@ const PaymentHistoryPage = () => {
     <Container maxWidth="md" sx={{ mt: 1 }}>
       <Box textAlign="center" mb={4}>
         <Typography variant="h5" color="primary" gutterBottom>
-          <PaymentIcon sx={{ verticalAlign: "bottom", mr: 1 }} /> Lịch sử mua hàng
+          <PaymentIcon sx={{ verticalAlign: "bottom", mr: 1 }} /> Lịch sử mua
+          hàng
         </Typography>
       </Box>
 
@@ -138,28 +143,31 @@ const PaymentHistoryPage = () => {
             xAxis={[
               {
                 data: chartData.map((data) => data.month),
-                scaleType: "band"
-              }
+                scaleType: "band",
+              },
             ]}
             series={[
               {
                 data: chartData.map((data) => data.amount),
-                label: "Tiền (VND)"
-              }
+                label: "Tiền (VND)",
+              },
             ]}
             width={600}
             height={400}
-            margin={{ top: 10, bottom: 30, left:90, right: 80 }}
+            margin={{ top: 10, bottom: 30, left: 90, right: 80 }}
             color="primary"
           />
         </Box>
       ) : (
         <>
-          <TableContainer component={Paper} elevation={3} sx={{ mt: 2, borderRadius: 2 }}>
+          <TableContainer
+            component={Paper}
+            elevation={3}
+            sx={{ mt: 2, borderRadius: 2 }}
+          >
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell></TableCell>
                   <TableCell>
                     <Typography variant="subtitle2" color="textSecondary">
                       Ngày
@@ -167,44 +175,72 @@ const PaymentHistoryPage = () => {
                   </TableCell>
                   <TableCell>
                     <Typography variant="subtitle2" color="textSecondary">
-                      Tiền giao dịch
+                      Số lượng
                     </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography variant="subtitle2" color="textSecondary">
-                      Tên
+                      Tổng tiền
                     </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography variant="subtitle2" color="textSecondary">
-                      Ngân hàng
+                      Tên sản phẩm
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="subtitle2" color="textSecondary">
+                      Tên người dùng
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="subtitle2" color="textSecondary">
+                      Địa chỉ
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="subtitle2" color="textSecondary">
+                      Trạng thái
                     </Typography>
                   </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {paymentHistory.length > 0 ? (
-                  sliceDataEachPage.map((payment) => (
-                    <TableRow key={payment.id} hover>
-                      <TableCell></TableCell>
-                      <TableCell>{new Date(payment.date).toLocaleDateString()}</TableCell>
+                  sliceDataEachPage.map((payment, index) => (
+                    <TableRow key={index} hover>
+                      <TableCell>
+                        {new Date(payment.date).toLocaleDateString()}
+                      </TableCell>
+                      <TableCell>
+                        <TableCell>{payment.quantity}</TableCell>
+                      </TableCell>
                       <TableCell>
                         <Chip
                           label={`${payment.amount.toLocaleString("vi-VN", {
                             style: "currency",
-                            currency: "VND"
+                            currency: "VND",
                           })}`}
                           color="primary"
                           variant="outlined"
                           size="small"
                         />
                       </TableCell>
+                      <TableCell>{payment.productName}</TableCell>
                       <TableCell>{payment.userName}</TableCell>
+                      <TableCell>{payment.address}</TableCell>
                       <TableCell>
-                        <AccountBalanceIcon
-                          sx={{ fontSize: 18, verticalAlign: "middle", mr: 0.5 }}
+                        <Chip
+                          label={payment.status}
+                          color={
+                            payment.status === "COMPLETED"
+                              ? "success"
+                              : payment.status === "PENDING"
+                              ? "warning"
+                              : "error"
+                          }
+                          size="small"
                         />
-                        {payment.bankCode}
                       </TableCell>
                     </TableRow>
                   ))

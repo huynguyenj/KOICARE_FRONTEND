@@ -100,12 +100,12 @@ function UserProfile() {
 
   const handleReset = () => {
     getInfo();
-    toast.success("Tải lại thành công")
+    toast.success("Tải lại thành công");
   };
 
-  const handleChangePageToPassword = () =>{
-    navigate("/userhome/changePass")
-  }
+  const handleChangePageToPassword = () => {
+    navigate("/userhome/changePass");
+  };
   const navigate = useNavigate();
 
   return (
@@ -142,13 +142,21 @@ function UserProfile() {
                   <ListItemIcon>
                     <ShoppingCart />
                   </ListItemIcon>
-                  <ListItemText primary="Sản phẩm đã mua" onClick={()=>navigate('/userhome/paymentHistory')}/>
+                  <ListItemText
+                    primary="Sản phẩm đã mua"
+                    onClick={() => navigate("/userhome/paymentHistory")}
+                    style={{ cursor: "pointer" }}
+                  />
                 </ListItem>
                 <ListItem>
                   <ListItemIcon>
                     <Lock />
                   </ListItemIcon>
-                  <ListItemText primary="Đổi mật khẩu" onClick={handleChangePageToPassword} />
+                  <ListItemText
+                    primary="Đổi mật khẩu"
+                    onClick={handleChangePageToPassword}
+                    style={{ cursor: "pointer" }}
+                  />
                 </ListItem>
               </List>
             </Card>

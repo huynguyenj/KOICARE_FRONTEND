@@ -94,7 +94,7 @@ function NavbarUser({ user, onLogout }) {
     <nav className="navbar d-flex" style={navbarStyle}>
       <HashLink to="/">
         <img
-          className="logo ms-5"
+          className="logo ms-3"
           src="/Logo.png"
           alt=""
           style={{ maxWidth: "150px"}}

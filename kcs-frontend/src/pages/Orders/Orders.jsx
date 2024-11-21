@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./Orders.css";
-
+import { updateOrder } from "../../api/shop";
 import {
   InputBase,
   Paper,
@@ -90,14 +90,6 @@ const Orders = () => {
     );
   };
 
-  const handleStatusChange = (orderId, newStatus) => {
-    setDisplayOrder((prevOrders) =>
-      prevOrders.map((order) =>
-        order.orderId === orderId ? { ...order, status: newStatus } : order
-      )
-    );
-  };
-
   const handleDeleteOrder = async () => {
     const deleteCount = selectOrder.length;
     const confirm = window.confirm("Bạn có chắc muốn xóa đơn này?");
@@ -120,6 +112,29 @@ const Orders = () => {
       toast.error("Xóa đơn thất bại");
     }
   };
+  const handleStatusChange = async (orderId, newStatus) => {
+    try {
+      const res = await updateOrder(orderId, newStatus);
+      toast.success("Cập nhật trạng thái thành công", {
+        position: "top-right",
+        autoClose: 800,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+      });
+
+      setDisplaOrders((prevOrders) =>
+        prevOrders.map((order) =>
+          order.orderId === orderId ? { ...order, status: newStatus } : order
+        )
+      );
+    } catch (error) {
+      console.error("Error updating order status:", error);
+      toast.error("Cập nhật trạng thái thất bại");
+    }
+  };
+
   return (
     <>
       <ToastContainer />
@@ -223,6 +238,10 @@ const Orders = () => {
                           Đang giao hàng
                         </MenuItem>
                         <MenuItem value="đã giao hàng">Đã giao hàng</MenuItem>
+                        <MenuItem value="Đang chuẩn bị hàng">
+                          {" "}
+                          Đang chuẩn bị hàng
+                        </MenuItem>
                       </Select>
                     </TableCell>
                   </TableRow>

@@ -97,6 +97,20 @@ const PaymentHistoryPage = () => {
     page * limitPerPage
   );
 
+  const capitalizeFirstWord = (text) => {
+    // Split the text into words
+    const words = text.split(" ");
+
+    // Capitalize the first word (if it exists)
+    if (words.length > 0) {
+      words[0] =
+        words[0].charAt(0).toUpperCase() + words[0].slice(1).toLowerCase();
+    }
+
+    // Join the words back into a single string
+    return words.join(" ");
+  };
+
   return (
     <Container maxWidth="md" sx={{ mt: 1 }}>
       <Box textAlign="center" mb={4}>
@@ -231,14 +245,16 @@ const PaymentHistoryPage = () => {
                       <TableCell>{payment.address}</TableCell>
                       <TableCell>
                         <Chip
-                          label={payment.status}
-                          color={
-                            payment.status === "COMPLETED"
-                              ? "success"
-                              : payment.status === "PENDING"
-                              ? "warning"
-                              : "error"
-                          }
+                          label={capitalizeFirstWord(payment.status)}
+                          style={{
+                            backgroundColor:
+                              payment.status === "Đã giao hàng"
+                                ? "#4caf50" // Green for "Delivered"
+                                : payment.status === "Đang giao hàng"
+                                ? "#ff9800" // Orange for "In transit"
+                                : "#4caf50", // Red for any other status
+                            color: "white", // Make text color white for readability
+                          }}
                           size="small"
                         />
                       </TableCell>

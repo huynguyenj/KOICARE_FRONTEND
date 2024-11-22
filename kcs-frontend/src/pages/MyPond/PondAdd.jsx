@@ -158,19 +158,17 @@ function PondAdd() {
           <Grid item xs={12} sm={4}>
             <Card sx={{ padding: 3, textAlign: "center", boxShadow: 6 }}>
               <Divider sx={{ margin: "10px 0" }} />
-              {imagePreview ? (
+              {imagePreview && (
                 <img
                   src={imagePreview}
                   alt="Pond"
                   style={{
-                    width: "50%",
+                    width: "100%",
                     height: "auto",
                     borderRadius: "8px",
                     marginBottom: "20px",
                   }}
                 />
-              ) : (
-                <></>
               )}
               <input
                 type="file"
@@ -178,14 +176,11 @@ function PondAdd() {
                 ref={fileInputRef}
                 onChange={handleImageChange}
                 style={{ display: "none" }}
-                id="image-input"
               />
               <Button
-                component="label"
-                htmlFor="image-input"
                 variant="contained"
                 color="success"
-                onClick={handleImageClick}
+                onClick={() => fileInputRef.current.click()}
                 sx={{ marginBottom: 2, width: "100%" }}
               >
                 Chọn ảnh hồ cá
@@ -201,7 +196,6 @@ function PondAdd() {
               </Button>
             </Card>
           </Grid>
-
           {/* Right Side - Form */}
           <Grid item xs={12} sm={8}>
             <Card sx={{ padding: 3, boxShadow: 6 }}>

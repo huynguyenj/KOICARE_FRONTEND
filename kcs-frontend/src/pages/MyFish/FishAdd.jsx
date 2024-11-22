@@ -169,15 +169,13 @@ const FishForm = () => {
                 ref={fileInputRef}
                 onChange={handleImageChange}
                 style={{ display: "none" }}
-                id="image-input"
               />
 
               <Button
                 component="label"
-                htmlFor="image-input"
                 variant="contained"
                 color="success"
-                onClick={handleImageClick}
+                onClick={() => fileInputRef.current.click()}
                 sx={{ marginBottom: 2, width: "100%" }}
               >
                 Chọn ảnh cá
@@ -223,7 +221,9 @@ const FishForm = () => {
                         native: true,
                       }}
                     >
-                      <option value="" disabled>Chọn giống loài</option>
+                      <option value="" disabled>
+                        Chọn giống loài
+                      </option>
                       <option value="Asagi">Asagi</option>
                       <option value="Bekko">Bekko</option>
                       <option value="Doitsu">Doitsu</option>
@@ -291,7 +291,9 @@ const FishForm = () => {
                         native: true,
                       }}
                     >
-                      <option value="" disabled>Chọn giới tính</option>
+                      <option value="" disabled>
+                        Chọn giới tính
+                      </option>
                       <option value="Đực">Đực</option>
                       <option value="Cái">Cái</option>
                     </TextField>
@@ -321,7 +323,9 @@ const FishForm = () => {
                         native: true,
                       }}
                     >
-                      <option value="" disabled>Tình trạng sức khỏe</option>
+                      <option value="" disabled>
+                        Tình trạng sức khỏe
+                      </option>
                       <option value="Tốt">Tốt</option>
                       <option value="Xấu">Xấu</option>
                     </TextField>

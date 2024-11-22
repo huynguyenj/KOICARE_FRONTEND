@@ -62,7 +62,7 @@ function PondList() {
             ponds.map((pond) => (
               <Grid item xs={12} sm={6} md={4} key={pond.id}>
                 <Card sx={{ boxShadow: 3, borderRadius: 2 }}>
-                  <CardMedia component="img" height="200" image={pond.pondImg} alt="Pond Image" sx={{ borderRadius: "4px 4px 0 0" }} />
+                  <CardMedia component="img" height="250" image={pond.pondImg} alt="Pond Image" sx={{ borderRadius: "4px 4px 0 0" }} />
                   <CardContent>
                     <Typography variant="h5" color="textPrimary" sx={{ fontWeight: 600, mb: 1 }}>
                       {pond.pondName}
